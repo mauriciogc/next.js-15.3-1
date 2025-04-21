@@ -27,7 +27,7 @@ cd next.js-15.3-1
 Cambia a la rama:
 
 ```bash
-git checkout hybrid-pages
+git checkout 02.home
 ```
 
 Instala las dependencias:

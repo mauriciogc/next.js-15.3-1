@@ -60,3 +60,11 @@ Abre tu navegador en:
 ```yaml
 http://localhost:3000
 ```
+
+Prueba:
+
+```yaml
+http://localhost:3000/csr
+http://localhost:3000/ssr
+http://localhost:3000/ssg
+```

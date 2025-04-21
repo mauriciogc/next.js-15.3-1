@@ -1,4 +1,4 @@
-# 🚀 Next.js – Ejercicios de Renderizado Híbrido
+# 🚀 Next.js
 
 [![Next.js](https://img.shields.io/badge/Next.js-13%2B-blue?logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue?logo=typescript)](https://www.typescriptlang.org/)
@@ -11,11 +11,9 @@ Este repositorio contiene diferentes ramas que muestran **etapas progresivas de 
 
 ## Ramas disponibles
 
-`01.init` [[branch]](https://github.com/mauriciogc/next.js-15.3-1/tree/
-
-`02.home` [[branch]](https://github.com/mauriciogc/next.js-15.3-1/tree/02.home)
-
-`03.hybrid-pages` [[branch]](https://github.com/mauriciogc/next.js-15.3-1/tree/03.hybrid-pages)
+- [01.init](https://github.com/mauriciogc/next.js-15.3-1/tree/01.init) - Proyecto generando Next.js
+- [02.home](https://github.com/mauriciogc/next.js-15.3-1/tree/02.home) - Proyecto con la estructura limpia
+- [03.hybrid-pages](https://github.com/mauriciogc/next.js-15.3-1/tree/03.hybrid-pages) - Ejemplos prácticos CSR, SSR, SSG
 
 ---
 

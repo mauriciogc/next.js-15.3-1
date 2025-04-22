@@ -13,7 +13,7 @@ Next.js utiliza enrutamiento basado en el sistema de archivos , lo que signific
 
 Una página en Next.js representa una interfaz de usuario que se renderiza en una ruta específica del sitio [[ref]](https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-page).
 
-Para crear una página, debes agregar un archivo page.tsx dentro del directorio /app y exportar un componente de React.
+Para crear una página, debes agregar un archivo page.tsx dentro del directorio `/app` y exportar un componente de React.
 
 ```Typescript
 export default function ExamplePage() {

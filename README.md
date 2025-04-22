@@ -7,51 +7,55 @@
 
 ---
 
-## Páginas con Next.js
+## Rutas en Next.js
 
-Next.js utiliza enrutamiento basado en el sistema de archivos , lo que significa que puedes usar carpetas y archivos para definir rutas.
+En Next.js, cada carpeta dentro de /app representa una ruta de la aplicación.
 
-Una página en Next.js representa una interfaz de usuario que se renderiza en una ruta específica del sitio [[ref]](https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-page).
+### Rutas estáticas
 
-Para crear una página, debes agregar un archivo page.tsx dentro del directorio `/app` y exportar un componente de React.
+Son páginas cuyas rutas no cambian, están definidas. Por ejemplo: `/`, `/about`, `/contact`, `/faq`, `/ssg`, etc.
 
-```Typescript
-export default function ExamplePage() {
-  return <h1>Esta es una página de ejemplo en Next.js!</h1>;
-}
-```
+#### Ventajas de las rutas estáticas:
 
-> Nota: El proyecto genera una página por default en /app
+- SEO: Como son conocidas, se pueden generar como HTML estático.
 
-### Crear una página 
+- Pueden ser renderizadas con SSG (build), por lo que su carga será mucho más rápida.
 
-Para crear una página nueva en Next.js, debes tener en cuenta los siguientes pasos:
+- Al ser estáticas no aceptan parámetros externos como las rutas dinámicas.
 
-- Crear una carpeta con el nombre de la ruta deseada.
+#### ¿Cómo se crean?
 
-- Dentro de esa carpeta, crea un archivo llamado `page.tsx`.
+Las rutas estáticas se crean exactamente igual que una página:
 
+- Crear una carpeta con el nombre de la ruta deseada
+- Dentro de esa carpeta, crea un archivo llamado `page.tsx`
 - Exporta un componente de React por defecto.
 
-Vamos a crear una página que va a estar disponible desde la ruta `http://localhost:3000/about`
+#### ¿Cómo funcionan?
 
-Crea la carpeta y el archivo:
+Next.js con **App Router** analiza la carpeta `/app` y genera automáticamente las rutas, es decir al ejecutar `npm run dev`, Next.js hace lo siguiente:
+
+- Mapea todas las carpetas que estén dentro de `/app` y tengan el archivo page.tsx como rutas.
+
+- Genera el HTML y JavaScript necesario.
+
+- Decide si renderiza como CSR (cliente), SSR (tiempo real), SSG (build) o según como hayas escrito el código.
+
+Ejemplo:
 
 ```yaml
-src/app/about/page.tsx
+src/app/contact/page.tsx → /contact
 ```
 
-Dentro de `page.tsx` :
-
 ```Typescript
-// src/app/about/page.tsx
+// src/app/contact/page.tsx
 
-export default function AboutPage() {
-return (
-  <div className="p-4">
-    <h1 className="text-2xl font-bold">Acerca de Nosotros</h1>
-    <p>Esta es la página de información general.</p>
-  </div>
+export default function ContactPage() {
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold">Contáctanos!!</h1>
+      <p>Estamos para ayudarte :). Escríbenos si tienes alguna duda o sugerencia.</p>
+    </div>
   )
 }
 ```
@@ -59,8 +63,72 @@ return (
 Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando:
 
 ```yaml
-http://localhost:3000/about
+http://localhost:3000/contact
 ```
+
+### Rutas estáticas anidadas
+
+Las rutas estáticas anidadas no son otra cosa que un ruta estática que se encuentra dentro de otra carpeta estática. Es decir, representa un nivel jerárquico más profundo. Ejemplo: `products/mens`, `products/woman`, `docs/getting-started`, etc.
+
+#### Ventajas de las rutas estáticas
+
+- Permite estructurar la app por secciones y subsecciones de forma clara y escalable.
+
+- La URLs son predecibles y amigables para motores de búsqueda (SEO-friendly).
+
+- Puedes tener layouts anidados para compartir diseño entre rutas relacionadas.
+
+- Ideal para secciones grandes con multiples páginas y subsecciones (`/docs/..`, `/products/...`, etc)
+
+#### ¿Cómo funcionan?
+
+Next.js con **App Router** analiza la carpeta `/app` y genera automáticamente las rutas:
+
+- Mapea todas las carpetas y subcarpetas que estén dentro de `/app`.
+
+- Cada carpeta representa **una parte del path en la URL**.
+
+- Solo **considera** una carpeta como parte de una **ruta si co-localiza** archivos especiales, el resto las ignora.
+
+Ejemplo:
+
+```yaml
+src/app/dashboard/settings/page.tsx → /dashboard/settings
+```
+
+```TypeScript
+// src/app/dashboard/settings/page.tsx
+
+export default function SettingsPage() {
+  return (
+
+    <div className="p-4">
+      <h1 className="text-2xl font-bold">Configuración</h1>
+      <p>Ajusta tus preferencias...</p>
+    </div>
+  )
+}
+```
+
+Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando:
+
+```yaml
+http://localhost:3000/dashboard/settings
+```
+
+Ahora intenta acceder a:
+
+```yaml
+http://localhost:3000/dashboard
+```
+
+Podrás observar el mensaje de error: `404 | This page could not be found.`
+
+El comportamiento se le conoce como **colocation** [[ref]](https://nextjs.org/docs/app/getting-started/project-structure#colocation), lo que significa que Next.js solo genera una ruta si la carpeta contiene archivos relevantes (`page.tsx` o `route.tsx`) para esa ruta. Así evita que carpetas vacías generen rutas innecesarias.
+
+> Nota: Aunque es posible colocar archivos no especiales (como componentes, estilos, funciones utilitarias o peticiones API) dentro del directorio `/app`, no se recomienda hacerlo. Como buena práctica, se sugiere mantener estos elementos fuera del directorio `/app`, en carpetas como `/components`, `/lib`, `/styles`, etc., para mantener una estructura modular, limpia y más fácil de mantener.
+
+---
 
 ## Ejecutar el proyecto
 
@@ -90,7 +158,7 @@ cd next.js-15.3-1
 Cambia a la rama:
 
 ```bash
-git checkout simple-page
+git checkout static-routes
 ```
 
 Instala las dependencias:

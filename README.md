@@ -7,33 +7,60 @@
 
 ---
 
-## Actualiza la página principal
+## Páginas con Next.js
 
-Vamos a simplificar la página principal. Abre el archivo `src/app/page.tsx` y sustituye el código generado, por el siguiente:
+Next.js utiliza enrutamiento basado en el sistema de archivos , lo que significa que puedes usar carpetas y archivos para definir rutas.
+
+Una página en Next.js representa una interfaz de usuario que se renderiza en una ruta específica del sitio [[ref]](https://nextjs.org/docs/app/getting-started/layouts-and-pages#creating-a-page).
+
+Para crear una página, debes agregar un archivo page.tsx dentro del directorio /app y exportar un componente de React.
 
 ```Typescript
-// src/app/page.tsx
-
-export default function Home() {
-  return (
-    <main className="flex justify-center items-center min-h-screen">
-      <h1 className="text-3xl font-bold">
-        ¡Hola Mundo desde Next.js + Tailwind!
-      </h1>
-    </main>
-  );
+export default function ExamplePage() {
+  return <h1>Esta es una página de ejemplo en Next.js!</h1>;
 }
 ```
 
-Donde:
+> Nota: El proyecto genera una página por default en /app
 
-- `export default function Home()`  -  Es un componente como React, en este caso una página (`/`)
+### Crear una página 
 
-- Se usa Tailwind para estilos `items-center`, `min-h-screen`, etc.
+Para crear una página nueva en Next.js, debes tener en cuenta los siguientes pasos:
 
-- Al llamarse `page.tsx`, Next.js hace una página automáticamente.
+- Crear una carpeta con el nombre de la ruta deseada.
 
----
+- Dentro de esa carpeta, crea un archivo llamado `page.tsx`.
+
+- Exporta un componente de React por defecto.
+
+Vamos a crear una página que va a estar disponible desde la ruta `http://localhost:3000/about`
+
+Crea la carpeta y el archivo:
+
+```yaml
+src/app/about/page.tsx
+```
+
+Dentro de `page.tsx` :
+
+```Typescript
+// src/app/about/page.tsx
+
+export default function AboutPage() {
+return (
+  <div className="p-4">
+    <h1 className="text-2xl font-bold">Acerca de Nosotros</h1>
+    <p>Esta es la página de información general.</p>
+  </div>
+  )
+}
+```
+
+Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando:
+
+```yaml
+http://localhost:3000/about
+```
 
 ## Ejecutar el proyecto
 
@@ -49,8 +76,6 @@ Abre en tu navegador:
 http://localhost:3000
 ```
 
-Si todo está correcto, deberás ver `¡Hola Mundo desde Next.js + Tailwind!`
-
 ---
 
 ## Cómo descargar el proyecto
@@ -65,7 +90,7 @@ cd next.js-15.3-1
 Cambia a la rama:
 
 ```bash
-git checkout base-project
+git checkout simple-page
 ```
 
 Instala las dependencias:
@@ -85,13 +110,3 @@ Abre tu navegador en:
 ```yaml
 http://localhost:3000
 ```
-
----
-
-### Cambios
-
-En esta rama se realizaron los siguientes cambios:
-
-- Se eliminó el contenido de la carpeta `public/` innecesario.
-- Se actualizó el archivo `src/app/page.tsx` para mostrar una página principal personalizada (`Home`).
-- Estructura limpia para comenzar a trabajar.

@@ -9,7 +9,7 @@
 
 ## Actualiza la página principal
 
-Vamos a simplificar la página principal. Abre el archivo src/app/page.tsx y sustituye el código generado, por el siguiente:
+Vamos a simplificar la página principal. Abre el archivo `src/app/page.tsx` y sustituye el código generado, por el siguiente:
 
 ```Typescript
 // src/app/page.tsx
@@ -49,11 +49,13 @@ Abre en tu navegador:
 http://localhost:3000
 ```
 
+Si todo está correcto, deberás ver `¡Hola Mundo desde Next.js + Tailwind!`
+
 ---
 
-## Cómo ejecutar el proyecto
+## Cómo descargar el proyecto
 
-1. Clona el repositorio:
+Clona el repositorio:
 
 ```bash
 git clone https://github.com/mauriciogc/next.js-15.3-1
@@ -63,7 +65,7 @@ cd next.js-15.3-1
 Cambia a la rama:
 
 ```bash
-git checkout 02.home
+git checkout base-project
 ```
 
 Instala las dependencias:

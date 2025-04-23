@@ -9,7 +9,7 @@
 
 ## Rutas en Next.js
 
-En Next.js, cada carpeta dentro de /app representa una ruta de la aplicación.
+En Next.js, cada carpeta dentro de `/app` representa una ruta de la aplicación.
 
 ### Rutas dinámicas
 

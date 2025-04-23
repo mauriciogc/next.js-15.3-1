@@ -17,14 +17,14 @@ La idea es que puedas explorar **casos reales y progresivos**, entender cómo se
 
 A continuación, se detallan las principales ramas y los temas que cubren:
 
-| Rama                      | Descripción                                                                                    |
-| ------------------------- | ---------------------------------------------------------------------------------------------- |
-| `create-project`          | Proyecto base creado con `create-next-app` usando App Router, TypeScript y Tailwind CSS.       |
-| `base-project`            | Limpieza de la página inicial (`/`) para dejar una base personalizada desde la cual construir. |
-| `simple-page`             | Ejemplo básico de cómo crear una página estática simple (`/about`).                            |
-| `static-routes`           | Explicación y ejemplos de rutas estáticas y rutas estáticas anidadas.                          |
-| `dynamic-routes`          | Ejemplos de rutas dinámicas (`[id]`) y rutas dinámicas anidadas (`/blog/[category]/[slug]`).   |
-| `advanced-dynamic-routes` | Demostración de rutas dinámicas avanzadas: `[slug]`, `[...slug]`, `[[...slug]]`.               |
+| Rama                                                                                                         | Descripción                                                                                    |
+| ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------- |
+| `create-project` [[ref](https://github.com/mauriciogc/next.js-15.3-1/tree/create-project)]                   | Proyecto base creado con `create-next-app` usando App Router, TypeScript y Tailwind CSS.       |
+| `base-project` [[ref](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project)]                       | Limpieza de la página inicial (`/`) para dejar una base personalizada desde la cual construir. |
+| `simple-page` [[ref](https://github.com/mauriciogc/next.js-15.3-1/tree/simple-page)]                         | Ejemplo básico de cómo crear una página estática simple (`/about`).                            |
+| `static-routes` [[ref](https://github.com/mauriciogc/next.js-15.3-1/tree/static-routes)]                     | Explicación y ejemplos de rutas estáticas y rutas estáticas anidadas.                          |
+| `dynamic-routes` [[ref](https://github.com/mauriciogc/next.js-15.3-1/tree/dynamic-routes)]                   | Ejemplos de rutas dinámicas (`[id]`) y rutas dinámicas anidadas (`/blog/[category]/[slug]`).   |
+| `advanced-dynamic-routes` [[ref](https://github.com/mauriciogc/next.js-15.3-1/tree/advanced-dynamic-routes)] | Demostración de rutas dinámicas avanzadas: `[slug]`, `[...slug]`, `[[...slug]]`.               |
 
 > Este repositorio **se actualizará continuamente** con nuevos temas y ejemplos.
 

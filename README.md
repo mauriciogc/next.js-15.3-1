@@ -7,91 +7,132 @@
 
 ---
 
-## Actualiza la página principal
+## Hook useParams
 
-Vamos a simplificar la página principal. Abre el archivo `src/app/page.tsx` y sustituye el código generado, por el siguiente:
+### ¿Qué es useParams?
 
-```Typescript
-// src/app/page.tsx
+`useParams` [[ref]](https://nextjs.org/docs/app/api-reference/functions/use-params) es un `hook` de Next.js para **App Router** que permite acceder a los parámetros dinámicos de la URL en componentes del lado del cliente.
 
-export default function Home() {
+### ¿Por qué se usa?
+
+- Para acceder dinámicamente a valores `[slug]`, `[id]`, `[userId]`, etc. dentro de un componente cliente.
+
+- Para renderizar dinámicamente contenido basado en la URL.
+
+- Cuando no requieres hacer fetching server-side.
+
+### Ventajas que tiene useParams
+
+- Puedes leer los parámetros sin necesidad de hacer un componente server-side.
+
+- Útil en componentes interactivos que dependen de la URL.
+
+- No necesitas pasar params como propiedad.
+
+### ¿Cómo funciona?
+
+- Se importa desde `next/navigation`.
+
+```typescript
+import { useParams } from 'next/navigation';
+```
+
+Sólo puede usarse en componentes marcados con `'use client'`, es decir que el renderizado va a ser del lado del cliente (CSR).
+
+Para el caso de `[foldername]`, `[slug]` va a retornar un objeto:
+
+```typescript
+// /posts → /posts
+{ }
+
+// /posts/[id] → /posts/123
+{ id: "123" }
+
+// posts/[tag]/[item] → posts/1/2
+{ tag: "1", item: "2" }
+
+// posts/[slug] → posts/3
+{ slug: "3" }
+Para el caso de [...slug], [[…slug]] va a retornar un arreglo:
+
+// countries/[...slug]/ → countries/america/mexico
+{ slug: ["america", "mexico"] }
+```
+
+**Ejemplo**
+
+```yaml
+src/app/posts/[id]/page.tsx
+```
+
+```typescript
+// src/app/posts/[id]/page.tsx
+
+'use client';
+
+import { useParams } from 'next/navigation';
+
+export default function PostView() {
+  const params = useParams<{ id: string }>();
+
   return (
-    <main className="flex justify-center items-center min-h-screen">
-      <h1 className="text-3xl font-bold">
-        ¡Hola Mundo desde Next.js + Tailwind!
-      </h1>
-    </main>
+    <div className="p-4">
+      <h1 className="text-2xl">Post ID: {params.id}</h1>
+    </div>
   );
 }
 ```
 
-Donde:
-
-- `export default function Home()`  -  Es un componente como React, en este caso una página (`/`)
-
-- Se usa Tailwind para estilos `items-center`, `min-h-screen`, etc.
-
-- Al llamarse `page.tsx`, Next.js hace una página automáticamente.
-
----
-
-## Ejecutar el proyecto
-
-Para correr o ejecutar el proyecto [[ref]](https://nextjs.org/docs/app/getting-started/installation#run-the-development-server):
-
-```bash
-npm run dev
-```
-
-Abre en tu navegador:
-
-```bash
-http://localhost:3000
-```
-
-Si todo está correcto, deberás ver `¡Hola Mundo desde Next.js + Tailwind!`
-
----
-
-## Cómo descargar el proyecto
-
-Clona el repositorio:
-
-```bash
-git clone https://github.com/mauriciogc/next.js-15.3-1
-cd next.js-15.3-1
-```
-
-Cambia a la rama:
-
-```bash
-git checkout base-project
-```
-
-Instala las dependencias:
-
-```bash
-npm install
-```
-
-Ejecuta el proyecto en modo desarrollo:
-
-```bash
-npm run dev
-```
-
-Abre tu navegador en:
+**Ejemplo 2**
 
 ```yaml
-http://localhost:3000
+src/app/catalog/[[...slug]]/page.tsx
 ```
 
----
+```typescript
+// src/app/catalog/[[...slug]]/page.tsx
 
-### Cambios
+'use client';
 
-En esta rama se realizaron los siguientes cambios:
+import { useParams } from 'next/navigation';
 
-- Se eliminó el contenido de la carpeta `public/` innecesario.
-- Se actualizó el archivo `src/app/page.tsx` para mostrar una página principal personalizada (`Home`).
-- Estructura limpia para comenzar a trabajar.
+export default function CatalogPage() {
+  const params = useParams<{ slug?: string[] }>();
+
+  return (
+    <div>
+      <h2 className="text-xl mb-2">
+        Parámetros recibidos: {JSON.stringify(params.slug || 'Sin parámetros')}
+      </h2>
+
+      {params.slug?.length ? (
+        <p>Has navegado a: /{params.slug.join('/')}</p>
+      ) : (
+        <p>Estás en el catálogo principal</p>
+      )}
+    </div>
+  );
+}
+```
+
+Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando:
+
+```yaml
+http://localhost:3000/catalog/men
+http://localhost:3000/catalog/men/shoes
+http://localhost:3000/catalog/men/shoes/running
+```
+
+Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando:
+
+```yaml
+http://localhost:3000/1
+```
+
+### A considerar
+
+- Solo lo puedes usar en componentes cliente (`'use client'` **obligatorio**).
+
+- No reemplaza a params en componentes server-side.
+
+- No hace fetch automático de datos, solo lee la URL.

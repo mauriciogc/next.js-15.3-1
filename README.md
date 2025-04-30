@@ -286,6 +286,7 @@ http://localhost:3000/ssg
 ```
 
 Si revisas el directorio generado después del build en `/.next/server/app/`, podrás observar que Next.js ha creado un archivo llamado `ssg.html`.
+
 Este archivo representa el contenido generado de forma estática durante el proceso de npm run build, y será cargado directamente a los usuarios en cada solicitud, sin necesidad de regenerarlo dinámicamente.
 
 ### ¿CSR (Client Side Rendering) o SSR (Server Side Rendering)?

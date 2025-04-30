@@ -136,3 +136,52 @@ http://localhost:3000/1
 - No reemplaza a params en componentes server-side.
 
 - No hace fetch automático de datos, solo lee la URL.
+
+## Ejecutar el proyecto
+
+Para correr o ejecutar el proyecto [[ref]](https://nextjs.org/docs/app/getting-started/installation#run-the-development-server):
+
+```bash
+npm run dev
+```
+
+Abre en tu navegador:
+
+```bash
+http://localhost:3000
+```
+
+---
+
+## Cómo descargar el proyecto
+
+Clona el repositorio:
+
+```bash
+git clone https://github.com/mauriciogc/next.js-15.3-1
+cd next.js-15.3-1
+```
+
+Cambia a la rama:
+
+```bash
+git checkout examples-useParams
+```
+
+Instala las dependencias:
+
+```bash
+npm install
+```
+
+Ejecuta el proyecto en modo desarrollo:
+
+```bash
+npm run dev
+```
+
+Abre tu navegador en:
+
+```yaml
+http://localhost:3000
+```

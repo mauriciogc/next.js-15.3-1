@@ -7,9 +7,9 @@
 
 ---
 
-## Actualiza la página principal
+Este proyecto contiene únicamente los archivos esenciales: src/app/page.tsx y src/app/layout.tsx, ambos configurados con una estructura mínima. Están completamente limpios, sin código adicional, para que puedas comenzar desde una base sencilla y enfocarte únicamente en el desarrollo de las funcionalidades.
 
-Vamos a simplificar la página principal. Abre el archivo `src/app/page.tsx` y sustituye el código generado, por el siguiente:
+## Actualiza la página principal
 
 ```Typescript
 // src/app/page.tsx
@@ -17,21 +17,29 @@ Vamos a simplificar la página principal. Abre el archivo `src/app/page.tsx` y s
 export default function Home() {
   return (
     <main className="flex justify-center items-center min-h-screen">
-      <h1 className="text-3xl font-bold">
-        ¡Hola Mundo desde Next.js + Tailwind!
-      </h1>
+      <h1 className="text-3xl font-bold">Página principal</h1>
     </main>
   );
 }
 ```
 
-Donde:
+```typescript
+//src/app/layout.tsx
 
-- `export default function Home()`  -  Es un componente como React, en este caso una página (`/`)
+import './globals.css';
 
-- Se usa Tailwind para estilos `items-center`, `min-h-screen`, etc.
-
-- Al llamarse `page.tsx`, Next.js hace una página automáticamente.
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="en">
+      <body className="antialiased">{children}</body>
+    </html>
+  );
+}
+```
 
 ---
 
@@ -49,7 +57,7 @@ Abre en tu navegador:
 http://localhost:3000
 ```
 
-Si todo está correcto, deberás ver `¡Hola Mundo desde Next.js + Tailwind!`
+Si todo está correcto, deberás ver `Página principal`
 
 ---
 
@@ -65,7 +73,7 @@ cd next.js-15.3-1
 Cambia a la rama:
 
 ```bash
-git checkout base-project
+git checkout base-project-2
 ```
 
 Instala las dependencias:
@@ -87,11 +95,3 @@ http://localhost:3000
 ```
 
 ---
-
-### Cambios
-
-En esta rama se realizaron los siguientes cambios:
-
-- Se eliminó el contenido de la carpeta `public/` innecesario.
-- Se actualizó el archivo `src/app/page.tsx` para mostrar una página principal personalizada (`Home`).
-- Estructura limpia para comenzar a trabajar.

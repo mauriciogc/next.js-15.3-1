@@ -7,7 +7,7 @@
 
 ---
 
-Este proyecto contiene únicamente los archivos esenciales: src/app/page.tsx y src/app/layout.tsx, ambos configurados con una estructura mínima. Están completamente limpios, sin código adicional, para que puedas comenzar desde una base sencilla y enfocarte únicamente en el desarrollo de las funcionalidades.
+Este proyecto contiene únicamente los archivos esenciales: `src/app/page.tsx` y `src/app/layout.tsx`, ambos configurados con una estructura mínima, sin código adicional, para que puedas comenzar desde una base sencilla.
 
 ## Actualiza la página principal
 

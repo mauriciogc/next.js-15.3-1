@@ -29,6 +29,7 @@ A continuación, se detallan las principales ramas y los temas que cubren:
 | `examples-useParams` [[ref](https://github.com/mauriciogc/next.js-15.3-1/tree/examples-useParams)]                                                               | Explicación y ejemplos del hook : `useParams`.                                                                                                         |
 | `examples-generateStaticParams` [[ref](https://github.com/mauriciogc/next.js-15.3-1/tree/examples-generateStaticParams)]                                         | Explicación y ejemplos de las función : `generateStaticParams` y la variable `dynamicParams`.                                                          |
 | `examples-advanced-dynamic-routes-hybrid-rendering` [[ref](https://github.com/mauriciogc/next.js-15.3-1/tree/examples-advanced-dynamic-routes-hybrid-rendering)] | Rutas dinámicas avanzadas con renderizado híbrido (CRS, SSR, SSG).                                                                                     |
+| `base-project-2` [[ref](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)]                                                                       | Limpieza de la página y layout inicial, dejando una base personalizada para los ejemplos de Archivos de enrutamiento                                   |
 
 > Este repositorio **se actualizará continuamente** con nuevos temas y ejemplos.
 

@@ -7,6 +7,10 @@
 
 ---
 
+> Para simular la carga de datos en los ejemplos vamos utilizaremos la siguiente API:
+>
+> - themoviedb [[ref](https://developer.themoviedb.org/docs/getting-started)]
+
 ## Layout.tsx
 
 > Para todos los ejemplos se toma el siguiente proyecto base [[ref](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)] (`branch: base-project-2`).

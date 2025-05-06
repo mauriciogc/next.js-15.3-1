@@ -13,11 +13,11 @@ A continuación veremos varios ejemplos, utilizando APIs públicas y distintas e
 
 Para simular la carga de datos en los ejemplos vamos utilizaremos las siguientes APIs:
 
-- Poke API[ref]
+- Poke API [[ref](https://pokeapi.co/)]
 
-- Dungeons and Dragons[ref]
+- Dungeons and Dragons [[ref](https://www.dnd5eapi.co/docs/)]
 
-- Anime Schedule [ref]
+- Anime Schedule [[ref](https://animeschedule.net/)]
 
 ---
 

@@ -53,10 +53,62 @@ Cuando colocas un archivo `layout.tsx` en cualquier subcarpeta dentro de `app/`,
 
 **Ejemplo de `/src/app/layout.tsx` (RootLayout)**
 
+Crea el componente `Navbar` y `Footer` en `src/components/`:
+
+```typescript
+// src/components/Navbar.tsx
+'use client';
+
+import Link from 'next/link';
+
+const Navbar = () => {
+  return (
+    <nav className="bg-blue-950 text-white px-6 py-4">
+      <ul className="flex space-x-8 items-center">
+        <li>
+          <Link href="/" className="hover:underline">
+            Dashboard
+          </Link>
+        </li>
+        <li>
+          <Link href="/media/movies" className="hover:underline">
+            Movies
+          </Link>
+        </li>
+        <li>
+          <Link href="/media/series" className="hover:underline">
+            Series
+          </Link>
+        </li>
+      </ul>
+    </nav>
+  );
+};
+
+export default Navbar;
+```
+
+```typescript
+// app/components/Footer.tsx
+const Footer = () => {
+  return (
+    <footer className="bg-blue-950 text-white p-4 text-center">
+      &copy; 2025
+    </footer>
+  );
+};
+
+export default Footer;
+```
+
+Importa el componente `Navbar`, `Footer` al layout global (**RootLayout**) `src/app/layout.tsx`:
+
 ```typescript
 //src/app/layout.tsx
 
 import './globals.css';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 export default function RootLayout({
   children,
@@ -67,21 +119,9 @@ export default function RootLayout({
     <html lang="en">
       <body className="antialiased">
         <div className="flex flex-col min-h-screen">
-          <nav className="bg-gray-700 text-white p-4">
-            <ul className="flex space-x-4">
-              <li>Dashboard</li>
-              <li>Movies</li>
-              <li>TV Shows</li>
-            </ul>
-          </nav>
-
-          <main className="flex-grow p-4 bg-white text-gray-800">
-            {children}
-          </main>
-
-          <footer className="bg-gray-800 text-white p-4 text-center">
-            &copy; 2025
-          </footer>
+          <Navbar />
+          <main className="flex-grow bg-white text-gray-800">{children}</main>
+          <Footer />
         </div>
       </body>
     </html>
@@ -103,20 +143,22 @@ http://localhost:3000
 
 Puedes tener layouts dentro de subcarpetas y Next.js los encapsulará automáticamente.
 
-**Ejemplo 2 (Layout para `/movies`)**
+**Ejemplo de /src/media/[...slug]/layout.tsx (Layout anidado)**
+
+Crea el layout y su página en src/app/media/[...slug]/ :
 
 ```typescript
-// src/app/movies/layout.tsx
+// src/app/media/[...slug]/layout.tsx
 
-export default function MoviesLayout({
+export default async function MoviesLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen p-4">
       <h2 className="text-xl font-semibold p-2">
-        Bienvenido a la sección de Películas
+        Lista de películas y series.
       </h2>
       <section className="flex-grow p-2 bg-white">{children}</section>
     </div>
@@ -125,22 +167,102 @@ export default function MoviesLayout({
 ```
 
 ```typescript
-// src/app/movies/page.tsx
+//src/app/media/[...slug]/page.tsx
 
-export default function MoviesPage() {
+export default async function MediaPage({
+  params,
+}: {
+  params: Promise<{ slug: string[] }>;
+}) {
+  const { slug } = await params;
   return (
     <div>
-      <p>Lista de secciones próximamente...</p>
+      <p>Tarjetas de {slug.join('/')}</p>
     </div>
   );
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando:
+Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300` y navega por el menú.
 
-```yaml
-http://localhost:3000/movies
+### Layouts independientes
+
+Agrega al menú `Navbar` la sección de "Person" :
+
+```typescript
+// src/components/Navbar.tsx
+'use client';
+
+import Link from 'next/link';
+
+const Navbar = () => {
+  return (
+    <nav className="bg-blue-950 text-white px-6 py-4">
+      <ul className="flex space-x-8 items-center">
+        <li>
+          <Link href="/" className="hover:underline">
+            Dashboard
+          </Link>
+        </li>
+        <li>
+          <Link href="/media/movies" className="hover:underline">
+            Movies
+          </Link>
+        </li>
+        <li>
+          <Link href="/media/series" className="hover:underline">
+            Series
+          </Link>
+        </li>
+        <li>
+          <Link href="/person" className="hover:underline">
+            Person
+          </Link>
+        </li>
+      </ul>
+    </nav>
+  );
+};
+
+export default Navbar;
 ```
+
+Crea el layout y su página en `src/app/person/` :
+
+```typescript
+export default function PersonLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="p-4 min-h-screen bg-slate-200 text-slate-800">
+      <div className="p-2">
+        <h1 className="text-3xl font-bold">Personas destacadas</h1>
+        <p className="text-sm text-gray-400 mt-1">
+          Descubre actores, directores y figuras del cine y TV
+        </p>
+        <div className="p-2 border-b border-slate-400"></div>
+      </div>
+      <section className="flex-grow p-2">{children}</section>
+    </div>
+  );
+}
+```
+
+```typescript
+// src/app/person/page.tsx
+
+export default function PersonPage() {
+  return (
+    <div>
+      <p>Aquí aparecerán las tarjetas de personas más populares...</p>
+    </div>
+  );
+}
+```
+
+Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300` y navega por el menú.
 
 ### ¿Cómo funcionan?
 
@@ -154,75 +276,165 @@ http://localhost:3000/movies
 
 Desde **Next.js 15**, los layouts también pueden recibir los parámetros dinámicos (`params`) de la URL. Bastante útil cuando necesitas personalizar la estructura del layout (idioma, categoría, tipo, etc) de acuerdo a la ruta activa.
 
-```yaml
-app/dasboard/[team]/layout.js   → /dasboard/1 → { team: '1' }
-app/shop/[tag]/[item]/layout.js → /shop/1/2   → { tag: '1', item: '2' }
-app/blog/[...slug]/layout.js    → /blog/1/2   → { slug: ['1', '2'] }
-```
+**Ejemplo de /src/media/[...slug]/layout.tsx con params**
 
-**Ejemplo 3 (Layout para `/movies/[category]` con `params`)**
+Actualiza el layout `media/[...slug]/layout`:
 
 ```typescript
-// src/app/movies/[category]/layout.tsx
+// src/app/media/[...slug]/layout.tsx
 
-// Títulos de las categorías
-const CATEGORY_TITLES: Record<string, string> = {
-  popular: 'más populares',
-  'now-playing': 'en cartelera',
-  upcoming: 'próximamente',
-  'top-rated': 'mejor calificadas',
+const TYPE_TITLES: Record<string, string> = {
+  movies: 'Películas',
+  series: 'Series',
 };
 
-// Layout de la categoría de películas
-export default async function CategoryLayout({
+export default async function MoviesLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{
-    category: string;
-  }>;
+  params: Promise<{ slug: string[] }>;
 }) {
-  const { category } = await params;
-  const categoryLabel = CATEGORY_TITLES[category];
+  const { slug } = await params;
+  const [type] = slug;
+  const typeLabel = TYPE_TITLES[type];
 
-  if (!categoryLabel) {
+  if (!typeLabel) {
     return (
-      <div className="flex flex-col min-h-screen">
-        <h2 className="text-xl font-semibold p-2">Categoría no encontrada</h2>
+      <div className="flex flex-col min-h-screen p-4">
+        <h2 className="text-xl font-semibold p-2">Tipo no encontrado.</h2>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <h2 className="text-xl font-semibold p-2">Películas {categoryLabel}</h2>
+    <div className="flex flex-col min-h-screen p-4">
+      <h2 className="text-xl font-semibold p-2">Lista de {typeLabel}</h2>
       <section className="flex-grow p-2 bg-white">{children}</section>
     </div>
   );
 }
 ```
 
-```typescript
-// src/app/movies/[category]/page.tsx
+Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300` y navega por el menú.
 
-export default function MoviesPage() {
+**Ejemplo de menú dinámico y rutas dinámicas avanzadas (más de un parámetro)**
+Crea el menú dinámico en `src/constants/navigation.ts`:
+
+```typescript
+//src/constants/navigation.ts
+
+export const NAVIGATION = {
+  dashboard: {
+    label: 'Dashboard',
+    path: '/',
+    children: null,
+  },
+  movies: {
+    label: 'Películas',
+    path: '/media/movies',
+    children: {
+      popular: { label: 'Populares', path: '/popular' },
+      'top-rated': { label: 'Mejor valoradas', path: '/top-rated' },
+      upcoming: { label: 'Próximamente', path: '/upcoming' },
+      'now-playing': { label: 'En cines', path: '/now-playing' },
+    },
+  },
+  series: {
+    label: 'Series',
+    path: '/media/series',
+    children: {
+      popular: { label: 'Populares', path: '/popular' },
+      'top-rated': { label: 'Mejor valoradas', path: '/top-rated' },
+      'now-playing': { label: 'En emisión', path: '/now-playing' },
+    },
+  },
+} as const;
+```
+
+Importa `NAVIGATION` y actualiza el componente `NavBar`:
+
+```typescript
+// src/components/Navbar.tsx
+
+'use client';
+
+import Link from 'next/link';
+import { NAVIGATION } from '@/constants/navigation';
+
+const Navbar = () => {
   return (
-    <div>
-      <p>Lista de películas próximamente...</p>
+    <nav className="bg-blue-950 text-white px-6 py-4">
+      <ul className="flex space-x-8 items-center">
+        {Object.entries(NAVIGATION).map(([key, { label, path, children }]) => (
+          <li key={key} className={children ? 'relative group' : ''}>
+            <Link href={path} className="hover:underline">
+              {label}
+            </Link>
+            {children && (
+              <ul className="absolute top-full left-0 mt-1 bg-white text-black shadow-md rounded-md py-2 w-48 z-50 opacity-0 group-hover:opacity-100 invisible group-hover:visible transition-all duration-200">
+                {Object.entries(children).map(
+                  ([key, { label, path: cpath }]) => (
+                    <li key={key}>
+                      <Link
+                        href={`${path}${cpath}`}
+                        className="block px-4 py-2 hover:bg-gray-100"
+                      >
+                        {label}
+                      </Link>
+                    </li>
+                  )
+                )}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
+
+export default Navbar;
+```
+
+Importa `NAVIGATION` y actualizar el layout `media/[...slug]/layout`
+
+```typescript
+// src/app/media/[...slug]/layout.tsx
+
+import { NAVIGATION } from '@/constants/navigation';
+
+export default async function MoviesLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ slug: string[] }>;
+}) {
+  const { slug } = await params;
+  const [type, category] = slug ?? [];
+
+  // Obtener el label principal (type)
+  const typeData = NAVIGATION[type as keyof typeof NAVIGATION];
+  const typeLabel = typeData?.label;
+
+  // Obtener el label del children (category)
+  const categoryData =
+    typeData?.children?.[category as keyof typeof typeData.children];
+  const categoryLabel = categoryData?.label;
+
+  return (
+    <div className="flex flex-col min-h-screen p-4">
+      <h2 className="text-xl font-semibold p-2">
+        {typeLabel} {categoryLabel ? ` - ${categoryLabel}` : ''}
+      </h2>
+      <section className="flex-grow p-2 bg-white">{children}</section>
     </div>
   );
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando:
-
-```yaml
-http://localhost:3000/movies/popular
-http://localhost:3000/movies/now-playing
-http://localhost:3000/movies/upcoming
-http://localhost:3000/movies/top-rated
-```
+Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300` y navega por el menú.
 
 ### A considerar
 
@@ -235,6 +447,8 @@ http://localhost:3000/movies/top-rated
 - Solo recibe params si está en una carpeta dinámica (`[id]`, `[slug]`, etc).
 
 - Los params no se actualizan entre rutas hijas si no cambia el segmento.
+
+- No puedes sobrescribir layouts.
 
 ---
 

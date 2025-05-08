@@ -17,41 +17,80 @@
 
 ### ¿Qué es layout.tsx?
 
-El archivo `layout.tsx` es un **Server Component** especial y persistente que define la estructura común que comparten todas las páginas hijas dentro de una ruta.
+El archivo `layout.tsx` es una convención del App Router de Next.js 13+, usado para definir la estructura persistente de una ruta y sus subrutas. Es un Server Component por defecto que se renderiza una única vez y permanece montado entre navegaciones dentro de su árbol de rutas.
 
-Cuando colocas un archivo `layout.tsx` en cualquier subcarpeta dentro de `app/`, este se ejecuta una sola vez y envuelve todas las subrutas que estén dentro.
+Su propósito principal es encapsular elementos como headers, sidebars, footers, providers (theme, auth, etc.) y layout visual, evitando su re-renderizado innecesario, mejorando el rendimiento y facilitando la composición modular de interfaces complejas.
 
 ### Principales características
 
-- Define una estructura compartida: `Header`, `Navbar`, `Footer`, `Sidebar`, `Context Providers`, etc.
+- Persistencia entre rutas hijas: evita desmontes innecesarios.
 
-- Se mantiene entre rutas hijas, lo que evita repetir estructura común.
+- Composición jerárquica: layouts anidados para estructuras complejas.
 
-- Soporta anidamiento, puedes tener layouts dentro de layouts.
+- Server Components por defecto: ideales para render inicial optimizado.
 
-- Compatible con `loading.tsx`, `error.tsx` y `not-found.tsx`, lo que permite una experiencia de usuario más fluida.
+- Soporte de params dinámicos (desde Next.js 15+).
 
-- Puede recibir `params` dinámicos (versión +15).
+- Compatible con Server Components y Client Components.
+
+- Compatible con `loading.tsx`, `error.tsx`, `not-found.tsx`.
+
+- Ideal para envolver contextos (Auth, Theme, i18n, etc).
 
 ### Ventajas
 
-- No se desmonta al navegar dentro del mismo layout.
+- Rendimiento superior: el layout no se desmonta, solo cambia el contenido.
 
-- Puedes tener múltiples layouts para cada grupo (ej. `/admin`, `/dashboard`, `/blog`, etc).
+- Código más limpio y DRY: evita repetir estructura visual.
 
-- Puedes envolver componentes con `ThemeProvider`, `AuthContext`, etc.
+- Mejor experiencia de usuario: transiciones más suaves.
 
-- Solo cambia el contenido y no el layout, por lo que mejora exponencialmente el rendimiento.
+- Extensibilidad: permite layouts independientes para secciones como `/admin`, `/dashboard`, `/auth`, etc.
 
-### ¿Cómo se crea?
+- Composición reactiva: ideal para diseño basado en componentes reutilizables.
 
-- Crea una carpeta con nombre de ruta (ej. `scr/app/dashboard`, `src/app/movies`)
+### ¿Cómo se crea o implementa?
 
-- Dentro de la carpeta crea `layout.tsx`.
+- Dentro de una carpeta de ruta (`app/`, `app/about`/, `app/media/[slug]/`, etc.), crea un archivo `layout.tsx`.
 
-- Debes incluir siempre la propiedad `{children}`
+- Exporta un componente React de servidor.
 
-**Ejemplo de `/src/app/layout.tsx` (RootLayout)**
+- **Usa `children` obligatoriamente.**
+
+```typescript
+// Layout.tsx
+
+export default function Layout({ hildren }: { children: React.ReactNode }) {
+  return <section>{children}</section>;
+}
+```
+
+### ¿Cómo funcionan?
+
+- Cuando Next.js renderiza una ruta, comienza desde el layout raíz (/app/layout.tsx) y desciende anidando todos los layouts correspondientes hasta llegar a la página.
+
+```yaml
+/src/app/layout.tsx  ⟶  layout.tsx de subcarpeta (si existe)  ⟶  page.tsx
+```
+
+- Los layouts se procesan en el servidor durante la construcción de la ruta.
+
+- Internamente, Next.js utiliza el árbol de rutas (Routing Tree) para componer los layouts y las páginas.
+
+- Cada layout puede agregar su propia capa de HTML, CSS o lógica.
+
+- Al ser Server Components por defecto, su ejecución no llega al cliente salvo que se use `'use client'`.
+
+- Se integran con el sistema de streaming y suspense, lo que permite mostrar contenido progresivamente.
+  `params` se resuelve antes del renderizado del layout si está dentro de una carpeta dinámica.
+
+- Los layouts no se desmontan al navegar dentro del mismo grupo.
+
+Esto permite que estados como autenticación, navegación, temas o menús, se mantengan persistentes.
+
+### Ejemplos
+
+**Ejemplo básico - Layout raíz**
 
 Crea el componente `Navbar` y `Footer` en `src/components/`:
 
@@ -139,11 +178,9 @@ http://localhost:3000
 
 > Importante: Es obligatorio siempre poner `{children}`, ya que durante la renderización se rellenará con los segmentos de ruta.
 
-### Layouts anidados
+**Ejemplo - Layout anidado**
 
 Puedes tener layouts dentro de subcarpetas y Next.js los encapsulará automáticamente.
-
-**Ejemplo de /src/media/[...slug]/layout.tsx (Layout anidado)**
 
 Crea el layout y su página en src/app/media/[...slug]/ :
 
@@ -185,7 +222,7 @@ export default async function MediaPage({
 
 Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300` y navega por el menú.
 
-### Layouts independientes
+**Ejemplo - Layouts independientes**
 
 Agrega al menú `Navbar` la sección de "Person" :
 
@@ -264,19 +301,9 @@ export default function PersonPage() {
 
 Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300` y navega por el menú.
 
-### ¿Cómo funcionan?
-
-- Cuando Next.js renderiza una ruta, empieza desde el layout raíz (`/app/layout.tsx`) hacia abajo anidando los layouts (si aplica) necesarios antes de mostrar la página.
-
-- Los layouts NO se desmontan al navegar entre subrutas dentro del mismo segmento.
-
-- Permite que componentes como `Header`, `Navbar`, `Footer`, `Sidebar`, `Context Providers`, etc persistan y no pierdan su estado.
-
-### Layouts con params
+**Ejemplo - Layout con params y navegación dinámica**
 
 Desde **Next.js 15**, los layouts también pueden recibir los parámetros dinámicos (`params`) de la URL. Bastante útil cuando necesitas personalizar la estructura del layout (idioma, categoría, tipo, etc) de acuerdo a la ruta activa.
-
-**Ejemplo de /src/media/[...slug]/layout.tsx con params**
 
 Actualiza el layout `media/[...slug]/layout`:
 
@@ -318,7 +345,8 @@ export default async function MoviesLayout({
 
 Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300` y navega por el menú.
 
-**Ejemplo de menú dinámico y rutas dinámicas avanzadas (más de un parámetro)**
+**Ejemplo - Layout con más de un params y navegación dinámica**
+
 Crea el menú dinámico en `src/constants/navigation.ts`:
 
 ```typescript
@@ -438,17 +466,17 @@ Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300` y naveg
 
 ### A considerar
 
-- `layout.tsx` debe incluir siempre la propiedad `{children}`.
+- `layout.tsx` debe incluir `{children}`, siempre.
 
-- Es un Componente Server por defecto.
+- No puedes acceder a `searchParams` o `pathname` dentro de layouts.
 
-- No reciben la propiedad `searchParams` y `pathname` ya que los layouts no se vuelven a renderizar.
+- No se deben usar hooks (`useEffect`) directamente a menos que sea un Client Component.
 
-- Solo recibe params si está en una carpeta dinámica (`[id]`, `[slug]`, etc).
+- Puedes anidar layouts indefinidamente, pero evita sobreestructura innecesaria.
 
-- Los params no se actualizan entre rutas hijas si no cambia el segmento.
+- No puedes sobrescribir layouts existentes desde una subruta.
 
-- No puedes sobrescribir layouts.
+- Los `params` solo se actualizan si el segmento dinámico cambia (no entre rutas hijas estáticas).
 
 ---
 

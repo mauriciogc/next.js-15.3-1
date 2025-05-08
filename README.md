@@ -9,37 +9,37 @@
 
 ## Componente Link
 
+En el ecosistema de Next.js, el componente `Link` cumple un rol fundamental en la experiencia de usuario: permite transiciones entre páginas sin recargar el navegador, manteniendo el estado del cliente y optimizando el rendimiento mediante precarga automática de recursos.
+
 ### ¿Qué es Link?
 
-Link es un componente especial para navegación interna, que se utiliza para enlazar diferentes páginas dentro de una aplicación sin recargar el navegador.
+`Link` es un componente de alto nivel proporcionado por Next.js para manejar navegación interna en aplicaciones web. Está diseñado para reemplazar el uso de `<a href="...">` en contextos donde se navega entre rutas definidas en el App Router o Pages Router.
 
-Es equivalente a `<a href="/ruta">`, pero optimizado para el sistema de rutas y el rendimiento de Next.js.
+Este componente mejora la navegación de una aplicación tipo SPA (Single Page Application) sin perder las ventajas de SSR (Server-Side Rendering) o SSG (Static Site Generation).
 
 ### Características
 
-- Navegación sin recarga (SPA). Usa enrutamiento basado en el App Router.
+- Navegación sin recarga: transiciones instantáneas sin refrescar el documento completo.
 
-- Precarga los recursos en segundo plano el contenido de la ruta destino.
+- Precarga automática: Next.js precarga JavaScript y datos asociados en segundo plano.
 
-- Puede detectar visibilidad para precargar inteligentemente.
+- Detección por visibilidad: usa `IntersectionObserver` para prefetch inteligente.
 
-- Actúa como wrapper de `<a>` sin romper el comportamiento nativo (accesibilidad, SEO, clic derecho, nueva pestaña, etc.)
+- Comportamiento de `<a>` respetado: clic derecho, nueva pestaña, accesibilidad, SEO.
+
+- Soporte para rutas dinámicas: compatible con `[foldername]`, `[slug]`, `[...slug]`, `[[...slug]]`.
 
 ### Ventajas
 
-- No recarga el DOM ni layouts, por lo que las transiciones son más rápidas.
-
-- Acelera la navegación al anticipar qué va a visitar el usuario gracias a TTFB (Time of first byte) cuando el usuario hace hover.
-
-- Ideal para apps tipo SPA sin perder beneficios SSR/SSG.
-
-- Soporta rutas dinámicas, slug, anidadas, layouts, etc.
-
-- Se puede envolver a `<a>` dentro del componente Link y conservar sus funcionalidades.
+- Mejora el rendimiento al evitar recargas del navegador.
+- Anticipa la navegación del usuario con prefetch.
+- Compatible con SSR/SSG, pero con experiencia SPA.
+- Soporta objetos `href` para query params dinámicos.
+- Puede envolver otros elementos (`<span>`, `<div>`) sin perder funcionalidad.
 
 ### ¿Cómo se crea?
 
-Se importa desde:
+Primero, importa el componente:
 
 ```typescript
 import Link from 'next/link';
@@ -59,7 +59,7 @@ También puedes incluir un `<a>` explícito si necesitas más control:
 </Link>
 ```
 
-Se puede usar como un wrapper para otro elemento:
+Con elementos personalizados:
 
 ```typescript
 <Link href="/movies">
@@ -67,11 +67,25 @@ Se puede usar como un wrapper para otro elemento:
 </Link>
 ```
 
-Con rutas dinámicas:
+Con parámetros dinámicos:
 
 ```typescript
 <Link href={`/blog/${slug}`}>{title}</Link>
 ```
+
+### ¿Cómo funciona?
+
+Link utiliza el sistema interno de navegación client-side basado en `next/navigation` (en App Router) o `next/router` (en Pages Router). El flujo es:
+
+- Detecta si el destino (`href`) es interno.
+
+- Si es interno, intercepta el clic y evita la recarga completa.
+
+- Usa `pushState` o `replaceState` para modificar el historial.
+
+- Precarga la página de destino si está visible.
+
+- Hidrata el nuevo contenido sin perder estado global.
 
 ### Opciones disponibles
 
@@ -166,19 +180,9 @@ Cuando se da clic, se manda a llamar un manejador de eventos (event handler) de 
 </Link>
 ```
 
-### ¿Cómo funciona?
+### Ejemplos
 
-- Usa `next/router` internamente para hacer push en el historial (sin recargar).
-
-- Detecta si el href es interno (`/ruta`) o externo (`https://`).
-
-- Si es interno, hace una navegación client-side con `pushState`.
-
-- Precarga el JavaScript y HTML del destino si está visible (Intersection Observer)
-
-- Actualiza la URL sin recargar y rehidrata el contenido nuevo.
-
-**Ejemplo (navegación entre páginas estáticas)**
+**Ejemplo - navegación entre páginas estáticas**
 
 ```typescript
 //src/app/page.tsx
@@ -263,7 +267,7 @@ Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando
 http://localhost:3000
 ```
 
-**Ejemplo (navegación entre páginas dinámicas)**
+**Ejemplo - Navegación entre páginas dinámicas**
 
 ```typescript
 //src/app/page.tsx
@@ -349,17 +353,33 @@ export default async function MediaPage({
 
 ### A considerar
 
-- La precarga (`prefetch`) sólo está habilitada en producción.
+- No usar `Link` para URLs externas. Usa `<a href="https://...">` directamente.
 
-- No usar `Link` para enlaces externos.
+- Evita `Link` sin `href`. Genera errores de navegación.
 
-- No se usa en `route.tsx` o `layout.tsx`.
+- Evita usarlo en archivos como `route.ts` o `layout.tsx`.
 
-- Usa elementos clicables accesibles dentro de `Link` (`<span>`, `<button>` o texto).
+- Asegura accesibilidad: usa elementos interactivos como `<span>` o `<button>`.
 
-- Usa `replace={true}` si no quieres que se agregue al historial.
+- Usa replace si no deseas guardar en historial.
 
-- No pongas un `Link` vacío o sin `href`.
+- El prefetch solo funciona en producción.
+
+### :: ¿Es compatible usar Link dentro de Layouts?
+
+Si, pero evítalos usar cuando:
+
+- `layout.tsx` depende de parámetros (`params`)   - Si estás en un layout dinámico como `app/media/[...slug]/layout.tsx`, los `params` cambian cuando navegas entre subrutas, pero el layout no se recarga automáticamente. Eso puede provocar desincronización entre lo que muestra el layout y el contenido actual.
+
+- Precarga innecesaria en cada ruta  -  Si colocas muchos `Link` dentro de un layout persistente y esos links tienen `prefetch` activo, se puede generar precarga innecesaria de muchas rutas cada vez que se monta el layout. **Esto no rompe nada, pero puede afectar el rendimiento en apps grandes**.
+
+Entonces:
+
+- Usa `Link` en layouts cuando el menú sea global y no dependa de `params`.
+
+- Si el menú cambia según la ruta, considera moverlo a un layout más específico o incluso al nivel de `page.tsx`.
+
+- Puedes encapsular la navegación en un componente tipo `<Navbar>` y re-utilizarlo donde convenga.
 
 ---
 

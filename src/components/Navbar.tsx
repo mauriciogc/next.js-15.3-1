@@ -17,6 +17,11 @@ const Navbar = () => {
             Movies
           </Link>
         </li>
+        <li>
+          <Link href="/blog" className="hover:underline">
+            Blog
+          </Link>
+        </li>
       </ul>
     </nav>
   );

@@ -1,7 +1,6 @@
 // src/app/services/tmdbService.tsx
 
-const API_KEY =
-  'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMDhiYjcxZTc0MzY5NjJlZTU1NGRjYTM2MjI4NWMyNSIsIm5iZiI6MTQwODk5ODQ3NS40MDksInN1YiI6IjUzZmI5YzRiYzNhMzY4NzM1MjAwNTEzOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fZkT-UrteTuSdwgUSpqIfKqiB-dFUs6sIepZ1sr4xMI';
+const API_KEY = 'TU KEY';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 

@@ -195,7 +195,7 @@ Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando
 
 - La función `reset()` reinicia el estado del segmento (React remonta el componente).
 
-**Ejemplo - Petición de series top con la API de themoviedb (SSG)**
+#### **Ejemplo - Petición de series top con la API de themoviedb (SSG)**
 
 Crea el componente `List` en `src/components/`:
 
@@ -437,7 +437,7 @@ export default function Error({
 
 Ahora sí, repite todos los pasos…
 
-**Ejemplo - Petición de películas top con la API de themoviedb (CSR)**
+#### **Ejemplo - Petición de películas top con la API de themoviedb (CSR)**
 
 Crea el `error.tsx` y `page.tsx` en `src/app/movies`:
 
@@ -581,7 +581,7 @@ export default function Home() {
 
 Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando `http://localhost:3000`, da clic en "Ir a las películas".
 
-**Ejemplo - Cachar un error por componente con Suspense**
+#### **Ejemplo - Cachar un error por componente con Suspense**
 
 Instala desde la consola el paquete `react-error-boundary`:
 

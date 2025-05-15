@@ -103,7 +103,7 @@ Esto es posible gracias al soporte nativo de React 18 para Suspense y al streami
 
 ### Ejemplos
 
-**Ejemplo básico - loading en la raíz**
+#### **Ejemplo básico - loading en la raíz**
 
 ```typescript
 // app/loading.tsx
@@ -141,7 +141,7 @@ export default async function Home() {
 
 Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300`, verás el loading.tsx durante 5 segundos y luego se cargará el contenido.
 
-**Ejemplo - loading anidado**
+#### **Ejemplo - loading anidado**
 
 Crea el componente Navbar en `src/components/`:
 
@@ -323,7 +323,7 @@ export default async function MoviesPage() {
 
 Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300`, navega a la sección de Movies, verás el `loading.tsx` y luego se cargará el contenido.
 
-**Ejemplo - Cargando el loading más cercano**
+#### **Ejemplo - Cargando el loading más cercano**
 
 Actualiza el componente Navbar, agregando el Link a blog:
 
@@ -476,7 +476,7 @@ Entonces:
 
 - Si estás en `/blog/design` y no existe `app/blog/design/loading.tsx` se usa `app/blog/loading.tsx`.
 
-**Ejemplo - ¿Qué pasaría si eliminamos src/app/blog/loading.tsx?**
+#### **Ejemplo - ¿Qué pasaría si eliminamos src/app/blog/loading.tsx?**
 
 Cambiale el nombre a `src/app/blog/loading.tsx`
 

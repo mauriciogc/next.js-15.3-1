@@ -90,7 +90,7 @@ Esto permite que estados como autenticación, navegación, temas o menús, se ma
 
 ### Ejemplos
 
-**Ejemplo básico - Layout raíz**
+#### **Ejemplo básico - Layout raíz**
 
 Crea el componente `Navbar` y `Footer` en `src/components/`:
 
@@ -178,7 +178,7 @@ http://localhost:3000
 
 > Importante: Es obligatorio siempre poner `{children}`, ya que durante la renderización se rellenará con los segmentos de ruta.
 
-**Ejemplo - Layout anidado**
+#### **Ejemplo - Layout anidado**
 
 Puedes tener layouts dentro de subcarpetas y Next.js los encapsulará automáticamente.
 
@@ -222,7 +222,7 @@ export default async function MediaPage({
 
 Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300` y navega por el menú.
 
-**Ejemplo - Layouts independientes**
+#### **Ejemplo - Layouts independientes**
 
 Agrega al menú `Navbar` la sección de "Person" :
 
@@ -301,7 +301,7 @@ export default function PersonPage() {
 
 Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300` y navega por el menú.
 
-**Ejemplo - Layout con params y navegación dinámica**
+#### **Ejemplo - Layout con params y navegación dinámica**
 
 Desde **Next.js 15**, los layouts también pueden recibir los parámetros dinámicos (`params`) de la URL. Bastante útil cuando necesitas personalizar la estructura del layout (idioma, categoría, tipo, etc) de acuerdo a la ruta activa.
 
@@ -345,7 +345,7 @@ export default async function MoviesLayout({
 
 Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300` y navega por el menú.
 
-**Ejemplo - Layout con más de un params y navegación dinámica**
+#### **Ejemplo - Layout con más de un params y navegación dinámica**
 
 Crea el menú dinámico en `src/constants/navigation.ts`:
 

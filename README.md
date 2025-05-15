@@ -101,7 +101,7 @@ Lo interesante es que en Next.js App Router, este proceso también puede ocurrir
 
 ### Ejemplos
 
-**_Ejemplo - Básico_**
+#### **Ejemplo - Básico**
 
 Crea el componente `DummyComponent` en `src/components/`:
 
@@ -146,7 +146,7 @@ export default function Home() {
 
 Al iniciar el servidor con `npm run dev` y acceder a `http://localhost:3000`, verás que al ejecutarse la función fetch dentro del componente `DummyComponent`, se suspende su renderizado durante 3 segundos. Durante ese tiempo, React muestra el contenido definido en el fallback y, una vez que la promesa se resuelve, renderiza nuevamente el componente original.
 
-**Ejemplo - Con un componente Skeleton**
+#### **Ejemplo - Con un componente Skeleton**
 
 Crea el componente `CardSkeleton` en `src/components` :
 
@@ -203,7 +203,7 @@ export default function Home() {
 
 Al iniciar el servidor con `npm run dev` y acceder a `http://localhost:3000`, verás que React muestra el fallback,donde el primero muestra un simple texto de carga y el segundo un componente Skeleton visual. Una vez que la promesa se resuelve, React vuelve a intentar renderizar los componentes originales, reemplazando los fallbacks por el contenido real.
 
-**Ejemplo -Cargando una lista de recetas**
+#### **Ejemplo - Cargando una lista de recetas**
 
 Crea el componente `RecipeCard` en `src/components/`:
 

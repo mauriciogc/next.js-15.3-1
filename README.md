@@ -23,7 +23,7 @@ export default function ExamplePage() {
 
 > **Nota**: El proyecto genera una página por default en `_/app_`
 
-### :: Crear una página
+### Crear una página
 
 Para crear una página nueva en Next.js, debes tener en cuenta los siguientes pasos:
 
@@ -31,7 +31,7 @@ Para crear una página nueva en Next.js, debes tener en cuenta los siguientes pa
 - Dentro de esa carpeta, crea un archivo llamado `page.tsx`
 - Exporta un componente de React por defecto.
 
-Vamos a crear una página que va a estar disponible desde la ruta `[http://localhost:3000/about](http://localhost:3000/about)`
+Vamos a crear una página que va a estar disponible desde la ruta [http://localhost:3000/about](http://localhost:3000/about)
 
 Crea la carpeta y el archivo:
 

@@ -11,49 +11,47 @@
 
 En el ecosistema de Next.js, el componente `Link` cumple un rol fundamental en la experiencia de usuario: permite transiciones entre páginas sin recargar el navegador, manteniendo el estado del cliente y optimizando el rendimiento mediante precarga automática de recursos.
 
-### ¿Qué es Link?
+### ¿Qué es Link?
 
-`Link` es un componente de alto nivel proporcionado por Next.js para manejar navegación interna en aplicaciones web. Está diseñado para reemplazar el uso de `<a href="...">` en contextos donde se navega entre rutas definidas en el App Router o Pages Router.
+`Link` es un componente de alto nivel proporcionado por Next.js para manejar navegación interna en aplicaciones web. Está **diseñado** para **reemplazar** el uso de `<a href="...">` en **contextos** donde se **navega entre rutas definidas** en el **App Router o Pages Router**.
 
-Este componente mejora la navegación de una aplicación tipo SPA (Single Page Application) sin perder las ventajas de SSR (Server-Side Rendering) o SSG (Static Site Generation).
+Este componente **mejora** la **navegación** de una **aplicación tipo SPA** (Single Page Application) sin perder las ventajas de SSR (Server-Side Rendering) o SSG (Static Site Generation).
 
 ### Características
 
-- Navegación sin recarga: transiciones instantáneas sin refrescar el documento completo.
+- **Navegación sin recarga:** transiciones instantáneas sin refrescar el documento completo.
 
-- Precarga automática: Next.js precarga JavaScript y datos asociados en segundo plano.
-
-- Detección por visibilidad: usa `IntersectionObserver` para prefetch inteligente.
-
-- Comportamiento de `<a>` respetado: clic derecho, nueva pestaña, accesibilidad, SEO.
-
-- Soporte para rutas dinámicas: compatible con `[foldername]`, `[slug]`, `[...slug]`, `[[...slug]]`.
+- **Precarga automática:** Next.js precarga JavaScript y datos asociados en segundo plano.
+- **Detección por visibilidad:** usa `IntersectionObserver` para prefetch inteligente.
+- **Comportamiento de `<a>` respetado:** clic derecho, nueva pestaña, accesibilidad, SEO.
+- **Soporte para rutas dinámicas:** compatible con `[foldername]`,`[slug]`, `[...slug]`, `[[...slug]]`.
 
 ### Ventajas
 
 - Mejora el rendimiento al evitar recargas del navegador.
-- Anticipa la navegación del usuario con prefetch.
+
+- Anticipa la navegación del usuario con `prefetch`.
 - Compatible con SSR/SSG, pero con experiencia SPA.
 - Soporta objetos `href` para query params dinámicos.
 - Puede envolver otros elementos (`<span>`, `<div>`) sin perder funcionalidad.
 
-### ¿Cómo se crea?
+### ¿Cómo se crea o implementa?
 
 Primero, importa el componente:
 
-```typescript
+```js
 import Link from 'next/link';
 ```
 
 Su uso más básico:
 
-```typescript
+```js
 <Link href="/movies">Películas</Link>
 ```
 
 También puedes incluir un `<a>` explícito si necesitas más control:
 
-```typescript
+```js
 <Link href="/movies">
   <a className="text-blue-500 hover:underline">Películas</a>
 </Link>
@@ -61,7 +59,7 @@ También puedes incluir un `<a>` explícito si necesitas más control:
 
 Con elementos personalizados:
 
-```typescript
+```js
 <Link href="/movies">
   <span className="text-blue-500 underline">Películas</span>
 </Link>
@@ -69,37 +67,34 @@ Con elementos personalizados:
 
 Con parámetros dinámicos:
 
-```typescript
+```js
 <Link href={`/blog/${slug}`}>{title}</Link>
 ```
 
 ### ¿Cómo funciona?
 
-Link utiliza el sistema interno de navegación client-side basado en `next/navigation` (en App Router) o `next/router` (en Pages Router). El flujo es:
+`Link` utiliza el sistema interno de navegación client-side basado en `next/navigation` (en App Router) o `next/router` (en Pages Router). El flujo es:
 
 - Detecta si el destino (`href`) es interno.
 
 - Si es interno, intercepta el clic y evita la recarga completa.
-
 - Usa `pushState` o `replaceState` para modificar el historial.
-
 - Precarga la página de destino si está visible.
-
 - Hidrata el nuevo contenido sin perder estado global.
 
 ### Opciones disponibles
 
-#### `herf` (Obligatorio)
+#### `**herf` (Obligatorio)\*\*
 
 La ruta interna o URL a la que navegar.
 
-```typescript
+```js
 <Link href="/movies">Películas</Link>
 ```
 
-También permite pasar un objeto con las propiedades pathname y query para construir la URL:
+También permite pasar un objeto con las propiedades `pathname` y `query` para construir la URL:
 
-```typescript
+```js
 // Navega a /movies?name=test
 <Link
   href={{
@@ -111,61 +106,64 @@ También permite pasar un objeto con las propiedades pathname y query para const
 </Link>
 ```
 
-#### `Replace` (Default false)
+![](https://cdn-images-1.medium.com/max/1600/1*4SnvMhy5W5_R3CkP8e4JSw.gif)
 
-Reemplaza la entrada actual en el historial (`history.replace`)
+#### **`Replace` (Default `false`)**
 
-```typescript
-<Link href="/movies" replace>
-  Movies
-</Link>
-```
+Reemplaza la entrada actual en el historial ( `history.replace`)
 
-#### `prefetch` (Default null)
+<Link href="/movies" replace>Movies</Link>
+
+`**prefetch**` **(Default** `**null**`**)**
 
 Inicia una precarga del recurso cuando un componente `<Link>` se visualiza en la ventana del usuario. Next.js precarga y carga la ruta vinculada y sus datos en segundo plano, con la finalidad de mejorar el rendimiento de las navegaciones del lado del cliente.
 
 Valores que acepta la propiedad:
 
-- `null`  -  Para las rutas estáticas, se precargará la ruta completa (incluyendo datos). Para las rutas dinámicas, se precargará la ruta parcial.
+- `null` — Para las rutas estáticas, se precargará la ruta completa (incluyendo datos). Para las rutas dinámicas, se precargará la ruta parcial.
 
-- `true `- Para rutas estáticas y dinámicas, se precargará la ruta completa (incluyendo datos).
+- `true` — Para rutas estáticas y dinámicas, se precargará la ruta completa (incluyendo datos).
+- `false` — La precarga nunca se producirá.
 
-- `false`  -  La precarga nunca se producirá.
-
-```typescript
+```js
 <Link href="/movies" prefetch={false}>
   Movies
 </Link>
 ```
 
-#### `scroll` (Default true)
+#### **`scroll` (Default `true`)**
 
-El comportamiento predeterminado de Link es mantener la posición del scroll (de forma similar a como los navegadores se manejan).
+El comportamiento predeterminado de `Link` es mantener la posición del scroll (de forma similar a como los navegadores se manejan).
 
-- `true` - Cuando se navega a una nueva página, la posición del scroll se mantendrá siempre que la página sea visible en la ventana. En caso contrario, se desplazará hasta la parte superior del primer elemento de la página.
+- `true`— Cuando se navega a una nueva página, la posición del scroll se mantendrá siempre que la página sea visible en la ventana. En caso contrario, se desplazará hasta la parte superior del primer elemento de la página.
 
-- `false` - Next.js no intentará desplazarse hasta el primero elemento de la página.
+- `false`— Next.js no intentará desplazarse hasta el primero elemento de la página.
 
-```typescript
+```js
 <Link href="/movies" scroll={false}>
   Movies
 </Link>
 ```
 
-También permite desplazarse a un elemento específico de la página utilizando un enlace con hash (`#`) hacia un id determinado:
+![](https://cdn-images-1.medium.com/max/1600/1*qld2jCzKK5MlttkOnl9ALQ.gif)
 
-```typescript
+Los **`links`** tienen **`scroll = {false}`**
+
+También permite desplazarse a un elemento específico de la página utilizando un enlace con **hash** (`#`) hacia un `id` determinado:
+
+```js
 <Link href="/tv#popular">TV popular</Link>
 ```
 
-#### `onNavigate`
+![](https://cdn-images-1.medium.com/max/1600/1*ePRroqU5oz3lws0rRw608w.gif)
+
+#### **`onNavigate`**
 
 Cuando se da clic, se manda a llamar un manejador de eventos (event handler) de lado del cliente. El manejador recibe un objeto que incluye el método `preventDefault()`.
 
-> Importante: `onNavigate` solo se ejecuta durante navegaciones del lado del cliente y dentro del mismo origen. No se activará si el usuario utiliza teclas modificadoras (como `Ctrl/Cmd + clic`) o si la navegación apunta a una URL externa o los enlaces con el atributo download, ya que este comportamiento está limitado exclusivamente a transiciones internas dentro de la aplicación.
+> **Importante:** `onNavigate` **solo se ejecuta durante navegaciones del lado del cliente** **y dentro del mismo origen**. **No se activará** si el usuario utiliza **teclas** **modificadoras** (como Ctrl/Cmd + clic) o si la **navegación** apunta a una **URL** **externa** o los **enlaces con el atributo** `download`, ya que este comportamiento está limitado exclusivamente a transiciones internas dentro de la aplicación.
 
-```typescript
+```js
 <Link
   href="/movies"
   onNavigate={(e) => {
@@ -182,9 +180,11 @@ Cuando se da clic, se manda a llamar un manejador de eventos (event handler) de 
 
 ### Ejemplos
 
-**Ejemplo - navegación entre páginas estáticas**
+#### **Ejemplo — Navegación entre páginas estáticas**
 
-```typescript
+> **Nota: Al ser ejemplos básicos no he agregado la navegación dentro del** `**layout.tsx**`**, pero como buena práctica deberías de hacerlo.**
+
+```js
 //src/app/page.tsx
 
 import Link from 'next/link';
@@ -212,7 +212,7 @@ export default function Home() {
 }
 ```
 
-```typescript
+```js
 // src/app/movies/page.tsx
 
 import Link from 'next/link';
@@ -237,7 +237,7 @@ export default function Movies() {
 }
 ```
 
-```typescript
+```js
 // src/app/series/page.tsx
 import Link from 'next/link';
 
@@ -267,9 +267,11 @@ Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando
 http://localhost:3000
 ```
 
-**Ejemplo - Navegación entre páginas dinámicas**
+![](https://cdn-images-1.medium.com/max/1600/1*Ty7fDiq9uokbYRY-O3oHSw.gif)
 
-```typescript
+#### **Ejemplo — Navegación entre páginas dinámicas**
+
+```js
 //src/app/page.tsx
 
 import Link from 'next/link';
@@ -319,7 +321,7 @@ export default function Home() {
 }
 ```
 
-```typescript
+```js
 //src/app/media/[...slug]/page.tsx
 
 import Link from 'next/link';
@@ -327,7 +329,7 @@ import Link from 'next/link';
 export default async function MediaPage({
   params,
 }: {
-  params: Promise<{ slug: string[] }>;
+  params: Promise<{ slug: string[] }>,
 }) {
   const { slug } = await params;
   return (
@@ -351,35 +353,46 @@ export default async function MediaPage({
 }
 ```
 
+Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando:
+
+```yaml
+http://localhost:3000
+```
+
+![](https://cdn-images-1.medium.com/max/1600/1*iUOekyVNgTn7QHeQCVtPBQ.gif)
+
 ### A considerar
 
-- No usar `Link` para URLs externas. Usa `<a href="https://...">` directamente.
+- **No usar `Link` para URLs externas.** Usa `<a href="https://...">` directamente.
 
-- Evita `Link` sin `href`. Genera errores de navegación.
+- **Evita `Link` sin `href`**. Genera errores de navegación.
+- **Evita usarlo en archivos como `route.tsx` o `layout.tsx`**.
+- **Asegura accesibilidad:** usa elementos interactivos como `<span>` o `<button>`.
+- **Usa `replace` si no deseas guardar en historial.**
+- **El `prefetch` solo funciona en producción.**
 
-- Evita usarlo en archivos como `route.ts` o `layout.tsx`.
-
-- Asegura accesibilidad: usa elementos interactivos como `<span>` o `<button>`.
-
-- Usa replace si no deseas guardar en historial.
-
-- El prefetch solo funciona en producción.
-
-### :: ¿Es compatible usar Link dentro de Layouts?
+### ¿Es compatible usar Link dentro de Layouts?
 
 Si, pero evítalos usar cuando:
 
-- `layout.tsx` depende de parámetros (`params`)   - Si estás en un layout dinámico como `app/media/[...slug]/layout.tsx`, los `params` cambian cuando navegas entre subrutas, pero el layout no se recarga automáticamente. Eso puede provocar desincronización entre lo que muestra el layout y el contenido actual.
+- **`layout.tsx` depende de parámetros (`params`)** — Si estás en un layout dinámico como `app/media/[...slug]/layout.tsx`, los `params` cambian cuando navegas entre subrutas, pero el layout **no se recarga automáticamente**. Eso puede provocar desincronización entre lo que muestra el layout y el contenido actual.
 
-- Precarga innecesaria en cada ruta  -  Si colocas muchos `Link` dentro de un layout persistente y esos links tienen `prefetch` activo, se puede generar precarga innecesaria de muchas rutas cada vez que se monta el layout. **Esto no rompe nada, pero puede afectar el rendimiento en apps grandes**.
+- **Precarga innecesaria en cada ruta** — Si colocas muchos `Link` dentro de un layout persistente y esos links tienen prefetch activo (por defecto), se puede generar precarga innecesaria de muchas rutas cada vez que se monta el layout. **Esto no rompe nada, pero puede afectar el rendimiento en apps grandes**.
 
 Entonces:
 
-- Usa `Link` en layouts cuando el menú sea global y no dependa de `params`.
+- Usa `Link` en layouts **cuando el menú sea global** y no dependa de `params`.
 
 - Si el menú cambia según la ruta, considera moverlo a un layout más específico o incluso al nivel de `page.tsx`.
+- Puedes encapsular la navegación en un componente tipo `<Navbar />` y re-utilizarlo donde convenga.
 
-- Puedes encapsular la navegación en un componente tipo `<Navbar>` y re-utilizarlo donde convenga.
+### Comparación con `<a>` tradicional
+
+![](https://cdn-images-1.medium.com/max/1600/1*roTl7Elz1LBo4K83ec_Z4w.png)
+
+---
+
+Hasta este punto, has aprendido a utilizar el componente `Link` para implementar navegación interna. Comprendiste cómo este componente mejora la experiencia del usuario al habilitar transiciones sin recarga, precarga automática de rutas visibles y soporte completo para rutas dinámicas como `[slug]` o `[...slug]`.
 
 ---
 

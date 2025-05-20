@@ -21,7 +21,7 @@ export default function ExamplePage() {
 }
 ```
 
-> **Nota**: El proyecto genera una página por default en `_/app_`
+> **Nota**: El proyecto genera una página por default en `_/app`
 
 ### Crear una página
 

@@ -7,58 +7,53 @@
 
 ---
 
-## Renderizado híbrido
+## Next.js— Renderizado híbrido (CRS, SSR, SSG)
 
-Una de las principales características de Next.js es su renderizado híbrido, lo que significa que puedes elegir cómo se renderiza cada página en función del caso de uso:
+### Renderizado híbrido
 
-- Del lado del cliente — CSR (Client Side Rendering).
+Una de las principales características de _Next.js_ es su **renderizado híbrido**, lo que significa que puedes **elegir** cómo se **renderiza** cada **página** en función del caso de uso:
 
-- Del servidor — SSR (Server Side Rendering).
+- Del lado del cliente — CSR (Client Side Rendering).
+- Del servidor — SSR (Server Side Rendering).
+- De forma estática — SSG (Static Site Generation).
 
-- De forma estática — SSG (Static Site Generation).
+> Nota: Para los ejemplos vamos a utilizar la API **JSON Placeholder**[[ref](https://jsonplaceholder.typicode.com/)] para simular la carga de publicaciones.
 
-> Nota: Para los ejemplos vamos utilizaremos la API JSON Placeholder [[ref]](https://jsonplaceholder.typicode.com/) para simular la carga de publicaciones.
+#### CSR (Client Side Rendering)
 
-### CSR (Client Side Rendering)
+##### **El enfoque es el siguiente**
 
-#### El enfoque es el siguiente
+- El **navegador** **solicita** la **página** y **recibe** un **HTML** **vacío**.
 
-- El navegador solicita la página y recibe un HTML vacío.
+- El **navegador** **descarga** el **Javascript** necesario.
+- **React** se encarga de **mostrar** el todo el **contenido** en el **cliente** (navegador del usuario).
 
-- El navegador descarga el Javascript necesario.
+##### **Es útil cuando**
 
-- React se encarga de mostrar el todo el contenido en el cliente (navegador del usuario).
-
-#### Es útil cuando
-
-- Los datos se obtienen después de que la página se ha cargado usando `useEffect`.
-
-- Cambia frecuentemente el contenido.
-
-- El SEO no es una prioridad.
-
+- Los **datos** se **obtienen** **después** de que la **página** se ha **cargado** usando `useEffect`.
+- **Cambia** **frecuentemente** el contenido.
+- **El SEO no es una prioridad.**
 - Se busca una experiencia dinámica o interactiva del lado del cliente.
 
-- Este enfoque es muy similar a lo que harías con la herramienta `create-react-app`, donde todo ocurre después de que el navegador carga la aplicación.
+Este enfoque es muy similar a lo que harías con la herramienta `create-react-app`, donde todo ocurre después de que el navegador carga la aplicación.
 
-#### Funcionamiento
+##### **Funcionamiento**
 
-- El componente se marca como `'use client'` **(Obligatorio)**.
+- El componente se marca como `'use client'` (**Obligatorio**).
 
-- El contenido se genera después de que la app se monta en el navegador.
-
+- El contenido se genera **después** de que la app se monta en el navegador.
 - No hay prerendering en el servidor.
 
-**Ejemplo:**
+##### **Ejemplo:**
 
 ```yaml
 src/app/csr/page.tsx
 ```
 
-```typescript
+```js
 // src/app/csr/page.tsx
 
-// **_Obligatorio: Componentes que se ejecutan en el navegador_**
+// ***Obligatorio: Componentes que se ejecutan en el navegador***
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -113,36 +108,37 @@ Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando
 http://localhost:3000/csr
 ```
 
-### SSR (Server Side Rendering)
+![](https://cdn-images-1.medium.com/max/1600/1*GpyXRkwdTrjNyZS4ZZogaQ.gif)
 
-#### El enfoque es el siguiente
+#### SSR (Server Side Rendering)
 
-- El servidor genera el HTML completo en cada solicitud (request).
+##### **El enfoque es el siguiente**
 
-- El contenido ya está renderizado antes de enviarlo al navegador.
+- El **servidor** **genera** el **HTML completo** en cada solicitud (request).
 
-#### Es útil cuando
+- El **contenido** ya está **renderizado** **antes** de enviarlo al navegador.
 
-- El contenido es dinámico, cambia seguido o depende del usuario.
+##### **Es útil cuando**
 
-- Necesitas que los datos estén listos antes de mostrar la página.
+- El **contenido** es **dinámico**, **cambia** **seguido** o **depende** del **usuario**.
 
-- Excelente para SEO, ya que el contenido está disponible desde el HTML inicial.
+- Necesitas que los **datos** estén listos **antes de mostrar la página**.
+- Excelente para **SEO**, ya que el contenido está disponible desde el HTML inicial.
 
-#### Funcionamiento
+##### **Funcionamiento**
 
 - La función `page.tsx` es asíncrona (`async`).
 
 - Se ejecuta en el servidor en cada request.
 - El HTML se genera en tiempo real y se envía prerenderizado.
 
-**Ejemplo:**
+##### **Ejemplo:**
 
 ```yaml
 src/app/ssr/page.tsx
 ```
 
-```typescript
+```js
 // src/app/ssr/page.tsx
 
 interface Post {
@@ -196,35 +192,37 @@ Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando
 http://localhost:3000/ssr
 ```
 
-### SSG (Static Site Generation)
+![](https://cdn-images-1.medium.com/max/1600/1*uA54JBjkEXOj8XAO_tmk6A.png)
 
-#### El enfoque es el siguiente
+#### SSG (Static Site Generation)
 
-- El contenido se genera una sola vez durante el build (`npm run build`).
+##### **El enfoque es el siguiente**
 
-- El HTML generado se muestra como un archivo estático en cada visita.
+- El contenido se **genera** **una sola vez** durante el build (`npm run build`).
 
-#### Es útil cuando
+- El **HTML** **generado** se muestra como un **archivo** **estático** en cada visita.
 
-- El contenido que no cambia con frecuencia.
+##### **Es útil cuando**
+
+- El contenido que **no cambia con frecuencia**.
 
 - Se busca una experiencia rápida para el usuario.
+- Excelente para **SEO**, ya que el contenido está disponible desde el HTML inicial.
 
-- Excelente para SEO, ya que el contenido está disponible desde el HTML inicial.
-
-#### Funcionamiento
+##### **Funcionamiento**
 
 - La función de la página es `async`.
-- Se ejecuta durante la etapa de build y los datos se cachean.
+
+- Se ejecuta **durante la etapa de build** y los datos se cachean.
 - Se puede controlar la revalidación manualmente (`revalidate`, `cache`).
 
-**Ejemplo:**
+##### **Ejemplo:**
 
 ```yaml
 src/app/ssg/page.tsx
 ```
 
-```typescript
+```js
 // src/app/ssg/page.tsx
 
 interface Post {
@@ -238,7 +236,7 @@ async function getPosts(): Promise<Post[]> {
   const res = await fetch(
     'https://jsonplaceholder.typicode.com/posts?_limit=5',
     {
-      // **\*Obligatorio** Asegura que se cachea la respuesta como estática
+      // ***Obligatorio** Asegura que se cachea la respuesta como estática
       // Ya sea que se ponga false o se agregue tiempo
       next: { revalidate: false },
     }
@@ -287,13 +285,19 @@ http://localhost:3000/ssg
 
 Si revisas el directorio generado después del build en `/.next/server/app/`, podrás observar que Next.js ha creado un archivo llamado `ssg.html`.
 
-Este archivo representa el contenido generado de forma estática durante el proceso de npm run build, y será cargado directamente a los usuarios en cada solicitud, sin necesidad de regenerarlo dinámicamente.
+Este archivo representa el contenido **generado de forma estática** durante el proceso de `npm run build`, y será cargado directamente a los usuarios en cada solicitud, sin necesidad de regenerarlo dinámicamente.
 
-### ¿CSR (Client Side Rendering) o SSR (Server Side Rendering)?
+![](https://cdn-images-1.medium.com/max/1600/1*WPH0vljujm54BjLaEp-alQ.png)
 
-Aunque CSR y SSR pueden parecer similares ya que ambas ejecutan código y hacen llamadas a APIs, realmente hay una diferencia clave: **el momento y el lugar donde ocurre el renderizado**.
+![](https://cdn-images-1.medium.com/max/1600/1*dRSJmnuLAmDhGxZp3Zi6TQ.png)
 
-```javascript
+---
+
+### ¿**CSR (Client Side Rendering) o SSR (Server Side Rendering)?**
+
+Aunque CSR y SSR pueden parecer **similares** ya que ambas **ejecutan** **código** y hacen **llamadas** a **APIs**, realmente **hay una diferencia clave**: **el momento y el lugar donde ocurre el renderizado**.
+
+```js
 // CSR
 'use client';
 useEffect(() => {
@@ -306,20 +310,78 @@ export default async function Page() {
 }
 ```
 
-#### Usa CSR cuando
+Veamos la siguiente tabla:
 
-- Necesitas datos o estado del navegador `localStorage`, `sessionStorage`, `navigator`)
+![](https://cdn-images-1.medium.com/max/1600/1*qSMW02kBzxhcDYR0jGnjig.png)
 
+#### **Usa CSR cuando**
+
+- Necesitas datos o estado del navegador `localStorage, sessionStorage, navigator`)
 - Temas con el cambio de idioma, modo oscuro, autenticación local.
-
 - El contenido cambia al interactuar con el usuario.
-
 - No necesitas prerenderizar datos para buscadores.
 
-#### Usa SSR cuando
+#### **Usa SSR cuando**
 
 - Quieres que el contenido esté disponible desde el principio para SEO
-
 - Necesitas que los datos estén siempre actualizados en cada request.
-
 - La página depende de cookies seguras o headers del request.
+
+### **CSR, SSR, SSG. ¿Cuál es la mejor opción?**
+
+![](https://cdn-images-1.medium.com/max/1600/1*A82EhYLOde6ZzL1zYUM8fA.png)
+
+---
+
+Hasta este punto, has aprendido cómo funciona el **renderizado híbrido en Next.js (CSR** , **SSR** y **SSG)**. También sabes identificar cuándo una página se está renderizando en el cliente o en el servidor.
+
+---
+
+## Ejecutar el proyecto
+
+Para correr o ejecutar el proyecto [[ref]](https://nextjs.org/docs/app/getting-started/installation#run-the-development-server):
+
+```bash
+npm run dev
+```
+
+Abre en tu navegador:
+
+```bash
+http://localhost:3000
+```
+
+---
+
+## Cómo descargar el proyecto
+
+Clona el repositorio:
+
+```bash
+git clone https://github.com/mauriciogc/next.js-15.3-1
+cd next.js-15.3-1
+```
+
+Cambia a la rama:
+
+```bash
+git checkout hybrid-rendering
+```
+
+Instala las dependencias:
+
+```bash
+npm install
+```
+
+Ejecuta el proyecto en modo desarrollo:
+
+```bash
+npm run dev
+```
+
+Abre tu navegador en:
+
+```yaml
+http://localhost:3000
+```

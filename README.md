@@ -62,7 +62,7 @@ import { useParams } from 'next/navigation';
 
 ### Ejemplos
 
-#### **Ejemplo (segmento dinámico simple)**
+#### **Ejemplo--Segmento dinámico simple**
 
 ```yaml
 src/app/posts/[id]/page.tsx
@@ -94,7 +94,7 @@ http://localhost:3000/1
 
 ![](https://cdn-images-1.medium.com/max/1600/1*GPe6ipgBdRK-xiq89v8mLQ.png)
 
-#### **Ejemplo** **(Segmentos dinámicos** `**[[...slug]]**`**)**
+#### **Ejemplo--Segmentos dinámicos `[[...slug]]`**
 
 ```yaml
 src/app/catalog/[[...slug]]/page.tsx

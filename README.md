@@ -7,95 +7,88 @@
 
 ---
 
-> Para simular la carga de datos en los ejemplos vamos utilizaremos la siguiente API:
->
-> - themealdb [[ref](https://www.themealdb.com/)]
+## `error.tsx`
 
-## error.tsx
+> Para todos los **ejemplos** se toma el siguiente **proyecto base[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)**] (branch: base-project-2).** Este proyecto contiene los archivos: `src/app/page.tsx` y `src/app/layout.tsx`, configurados con una estructura mínima.
 
-> Para todos los ejemplos se toma el siguiente proyecto base [[ref](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)] (`branch: base-project-2`).
+> Para simular la carga de datos en los ejemplos vamos utilizar la API **themoviedb**[[ref](https://developer.themoviedb.org/docs/getting-started)].
 
-### ¿Qué es error.tsx?
+### ¿Qué es `error.tsx`?
 
-`error.tsx` es una archivo especial del App Router que permite manejar errores de renderizado en una ruta específica mediante el patrón de Error Boundaries de React. Su función principal es capturar y renderizar errores que ocurren durante la renderización de rutas específicas, ya sea en Server Components, layouts, o en Client Components cuando se usan con Suspense.
+`error.tsx` es una archivo especial del **App Router** que permite manejar errores de renderizado en una ruta específica mediante el patrón de **Error Boundaries de React**. Su función principal es **capturar y renderizar errores que ocurren durante la renderización de rutas específicas**, ya sea en Server Components, layouts, o en Client Components cuando se usan con Suspense.
 
-Se trata de una forma declarativa y encapsulada de manejar errores específicos de una ruta o layout. A diferencia del enfoque tradicional de usar `try/catch`, este archivo permite desacoplar el manejo de errores de la lógica de renderizado, proporcionando una UX más robusta y una DX más mantenible.
+Se trata de una **forma declarativa y encapsulada** de manejar errores específicos de una ruta o layout. A diferencia del enfoque tradicional de usar `try/catch`, este archivo **permite desacoplar** el **manejo de errores** de la lógica de renderizado, proporcionando una UX más robusta y una DX más mantenible.
 
-Este archivo se define por ruta o layout, lo que significa que puedes tener un `error.tsx` global o uno local por sección.
+Este archivo **se define por ruta o layout**, lo que significa que puedes tener un `error.tsx` global o uno local por sección.
 
-> A tener en cuenta: Este archivo solo aplica en el contexto del App Router (introducido desde Next.js 13) y no funciona en el Pages Router.
+> **A tener en cuenta:** Este archivo solo aplica en el contexto del **App Router** (introducido desde Next.js 13) y **no funciona en el Pages Router**.
 
 ### Principales características
 
 - Se coloca en cualquier segmento del árbol de rutas bajo `app/`.
-
-- Implementa un Error Boundary de React (`componentDidCatch` y `getDerivedStateFromError` implícitos).
+- Implementa un **Error Boundary** de React (`componentDidCatch` y `getDerivedStateFromError` implícitos).
 
 - Soporta reinicio del estado con una función `reset()` que puede volver a intentar el render.
-
-- Solo captura errores de render, efectos y render async (no fetch o lógica de backend).
-
+- Solo captura errores de **render**, **efectos** y **render async** (no fetch o lógica de backend).
 - Puede anidarse: si falla un segmento hijo, se muestra su `error.tsx` más cercano.
-
 - Se desactiva en tiempo de desarrollo para facilitar el debugging
-
 - Puede coexistir con `loading.tsx`, `not-found.tsx` y `layout.tsx` en el mismo segmento.
-
-- Soporte automático para streaming + Suspense.
+- **Soporte automático para streaming + Suspense.**
 
 ### Ventajas
 
-- Scoped boundaries: Evita que la app se caiga ante un error inesperado.
+- **Scoped boundaries**: Evita que la app se caiga ante un error inesperado.
 
-- Mejor experiencia de usuario: Se pueden ofrecer mensajes personalizados, opciones de reintento.
-
-- Modularidad: Puedes tener un error boundary específico por sección (ej: `/movies`).
-
-- Reintentos controlados: Puedes reiniciar el layout con `reset()` sin recargar.
-
-- Separación de preocupaciones: El código de presentación del error vive separado del layout o de los componentes funcionales.
-
-- Integración con Suspense: Permite capturar errores durante el rendering asíncrono.
+- **Mejor experiencia de usuario**: Se pueden ofrecer mensajes personalizados, opciones de reintento.
+- **Modularidad**: Puedes tener un error boundary específico por sección (ej: `/movies`).
+- **Reintentos controlados**: Puedes reiniciar el layout con `reset()` sin recargar.
+- **Separación de preocupaciones:** El código de presentación del error vive separado del layout o de los componentes funcionales.
+- **Integración con Suspense:** Permite capturar errores durante el rendering asíncrono.}
 
 ### ¿Cómo se crea o implementa?
 
 Dentro de cualquier segmento de ruta (`/app/dashboard/`, `/app/profile/`, etc.), crea un archivo llamado `error.tsx`, define un componente con la siguiente estructura base:
 
-```typescript
+```js
 // error.tsx
 
 'use client';
 interface ErrorComponentProps {
-  error: Error;
-  reset: () => void;
+  error: Error
+  reset: () => void
 }
 
-export default function Error({ error, reset }: ErrorComponentProps) {
-  return <div className="p-4 text-red-600">Mensaje de error.</div>;
+export default function Error({
+  error,
+  reset,
+}: ErrorComponentProps) {
+  return (
+    <div className="p-4 text-red-600">
+      Mensaje de error.
+    </div>
+  );
 }
 ```
 
 ### ¿Cómo funciona?
 
-Internamente, Next.js se basa en el mecanismo de Error Boundaries de React, específicamente:
+Internamente, Next.js se basa en el **mecanismo de Error Boundaries de React**, específicamente:
 
-- Renderizado asíncrono: Cuando un Server Component falla, el error se propaga al boundary más cercano.
+- **Renderizado asíncrono**: Cuando un Server Component falla, el error se propaga al boundary más cercano.
 
-- React Error Boundary: Internamente, Next.js crea un ErrorBoundary React que envuelve los layouts y páginas.
+- **React Error Boundary**: Internamente, Next.js crea un `ErrorBoundary` React que envuelve los layouts y páginas.
+- **Streaming y Suspense**: Si el error ocurre en medio del stream, la parte ya renderizada puede mantenerse, y solo se renderiza el fallback donde se requiera.
+- **Reset via React internals**: La función `reset()` desencadena una reinicialización del segmento, limpiando cachés asociadas.
 
-- Streaming y Suspense: Si el error ocurre en medio del stream, la parte ya renderizada puede mantenerse, y solo se renderiza el fallback donde se requiera.
-
-- Reset via React internals: La función `reset()` desencadena una reinicialización del segmento, limpiando cachés asociadas.
-
-> Nota: los errores lanzados en métodos como `getServerSideProps`, `generateStaticParams`, o el backend no son capturados aquí. Estos requieren un middleware o logging a otro nivel.
+> **Nota:** los errores lanzados en métodos como `getServerSideProps`, `generateStaticParams`, o el backend **no** son capturados aquí. Estos requieren un middleware o logging a otro nivel.
 
 ### Ejemplos
 
-**Ejemplo básico -Un error lanzado manualmente.**
+#### Ejemplo básico —Un error lanzado manualmente.
 
-Crea el `error.tsx` y `page.tsx` en `src/app/error-handling-ex`:
+Crea el `error.tsx` y `page.tsx` en `src/app/error-handling-ex`
 
-```typescript
+```js
 // src/app/error-handling-ex/error.tsx
 'use client';
 
@@ -105,8 +98,8 @@ export default function RootError({
   error,
   reset,
 }: {
-  error: Error;
-  reset: () => void;
+  error: Error,
+  reset: () => void,
 }) {
   useEffect(() => {
     console.error('Error capturado en error.tsx: ', error);
@@ -131,7 +124,7 @@ export default function RootError({
 }
 ```
 
-```typescript
+```js
 // app/error-handling-example/page.tsx
 
 'use client';
@@ -163,7 +156,7 @@ export default function ErrorExamplePage() {
 
 Actualiza la página principal `/app/page.tsx`:
 
-```typescript
+```js
 // src/app/page.tsx
 
 import Link from 'next/link';
@@ -183,23 +176,25 @@ export default function Home() {
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando `http://localhost:3000`, da clic en "Ir a error controlado"
+![](https://cdn-images-1.medium.com/max/1600/1*l5GO7gtgoYS-LRxEjKH2bA.png)
 
-**¿Qué está pasando aquí?**
+Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando `http://localhost:3000`, da clic en “Ir a error controlado”
 
-- Estado local con useState controla si debe lanzarse un error.
+![](https://cdn-images-1.medium.com/max/1600/1*L_r4z_etcbibj6KU3crvuQ.gif)
 
+##### ¿Qué está pasando aquí?
+
+- **Estado local** con `useState` controla si debe lanzarse un error.
 - Al lanzar el error, React lanza una excepción durante el render.
 
-- Next.js detecta que hay un error.tsx en el mismo segmento de ruta y lo renderiza automáticamente.
-
+- Next.js detecta que hay un `error.tsx` en el mismo segmento de ruta y lo renderiza automáticamente.
 - La función `reset()` reinicia el estado del segmento (React remonta el componente).
 
-#### **Ejemplo - Petición de series top con la API de themoviedb (SSG)**
+#### Ejemplo — Petición de series top con la API de themoviedb (SSG)
 
 Crea el componente `List` en `src/components/`:
 
-```typescript
+```js
 // src/components/List.tsx
 
 'use client';
@@ -242,7 +237,7 @@ export default function List({ list }: { list: List[] }) {
 
 Crea el servicio `tmdbService` en `src/services/`:
 
-```typescript
+```js
 // src/services/tmdbService.ts
 
 const TMDB_API_KEY = 'TU API KEY';
@@ -269,9 +264,9 @@ export async function getSeries(type = 'tv') {
 }
 ```
 
-Crea el `error.tsx`, `loading.tsx` y `page.tsx` en `src/app/series`:
+Crea el `error.tsx`, `loading.tsx` y `page.tsx` en `src/app/series`
 
-```typescript
+```js
 // src/app/series/loading.tsx
 
 export default function Loading() {
@@ -286,7 +281,7 @@ export default function Loading() {
 }
 ```
 
-```typescript
+```js
 // src/app/series/error.tsx
 'use client';
 
@@ -296,8 +291,8 @@ export default function Error({
   error,
   reset,
 }: {
-  error: Error;
-  reset: () => void;
+  error: Error,
+  reset: () => void,
 }) {
   const router = useRouter();
   useEffect(() => {
@@ -319,7 +314,7 @@ export default function Error({
 }
 ```
 
-```typescript
+```js
 // src/app/series/page.tsx
 
 import { getSeries } from '@/services/tmdbService';
@@ -341,7 +336,7 @@ export default async function SeriesPage() {
 
 Actualiza la página principal `/app/page.tsx`, agregando el `Link` a `/series`:
 
-```typescript
+```js
 // src/app/page.tsx
 
 import Link from 'next/link';
@@ -368,29 +363,36 @@ export default function Home() {
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando `http://localhost:3000`, da clic en "Ir a las series".
+![](https://cdn-images-1.medium.com/max/1600/1*eQ7F_cZ8vtbWPfIsJEqysA.png)
+
+Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando `http://localhost:300`, da clic en “Ir a las series”.
+
+![](https://cdn-images-1.medium.com/max/1600/1*1IPXeVEbfgYMCZg960kevw.gif)
 
 Los siguientes pasos son para bloquear/desbloquear la API y probar el mensaje:
 
-- Bloquea el dominio api.themoviedb.org desde tus herramientas de red o firewall (puedes usar herramientas como DevTools → Network conditions, Mock Service Worker, Charles Proxy, etc.)
+- **Bloquea el dominio** `**api.themoviedb.org**` desde tus herramientas de red o firewall (puedes usar herramientas como _DevTools → Network conditions_, _Mock Service Worker_, _Charles Proxy_, etc.)
 
-- Accede a la página para forzar un error de red.
+- Accede a la página para **forzar un error de red.**
+- Verifica que se muestra correctamente la interfaz de `error.tsx`
+- Luego, **desbloquea el dominio**
+- Haz clic en el botón **“Reintentar”** (que internamente ejecuta `reset()`), y observa cómo la página…
 
-- Verifica que se muestra correctamente la interfaz de error.tsx
+![](https://cdn-images-1.medium.com/max/1600/1*Ce_YabNBzr7WgVNkjGhjvw.gif)
 
-- Luego, desbloquea el dominio
+… no renderiza correctamente (_aunque ya no haya error_).
 
-- Haz clic en el botón "Reintentar" (que internamente ejecuta reset()), y observa cómo la página no renderiza correctamente (aunque ya no haya error).
+![](https://cdn-images-1.medium.com/max/1600/0*kcAhLKtWE4WR6r1P.gif)
 
-Es importante comprender que `reset()` solo re-renderiza los componentes del lado del cliente. Si tu página o componentes dependen de datos o renderizado del lado del servidor (como es este caso), `reset()` por sí solo no actualizará esos contenidos.
+**Es importante comprender** que `reset()` **solo re-renderiza los componentes del lado del cliente**. Si tu página o componentes dependen de datos o renderizado del lado del servidor (como es este caso), `reset()` por sí solo no actualizará esos contenidos.
 
-Para forzar una re-renderización completa que incluye tanto componentes del lado del cliente como del servidor, se recomienda utilizar el hook `useRouter()` de next/navigation y la función `startTransition()` de React.
+Para **forzar una re-renderización completa** que incluye tanto **componentes** del lado del **cliente** como del **servidor**, se recomienda **utilizar** el hook `useRouter()` de next/navigation y la función `startTransition()` de React.
 
-Esto va a garantizar una re-renderización sincronizada de ambos lados, cliente y servidor.
+Esto va a **garantizar** una **re-renderización sincronizada de ambos lados, cliente y servidor**.
 
-Actualiza `error.tsx`:
+Actualiza `error.tsx` :
 
-```typescript
+```js
 // src/app/series/error.tsx
 'use client';
 
@@ -401,8 +403,8 @@ export default function Error({
   error,
   reset,
 }: {
-  error: Error;
-  reset: () => void;
+  error: Error,
+  reset: () => void,
 }) {
   const router = useRouter();
   useEffect(() => {
@@ -429,21 +431,24 @@ export default function Error({
 }
 ```
 
-**¿Por qué `startTransition`?**
+##### ¿Por qué `startTransition`?
 
-- `reset()` es ideal para errores causados por interacciones del cliente, pero no reinicia la lógica del servidor.
-- `router.refresh()` actualiza el contenido SSR/Server Components, pero no limpia el estado del cliente.
-- `startTransition()` permite coordinar ambas operaciones sin bloquear el render principal, garantizando una experiencia fluida y coherente en toda la aplicación.
+- `reset()` es ideal para errores causados por interacciones del cliente, pero **no reinicia la lógica del servidor**.
+
+- `router.refresh()` actualiza el contenido SSR/Server Components, pero **no limpia el estado del cliente**.
+- `startTransition()` permite **coordinar ambas operaciones sin bloquear el render principal**, garantizando una experiencia fluida y coherente en toda la aplicación.
 
 Ahora sí, repite todos los pasos…
 
-#### **Ejemplo - Petición de películas top con la API de themoviedb (CSR)**
+![](https://cdn-images-1.medium.com/max/1600/1*UcvKoloD0qrq1OeYbfWykQ.gif)
 
-Crea el `error.tsx` y `page.tsx` en `src/app/movies`:
+#### Ejemplo — Petición de películas top con la API de themoviedb (CSR)
 
-> Nota: Por ahora vamos a copiar y a pegar el mismo que tenemos en /app/series/error.tsx (más adelante veremos cómo reutilizar el mismo archivo de error)
+Crea el `error.tsx` y `page.tsx` en `src/app/movies`
 
-```typescript
+> **Nota**: Por ahora vamos a copiar y a pegar el mismo que tenemos en `/app/series/error.tsx` (más adelante veremos cómo reutilizar el mismo archivo de error)
+
+```js
 // Es el mismo que tenemos en src/app/series/error.tsx
 
 // src/app/movies/error.tsx
@@ -457,8 +462,8 @@ export default function Error({
   error,
   reset,
 }: {
-  error: Error;
-  reset: () => void;
+  error: Error,
+  reset: () => void,
 }) {
   const router = useRouter();
   useEffect(() => {
@@ -485,7 +490,7 @@ export default function Error({
 }
 ```
 
-```typescript
+```js
 // src/app/movies/page.tsx
 
 'use client';
@@ -547,7 +552,7 @@ export default function MoviesPage() {
 
 Actualiza la página principal `/src/app/page.tsx`, agregando el `Link` a `/movies`:
 
-```typescript
+```js
 // src/app/page.tsx
 
 import Link from 'next/link';
@@ -579,21 +584,25 @@ export default function Home() {
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando `http://localhost:3000`, da clic en "Ir a las películas".
+![](https://cdn-images-1.medium.com/max/1600/1*bfyBkHoCsGUVScdsNJeY7A.png)
 
-#### **Ejemplo - Cachar un error por componente con Suspense**
+Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando `http://localhost:3000`, da clic en “Ir a las películas”.
 
-Instala desde la consola el paquete `react-error-boundary`:
+![](https://cdn-images-1.medium.com/max/1600/1*pJDB4y75Pmo-K6X7zZfoBw.gif)
 
-```yaml
+#### Ejemplo — Cachar un error por componente con `Suspense`
+
+Instala desde la consola el paquete `react-error-boundary`
+
+```bash
 npm install react-error-boundary
 ```
 
-Crea el componente `ErrorList` en `src/components/` :
+Crea el componente `ErrorList` en `src/components/` :
 
-Será el componente de React que se muestre cuando ocurre un error dentro de un Error Boundary.
+Será el **componente de React que se muestre cuando ocurre un error dentro de un Error Boundary**.
 
-```typescript
+```js
 // src/components/ErrorList.tsx
 'use client';
 
@@ -625,15 +634,14 @@ export default function ErrorList({
 }
 ```
 
-- 'use client' es obligatorio en App Router ya que indica que el archivo es un Client Component. Recuerda que los Error Boundaries de React solo funcionan en el cliente, ya que internamente usan el ciclo de vida `componentDidCatch` (inexistente en el server).
+- `'use client'` es **obligatorio en App Router** ya que indica que el archivo es un **Client Component**. Recuerda que los **Error Boundaries de React solo funcionan en el cliente**, ya que internamente usan el ciclo de vida `componentDidCatch` (inexistente en el server).
 
-- Esta interfaz tipa las props que ErrorFallback recibe automáticamente cuando es usado en un `<ErrorBoundary />`.
-
-- Al hacer clic en el botón "Reintentar", ejecuta `resetErrorBoundary()`, que reinicia el estado del Error Boundary (usa el mismo patrón que `reset()`).
+- Esta interfaz tipa las props que `ErrorFallback` recibe automáticamente cuando es usado en un `<ErrorBoundary />`.
+- Al hacer clic en el botón “Reintentar”, ejecuta `resetErrorBoundary()`, que **reinicia el estado del Error Boundary** (usa el mismo patrón que `reset()`).
 
 Crea el componente `WrapperList` en `src/components`, será el encargado de llamar al servicio y mostrar la lista:
 
-```typescript
+```js
 import { getSeries } from '@/services/tmdbService';
 import List from '@/components/List';
 
@@ -643,36 +651,35 @@ export default async function WrapperList({ type = 'tv' }: { type?: string }) {
 }
 ```
 
-Crea el componente `SkeletonList` en `src/components` :
+Crea el componente `SkeletonList` en `src/components` :
 
-```typescript
+```js
 // src/components/SkeletonList.tsx
 
 interface SkeletonProps {
-repeat?: number;
+  repeat?: number;
 }
 export default function SkeletonList({ repeat = 1 }: SkeletonProps) {
-return (
-
-<div className="grid grid-cols-4 md:grid-cols-8 gap-4">
-{Array.from({ length: repeat }).map((\_, index) => (
-<div
+  return (
+    <div className="grid grid-cols-4 md:grid-cols-8 gap-4">
+      {Array.from({ length: repeat }).map((_, index) => (
+        <div
           key={index}
           className="p-2 rounded animate-pulse space-y-2 min-h-50"
         >
-<div className="h-2/3 bg-gray-300 rounded w-full " />
-<div className="h-1/14 bg-gray-200 rounded w-3/4" />
-<div className="h-1/16 bg-gray-200 rounded w-1/4" />
-</div>
-))}
-</div>
-);
+          <div className="h-2/3 bg-gray-300 rounded w-full " />
+          <div className="h-1/14 bg-gray-200 rounded w-3/4" />
+          <div className="h-1/16 bg-gray-200 rounded w-1/4" />
+        </div>
+      ))}
+    </div>
+  );
 }
 ```
 
-Crea el `page.tsx` en `src/app/media`:
+Crea el `page.tsx` en `src/app/media` :
 
-```typescript
+```js
 // src/app/media/page.tsx
 
 import { ErrorBoundary } from 'react-error-boundary';
@@ -707,21 +714,21 @@ export default function MediaPage() {
 ```
 
 Donde:
+
 **`<ErrorBoundary FallbackComponent={ErrorList}>`**
 
-- Este es un Error Boundary que proviene de la librería react-error-boundary de React.
+Este es un **Error Boundary** que proviene de la librería `react-error-boundary` de React.
 
-- Atrapa cualquier error en tiempo de render que ocurra dentro de sus hijos (`<Suspense>`, `<WrapperList>`, etc.).
+- Atrapa cualquier **error en tiempo de render** que ocurra dentro de sus hijos (`<Suspense>`, `<WrapperList>`, etc.).
 
-- En lugar de mostrar una pantalla rota, renderiza el componente que le pasas como FallbackComponent.
-
-- En este caso: ErrorList será el componente visual que se mostrará cuando ocurra un error.
+- En lugar de mostrar una pantalla rota, renderiza el componente que le pasas como `FallbackComponent`.
+- En este caso: `ErrorList` será el componente visual que se mostrará cuando ocurra un error.
 
 **`<Suspense fallback={<SkeletonList repeat={4} />}>`**
 
-- API de React y Next.js App Router que define una UI de carga temporal mientras se resuelve un componente asíncrono o una promesa (como un fetch o await en un Server Component).
+API de React y Next.js App Router que define una **UI de carga temporal** mientras se **resuelve** un componente **asíncrono** o una **promesa** (como un `fetch` o `await` en un **Server Component**).
 
-- Si `<WrapperList />` tarda en resolver datos (como llamar a la API de TMDB), entonces se muestra el fallback: `<SkeletonList />`.
+- Si `<WrapperList />` tarda en resolver datos (como llamar a la API de TMDB), entonces se muestra el `fallback`: `<SkeletonList />`.
 
 - El `Suspense` se reemplaza automáticamente por el contenido real una vez que se resuelve.
 
@@ -730,15 +737,14 @@ Donde:
 - Invoca `getSeries()`.
 
 - Puede lanzar errores si la API falla (`throw new Error(...)`).
-
 - Puede tardar en resolverse (por eso lo envolvemos en `Suspense`).
 
-> **¿Por qué se hace así?**
-> Porque `Suspense` no atrapa errores. Solo maneja carga (render async). `ErrorBoundary` no muestra loading UI, solo captura errores.
+> **¿Por qué se hace así?**  
+> Porque `Suspense` **no atrapa errores**. Solo maneja carga (render async). `ErrorBoundary` **no muestra loading UI**, solo captura errores.
 
 Actualiza la página principal `/src/app/page.tsx`, agregando el `Link` a `/media`:
 
-```typescript
+```js
 // src/app/page.tsx
 
 import Link from 'next/link';
@@ -779,19 +785,24 @@ export default function Home() {
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando `http://localhost:3000`, da clic en "Ir al top".
+![](https://cdn-images-1.medium.com/max/1600/1*nTyxZA3cafZAol9NvhfiwQ.png)
+
+Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando `http://localhost:3000`, da clic en “Ir al top”.
+
+![](https://cdn-images-1.medium.com/max/1600/1*rFHg4dsfJ4jtWTfeeck85A.gif)
 
 ### A considerar
 
-- No captura errores de efectos (`useEffect`, etc.) → usa window.onerror o herramientas externas para eso.
+- No captura errores de efectos (`useEffect`, etc.) → usa `window.onerror` o herramientas externas para eso.
 
 - Compatible con Server Actions y `cache: 'no-store'`, aunque los errores deben lanzarse en el render.
-
-- `error.tsx` debe ser un Client Component ya que necesita acceso a `reset()` y estados del cliente.
-
+- `error.tsx` debe ser un **Client Component** ya que necesita acceso a `reset()` y estados del cliente.
 - No intentes capturar errores de eventos o efectos, no están soportados.
+- **Usa** `reset()` solo si sabes que el error es transitorio.
 
-- Usa `reset()` solo si sabes que el error es transitorio.
+---
+
+Has aprendido a manejar errores localizados usando `error.tsx`, tanto en SSR como CSR, aprovechando `React.Suspense` y `Error Boundary` para interceptar fallos de render o fetch.
 
 ---
 

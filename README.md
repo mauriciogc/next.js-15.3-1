@@ -7,55 +7,46 @@
 
 ---
 
-> Para simular la carga de datos en los ejemplos vamos utilizaremos la siguiente API:
->
-> - themoviedb [[ref](https://developer.themoviedb.org/docs/getting-started)]
+## `loading.tsx`
 
-## loading.tsx
+> Para todos los **ejemplos** se toma el siguiente **proyecto base[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)**] (branch: base-project-2).** Este proyecto contiene los archivos: `src/app/page.tsx` y `src/app/layout.tsx`, configurados con una estructura mínima.
 
-> Para todos los ejemplos se toma el siguiente proyecto base [[ref](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)] (`branch: base-project-2`).
+> Para simular la carga de datos en los ejemplos vamos utilizar la API **themoviedb**[[ref](https://developer.themoviedb.org/docs/getting-started)].
 
-### ¿Qué es loading.tsx?
+### ¿Qué es `loading.tsx`?
 
-`loading.tsx` es un archivo especial en el sistema de rutas del **App Router** de Next.js que permite definir una interfaz de carga para una ruta específica mientras se resuelven datos o componentes asincrónicos. Su función principal es proporcionar un fallback visual inmediato (como un spinner, skeleton o mensaje) mientras la página o el layout asociado se termina de cargar.
+`loading.tsx` es un archivo especial en el sistema de rutas del **App Router** de Next.js que permite definir una interfaz de carga **para una ruta específica** mientras se resuelven **datos o componentes asincrónicos**. Su función principal es proporcionar un **_fallback_** **visual** **inmediato** (como un spinner, skeleton o mensaje) mientras la página o el layout asociado se termina de cargar.
 
-`loading.tsx` es una convención de archivo introducida con el **App Router** (Next.js 13+), altamente integrada con la arquitectura moderna basada en React Suspense, streaming server rendering, y componentes de servidor/cliente mixtos.
+`loading.tsx` es una convención de archivo introducida con el App Router (Next.js 13+), altamente **integrada** con la **arquitectura** moderna basada en `React Suspense`, _streaming server rendering_, y componentes de servidor/cliente mixtos.
 
-> Internamente, Next.js lo utiliza como fallback de un `<Suspense />`.
+> _Internamente, Next.js lo utiliza como fallback de un_ `_<Suspense />_`_._
 
 ### Principales características
 
-- Scoped: Se define por carpeta de ruta, por lo que su efecto es local.
+- **Scoped**: Se define por carpeta de ruta, por lo que su efecto es local.
 
-- ️Autocapturado por el sistema de rutas: No requiere ser importado ni llamado manualmente.
-
-- Compatible con streaming y suspense: Ideal para experiencias graduales de renderizado.
-
-- Funciona tanto para layouts como para páginas: Se puede colocar en niveles anidados.
-
-- React Server Component por defecto, pero puede convertirse en Client Component si lo necesita (`'use client'`).
-
-- Se activa automáticamente cuando un layout o page está en proceso de carga (SSR/SSG con `await`, `fetch`, etc.).
+- ️**Autocapturado por el sistema de rutas**: No requiere ser importado ni llamado manualmente.
+- **Compatible con streaming y suspense**: Ideal para experiencias graduales de renderizado.
+- **Funciona tanto para layouts como para página**s: Se puede colocar en niveles anidados.
+- **React Server Component por defect**o, pero **puede convertirse en Client Component** si lo necesita (**`'use client'`**).
+- **Se activa automáticamente** cuando un layout o page está en proceso de carga (SSR/SSG con `await`, fetch, etc.).
 
 ### Ventajas
 
-- Mejora la experiencia de usuario (UX): Evita pantallas en blanco o parpadeos mientras se carga contenido.
+- **Mejora la experiencia de usuario (UX)**: Evita pantallas en blanco o parpadeos mientras se carga contenido.
 
-- Streaming progresivo: Permite que el contenido se renderice por partes y el usuario vea una respuesta rápida.
-
-- Composición modular: Se puede personalizar por cada ruta anidada, generando feedback visual contextual.
-
-- Evita cargar lógica manualmente con Suspense en cada página: Al definir loading.tsx, Next.js lo gestiona por ti.
-
-- Mejor percepción de velocidad: Reduce la sensación de lentitud en aplicaciones pesadas o cargadas de datos.
+- **Streaming progresivo**: Permite que el contenido se renderice por partes y el usuario vea una respuesta rápida.
+- **Composición modular**: Se puede personalizar por cada ruta anidada, generando feedback visual contextual.
+- **Evita cargar lógica manualmente con** `Suspense` **en cada página**: Al definir `loading.tsx`, Next.js lo gestiona por ti.
+- **Mejor percepción de velocidad**: Reduce la sensación de lentitud en aplicaciones pesadas o cargadas de datos.
 
 ### ¿Cómo se crea o implementa?
 
 - Dentro de una carpeta de ruta (`app/`, `app/about/`, `app/[slug]/`, etc.), crea un archivo `loading.tsx`.
 
-- Exporta un componente React de servidor (usualmente un spinner, placeholder o skeleton).
+- Exporta un componente React de servidor (usualmente un _spinner_, _placeholder_ o _skeleton_).
 
-```typescript
+```js
 // app/loading.tsx
 
 export default function Loading() {
@@ -65,47 +56,52 @@ export default function Loading() {
 
 - Al navegar o renderizar rutas que impliquen carga asincrónica, Next.js lo mostrará automáticamente.
 
-### ¿Cómo funciona? 
+Ejemplo en la estructura de carpetas:
 
-Antes de entender cómo funciona `loading.tsx`, expliquemos brevemente qué es Suspense de React.
+![](https://cdn-images-1.medium.com/max/1600/1*hdNoab8XHE8KQwlGCq0AkA.png)
 
-`Suspense` es un componente de React que suspende temporalmente la renderización mientras se resuelve una operación asíncrona, como un `fetch()` o una importación dinámica. Durante ese tiempo, en lugar de mostrar contenido vacío, React muestra el contenido definido en el fallback.
+###¿Cómo funciona?
 
-`loading.tsx` funciona como un fallback implícito para Suspense. En el App Router, Next.js genera automáticamente un árbol de `<Suspense>` alrededor de cada segmento de ruta que tenga un `loading.tsx`, convirtiéndolo en un punto de carga segmentado y controlado.
+Antes de entender cómo funciona `loading.tsx`, expliquemos brevemente qué es `Suspense` de React.
+
+`**Suspense**` **es un componente de React que suspende temporalmente la renderización** mientras se resuelve una operación asíncrona, como un `fetch()` o una importación dinámica. Durante ese tiempo, en lugar de mostrar contenido vacío, React **muestra el contenido definido en el `fallback`**.
+
+`loading.tsx` **funciona como un fallback implícito para Suspense**. En el App Router, Next.js **genera automáticamente un árbol de `<Suspense>` alrededor de cada segmento de ruta que tenga un `loading.tsx`**, convirtiéndolo en un punto de carga segmentado y controlado.
 
 Se activa cuando hay:
 
-- Promesas pendientes (`await` en `layout.tsx`, `page.tsx`, o server actions) o Lazy imports dinámicos (`dynamic()`)
+- Promesas pendientes (`await` en `layout.tsx`, `page.tsx`, o `server actions`) o Lazy imports dinámicos (`dynamic()`)
 
-Internamente, Next.js aplica la estrategia de segment-based streaming:
+Internamente, Next.js aplica la estrategia de **segment-based streaming**:
 
 - El layout se empieza a renderizar desde la raíz.
 
 - Si encuentra un layout hijo o una página que no ha terminado, renderiza el `loading.tsx` de esa ruta.
-
-- Cada segmento tiene su propio "flight" (mensaje serializado) en el streaming que React renderiza progresivamente.
-
+- Cada segmento tiene su propio “flight” (mensaje serializado) en el streaming que React renderiza progresivamente.
 - Una vez resulto, reemplaza el `loading.tsx` con el contenido real.
 
-**Esto sucede automáticamente e implícitamente sin necesidad de usar `Suspense` manualmente.**
+**Esto sucede automáticamente e implícitamente sin necesidad de usar** `Suspense` **manualmente.**
 
-Esto es posible gracias al soporte nativo de React 18 para Suspense y al streaming parcial de Next.js. Cuando la promesa de los datos se resuelve, el contenido final reemplaza al fallback `loading.tsx` sin necesidad de un re-render completo del árbol.
+![](https://cdn-images-1.medium.com/max/1600/1*w1Y6Aym1o6qwRYDl5vy02Q.png)
+
+Esto es **posible** gracias al **soporte** **nativo** de **React 18** para `Suspense` y al streaming parcial de Next.js. Cuando la promesa de los datos se resuelve, el contenido final reemplaza al fallback `loading.tsx` sin necesidad de un re-render completo del árbol.
 
 > **Importante:** No hay fallback global si no defines `loading.tsx`, por lo que solo se mostraría una pantalla en blanco hasta que todo el árbol se resuelva.
 
-**¿Qué activa loading.tsx ?**
+#### ¿Qué activa `loading.tsx` ?
 
 - Uso de `fetch()` en un server component.
 
 - Server Component o Carda de layout anidado.
-
-- Navegación entre rutas con Link y siempre y cuando hay un fetching involucrado.
+- Navegación entre rutas con `Link` y siempre y cuando hay un fetching involucrado.
 
 ### Ejemplos
 
-#### **Ejemplo básico - loading en la raíz**
+#### Ejemplo básico — loading en la raíz
 
-```typescript
+Crea el componente `loading` en `src/app/`:
+
+```js
 // app/loading.tsx
 
 export default function LoadingRoot() {
@@ -120,9 +116,9 @@ export default function LoadingRoot() {
 }
 ```
 
-En `app/page.tsx` vamos tener un fecth artificial
+En `app/page.tsx` vamos tener un `fecth` artificial
 
-```typescript
+```js
 //src/app/page.tsx
 
 export default async function Home() {
@@ -137,15 +133,19 @@ export default async function Home() {
 }
 ```
 
-> Recuerda: El `loading.tsx` se activa automáticamente porqué `page.tsx` contiene código asíncrono.
+> **Recuerda**: El `loading.tsx` se activa automáticamente porqué `page.tsx` contiene código asíncrono.
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300`, verás el loading.tsx durante 5 segundos y luego se cargará el contenido.
+![](https://cdn-images-1.medium.com/max/1600/1*BE6Tkl9D8iS2enh-mRTXEg.png)
 
-#### **Ejemplo - loading anidado**
+Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:300](http://localhost:300)`, verás el `loading.tsx` durante 5 segundos y luego se cargará el contenido.
 
-Crea el componente Navbar en `src/components/`:
+![](https://cdn-images-1.medium.com/max/1600/1*wHvV-PB4_r4ojKhOirgvSA.gif)
 
-```typescript
+#### Ejemplo — loading anidado
+
+Crea el componente `Navbar` en `src/components/`:
+
+```js
 // src/components/Navbar.tsx
 'use client';
 
@@ -173,9 +173,9 @@ const Navbar = () => {
 export default Navbar;
 ```
 
-Importa el componente Navbar al layout global (**RootLayout**) `src/app/layout.tsx`:
+Importa el componente `Navbar` al layout global (**RootLayout**) `src/app/layout.tsx`:
 
-```typescript
+```js
 //src/app/layout.tsx
 
 import Navbar from '@/components/Navbar';
@@ -184,7 +184,7 @@ import './globals.css';
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode,
 }>) {
   return (
     <html lang="en">
@@ -199,9 +199,9 @@ export default function RootLayout({
 }
 ```
 
-Crea el componente Card en `/src/components/`:
+Crea el componente `Card` en `/src/components/`:
 
-```typescript
+```js
 //src/components/Card.tsx
 
 interface CardProps {
@@ -225,9 +225,9 @@ const Card = ({ title, imageUrl, age }: CardProps) => {
 export default Card;
 ```
 
-Crea el servicio `tmdbService` en `/src/services/` :
+Crea el servicio `tmdbService` en `/src/services/` :
 
-```typescript
+```js
 // src/services/tmdbService.tsx
 
 const API_KEY = 'TU-API-KEY';
@@ -259,7 +259,7 @@ export async function fetchMovies(category: string): Promise<any> {
 
 Crea el `loading.tsx` y `page.tsx` de movies en `src/app/movies/`:
 
-```typescript
+```js
 // app/movies/loading.tsx
 
 export default function MoviesLoading() {
@@ -274,7 +274,7 @@ export default function MoviesLoading() {
 }
 ```
 
-```typescript
+```js
 // src/app/movies/page.tsx
 
 import Card from '@/components/Card';
@@ -283,11 +283,11 @@ import { fetchMovies } from '@/services/tmdbService';
 const IMAGE_URL = 'https://image.tmdb.org/t/p/w400';
 
 type Movie = {
-  id: number;
-  title: string;
-  poster_path: string;
-  release_date: string;
-  vote_average: number;
+  id: number,
+  title: string,
+  poster_path: string,
+  release_date: string,
+  vote_average: number,
 };
 
 export default async function MoviesPage() {
@@ -321,13 +321,17 @@ export default async function MoviesPage() {
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300`, navega a la sección de Movies, verás el `loading.tsx` y luego se cargará el contenido.
+![](https://cdn-images-1.medium.com/max/1600/1*A_68ahjpR42XdWKapVr-Dg.png)
 
-#### **Ejemplo - Cargando el loading más cercano**
+Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:300](http://localhost:300)`, navega a la sección de `Movies`, verás el `loading.tsx` y luego se cargará el contenido.
 
-Actualiza el componente Navbar, agregando el Link a blog:
+![](https://cdn-images-1.medium.com/max/1600/1*3bwb6XulCV7zlbDveKof0w.gif)
 
-```typescript
+#### Ejemplo — Cargando el loading más cercano
+
+Actualiza el componente `Navbar`, agregando el `Link` a blog:
+
+```js
 // src/components/Navbar.tsx
 'use client';
 
@@ -362,7 +366,7 @@ export default Navbar;
 
 Crea el `loading.tsx` y `page.tsx` del blog en `src/app/blog`:
 
-```typescript
+```js
 // src/app/blog/loading.tsx
 
 export default function BlogLoading() {
@@ -375,7 +379,7 @@ export default function BlogLoading() {
 }
 ```
 
-```typescript
+```js
 // src/app/blog/page.tsx
 
 import Link from 'next/link';
@@ -408,7 +412,7 @@ export default function BlogHomePage() {
 
 Crea el `loading.tsx` y `page.tsx` de tech en `src/app/blog/tech`:
 
-```typescript
+```js
 // src/app/blog/tech/loading.tsx
 
 export default function TechLoading() {
@@ -421,7 +425,7 @@ export default function TechLoading() {
 }
 ```
 
-```typescript
+```js
 // src/app/blog/tech/page.tsx
 
 export default async function TechArticlesPage() {
@@ -440,7 +444,7 @@ export default async function TechArticlesPage() {
 
 Crea la `page.tsx` de design en `src/app/blog/design`:
 
-```typescript
+```js
 // src/app/blog/design/page.tsx
 
 export default async function DesignArticlesPage() {
@@ -457,58 +461,67 @@ export default async function DesignArticlesPage() {
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300`, ve a la sección de blog y navega en las dos secciones que tiene (blog/tech y blog/design).
+![](https://cdn-images-1.medium.com/max/1600/1*3Pw56UgB3SFyZfbiTurw5A.png)
+
+Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:300](http://localhost:300)`, ve a la sección de blog y navega en las dos secciones que tiene (`blog/tech` y `blog/design`).
+
+![](https://cdn-images-1.medium.com/max/1600/1*DFjrpSwgP2NTKlIsdTkAog.gif)
 
 Podemos observar lo siguiente:
 
 - Al acceder a `/blog/tech`, se muestra su propio `loading.tsx`.
 
-- Al entrar a `/blog/design`, se activa el loading.tsx que está en la carpeta `/blog`.
+- Al entrar a `/blog/design`, se activa el `loading.tsx` que está en la carpeta `/blog`.
 
-**¿Por qué ocurre esto?**
-Esto se debe al comportamiento jerárquico implícito del sistema de archivos del App Router en Next.js.
+Esto tiene todo el sentido si analizamos la estructura de carpetas de forma jerárquica:
+
+![](https://cdn-images-1.medium.com/max/1600/1*ZR3miyda1P2etKDRf4kaQw.png)
+
+#### ¿Por qué ocurre esto?
+
+Esto se debe al **comportamiento jerárquico implícito** del sistema de archivos del App Router en Next.js.
 
 > **Recuerda**: Next.js usará el archivo `loading.tsx` más cercano hacia arriba en la jerarquía de carpetas (con excepción del `loading.tsx` global en `app/`, que solo se activa si ninguna ruta intermedia lo reemplaza).
 
 Entonces:
 
-- Si estás en `/blog/tech` y existe `app/blog/tech/loading.tsx` se usa ese.
+- Si estás en `/blog/tech` y existe `app/blog/tech/loading.tsx` **se usa ese**.
 
-- Si estás en `/blog/design` y no existe `app/blog/design/loading.tsx` se usa `app/blog/loading.tsx`.
+- Si estás en `/blog/design` y no existe `app/blog/design/loading.tsx` **se usa** `app/blog/loading.tsx`.
 
-#### **Ejemplo - ¿Qué pasaría si eliminamos src/app/blog/loading.tsx?**
+#### Ejemplo — ¿Qué pasaría si eliminamos `src/app/blog/loading.tsx`?
 
 Cambiale el nombre a `src/app/blog/loading.tsx`
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300`, ve a la sección de blog y navega en las dos secciones que tiene (blog/tech y blog/design).
+![](https://cdn-images-1.medium.com/max/1600/1*7Egz_erl5wJ2-GhzJcXiOw.png)
 
-Al quitar el archivo `loading.tsx` de la carpeta `/blog`, el comportamiento solo cambia para aquellas rutas que dependían de él como fallback.
+Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:300](http://localhost:300)`, ve a la sección de blog y navega en las dos secciones que tiene (`blog/tech` y `blog/design`).
 
-Veamos los efectos por ruta:
+![](https://cdn-images-1.medium.com/max/1600/1*D1ndfiDwW5B-GY_EB8G6fg.gif)
 
-- `/blog` - No habrá UI de carga durante el renderizado. Si esta página incluye un fetch o contenido asincrónico, no se mostrará ningún loading.
+Al quitar el archivo `loading.tsx` de la carpeta `/blog`, el comportamiento **solo cambia para aquellas rutas que dependían de él como fallback**. Veamos los efectos por ruta:
 
-- `/blog/tech` - Sigue mostrando su propio `loading.tsx`.
+- **`/blog`— No habrá UI de carga durante el renderizado**. Si esta página incluye un `fetch` o contenido asincrónico, **no se mostrará ningún loading**.
 
-- `/blog/design` - No se mostrará ningún loading, ya que no tiene uno propio y tampoco hay algún `loading.tsx` en la cadena jerárquica que pueda usarse como fallback.
+- **`/blog/tech`— Sigue mostrando su propio `loading.tsx`.**
+- **`/blog/design`— No se mostrará ningún loading**, ya que no tiene uno propio y tampoco hay algún `**loading.tsx**` **en la cadena jerárquica** que pueda usarse como fallback.
 
 ### A considerar
 
-- Si quieres usar animaciones o hooks (`useEffect`, `useState`), añade `'use client'` al inicio.
+- **Si quieres usar animaciones o hooks** (`useEffect`, `useState`), añade `'use client'` al inicio.
 
-- No lo confundas con un loading global; este es por ruta.
+- **No lo confundas con un loading global**; este es por ruta.
 
-- No lo uses para lógicas críticas: es una UI visual que puede durar milisegundos.
-
+- **No lo uses para lógicas críticas**: es una UI visual que puede durar milisegundos.
 - Cada carpeta puede tener su propio `loading.tsx`. Next usará el más cercano.
-
 - No uses `loading.tsx` si no deseas mostrar UI de carga personalizada.
-
-- Para contenido cliente con Suspense, usa fallback dentro del componente.
-
+- Para contenido cliente con `Suspense`, usa `fallback` dentro del componente.
 - Evita cargar librerías pesadas en `loading.tsx` para no impactar negativamente su performance.
-
 - Solo funciona en rutas con `page.tsx` o `layout.tsx` que sean async.
+
+---
+
+Hasta este punto, has aprendido cómo funciona `loading.tsx` en Next.js con App Router, entendiendo su rol como fallback automático durante la carga asíncrona de layouts y páginas, así como también comprendiste cómo implementar un `loading` básico a nivel de ruta, cómo definir `loading.tsx` anidados dentro de subrutas, y cómo Next.js detecta y muestra el **loading más cercano y específico** según la jerarquía del segmento activo.
 
 ---
 

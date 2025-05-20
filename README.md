@@ -9,39 +9,40 @@
 
 ## generateStaticParams
 
-`generateStaticParams` [[ref]](https://nextjs.org/docs/app/api-reference/functions/generate-static-params) es una función especial que se utiliza en rutas dinámicas (`[namefolder]`,`[slug]`, `[...slug]`, `[[...slug]]`) en el **App Router** de Next.js para indicar qué páginas dinámicas deben ser pre-renderizadas de forma estática en el momento de la construcción (`npm run build`), también conocido como subconjunto de rutas.
+### ¿Qué es generateStaticParams?
 
-### ¿Por qué se usa?
+`generateStaticParams` [[ref](https://nextjs.org/docs/app/api-reference/functions/generate-static-params)] es una **función especial** que se utiliza en rutas dinámicas (`[namefolder]`,`[slug]`, `[...slug]`, `[[...slug]]`) en el **App Router** de Next.js para **indicar qué páginas dinámicas deben ser pre-renderizadas de forma estática** en el momento de la construcción (`npm run build`), también conocido como **_subconjunto de rutas_**.
 
-- Next.js necesita saber que subconjunto de rutas dinámicas deberá construir como archivos estáticos.
+### ¿Por qué se usa?
 
-- Sin `generateStaticParams`, Next.js no puede generar automáticamente rutas dinámicas estáticas.
+- Next.js necesita **saber** que **subconjunto de** **rutas** **dinámicas** deberá **construir** como **archivos** **estáticos**.
 
-- Es obligatorio si quieres usar **SSG (Static Site Generation)** en rutas dinámicas.
+- Sin `generateStaticParams`, **Next.js no puede generar automáticamente rutas dinámicas estáticas**.
+- Es **obligatorio** **si quieres usar SSG** (Static Site Generation) en rutas dinámicas.
 
-### Ventajas de usar generateStaticParams
+### Ventajas de usar `generateStaticParams`
 
-- Las páginas se cargan como archivos HTML estáticos, lo que se refleja en cargas rápidas para el usuario y excelente para SEO.
+- Las **páginas** se cargan como **archivos** **HTML** **estáticos**, lo que se refleja en **cargas** **rápidas** para el usuario y **excelente** para **SEO**.
 
-- NO depende de lógica en el navegador para mostrar datos públicos.
-
-- El servidor solo envía archivos estáticos, no ejecuta lógica en cada request.
+- **NO** **depende** de **lógica** en el **navegador** para mostrar datos públicos.
+- El **servidor** solo envía archivos **estáticos**, **no ejecuta lógica** en cada request.
 
 ### ¿Cómo funciona?
 
 - Durante el build (`npm run build`), Next.js ejecuta `generateStaticParams`.
 
 - Esta función retorna un array de parámetros que representan rutas dinámicas que deberán generarse.
-
 - Next.js usa esos parámetros para pre-renderizar cada página individualmente con archivos HTML.
 
-**Ejemplo (segmento dinámico simple)**
+### Ejemplos
+
+#### **Ejemplo — Segmento dinámico simple**
 
 ```yaml
 src/app/product/[id]/page.tsx
 ```
 
-```typescript
+```js
 // src/app/product/[id]/page.tsx
 
 export function generateStaticParams() {
@@ -56,18 +57,22 @@ export function generateStaticParams() {
 export default async function Page({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string }>,
 }) {
   const { id } = await params;
   return <div className="p-4">Id params: {id} </div>;
 }
 ```
 
-Ejecuta en la consola `npm run build`, verás que Next.js genera los archivos estáticos correspondientes.
+Ejecuta en la consola `npm run build`, verás que Next.js genera los archivos estáticos correspondientes:
 
-Si revisas el directorio generado después del build en `/.next/server/app/product`, podrás observar que Next.js ha creado los archivos estáticos para `product/1`, `product/2`, `product/3`
+![](https://cdn-images-1.medium.com/max/1600/1*wEykk5rjuU5R2IKG-ZPNJw.png)
 
-Ejecuta en la consola npm run start, podrás acceder a esta página visitando:
+Si revisas el directorio generado después del build en `/.next/server/app/product`, podrás observar que Next.js ha creado los archivos estáticos para `product/1, product/2, product/3`:
+
+![](https://cdn-images-1.medium.com/max/1600/1*oxEPPt4OIRznZpCa_YMxYg.png)
+
+Ejecuta en la consola `npm run start`, podrás acceder a esta página visitando:
 
 ```yaml
 http://localhost:3000/product/1
@@ -75,13 +80,15 @@ http://localhost:3000/product/2
 http://localhost:3000/product/3
 ```
 
-**Ejemplo (segmentos dinámicos múltiples)**
+![](https://cdn-images-1.medium.com/max/1600/1*qXr13KMLaNjTxkN1iAcyoA.gif)
+
+#### **Ejemplo — Segmentos dinámicos múltiples**
 
 ```yaml
 src/app/products/[category]/[product]/page.tsx
 ```
 
-```typescript
+```js
 // src/app/products/[category]/[product]/page.tsx
 export function generateStaticParams() {
   // Indicamos a Next.js que archivos se van a generar estáticamente
@@ -101,7 +108,7 @@ export function generateStaticParams() {
 export default async function Page({
   params,
 }: {
-  params: Promise<{ category: string; product: string }>;
+  params: Promise<{ category: string, product: string }>,
 }) {
   const { category, product } = await params;
   return (
@@ -112,11 +119,15 @@ export default async function Page({
 }
 ```
 
-Ejecuta en la consola npm run build, verás que Next.js genera los archivos estáticos correspondientes.
+Ejecuta en la consola `npm run build`, verás que Next.js genera los archivos estáticos correspondientes:
 
-Si revisas el directorio generado después del build en `/.next/server/app/products`, podrás observar que Next.js ha creado los archivos estáticos para `products/a/1`, `products/b/2`, `products/c/3`, `products/c/4`.
+![](https://cdn-images-1.medium.com/max/1600/1*5SCYlN_Z6C48TWU8QVUBPA.png)
 
-> Importante: Next.js también genera la página dinámica `page.js` para manejar cualquier slug no contemplado estáticamente.
+Si revisas el directorio generado después del build en `/.next/server/app/products`, podrás observar que Next.js ha creado los archivos estáticos para `products/a/1, products/b/2, products/c/3, products/c/4`:
+
+![](https://cdn-images-1.medium.com/max/1600/1*Osa3VT_xqBIjKH9zdDoPbg.png)
+
+> **Importante**: Next.js también genera la página dinámica `_page.js_` para manejar cualquier `_slug_` no contemplado estáticamente.
 
 Ejecuta en la consola `npm run start`, podrás acceder a esta página visitando:
 
@@ -127,13 +138,15 @@ http://localhost:3000/products/c/3
 http://localhost:3000/products/c/4
 ```
 
-**Ejemplo (Segmentos dinámicos `[...slug]`)**
+![](https://cdn-images-1.medium.com/max/1600/1*a-fPAfhsDZtl-t-iZNHeJQ.gif)
+
+#### **Ejemplo — Segmentos dinámicos** `**[...slug]**`
 
 ```yaml
 src/app/shop/[...slug]/page.tsx
 ```
 
-```typescript
+```js
 // src/app/shop/[...slug]/page.tsx
 
 export function generateStaticParams() {
@@ -154,7 +167,7 @@ export function generateStaticParams() {
 export default async function Page({
   params,
 }: {
-  params: Promise<{ slug: string[] }>;
+  params: Promise<{ slug: string[] }>,
 }) {
   const { slug } = await params;
   return (
@@ -163,11 +176,15 @@ export default async function Page({
 }
 ```
 
-Ejecuta en la consola `npm run build`, verás que Next.js genera los archivos estáticos correspondientes.
+Ejecuta en la consola `npm run build`, verás que Next.js genera los archivos estáticos correspondientes:
 
-Si revisas el directorio generado después del build en `/.next/server/app/shop`, podrás observar que Next.js ha creado los archivos estáticos para `shop/a/1`, `shop/b/2`, `shop/c/3`, `shop/c/4`.
+![](https://cdn-images-1.medium.com/max/1600/1*HB_hvYvfovYKLZ7tyxTvxQ.png)
 
-> Importante: Next.js también genera la página dinámica `page.js` para manejar cualquier slug no contemplado estáticamente.
+Si revisas el directorio generado después del build en `/.next/server/app/shop`, podrás observar que Next.js ha creado los archivos estáticos para `shop/a/1, shop/b/2, shop/c/3, shop/c/4`:
+
+![](https://cdn-images-1.medium.com/max/1600/1*WqvlZ7cMxB8419DYZq4uXQ.png)
+
+> **Importante**: Next.js también genera la página dinámica `_page.js_` para manejar cualquier `_slug_` no contemplado estáticamente.
 
 Ejecuta en la consola `npm run start`, podrás acceder a esta página visitando:
 
@@ -178,13 +195,15 @@ http://localhost:3000/shop/c/3
 http://localhost:3000/shop/c/4
 ```
 
-**Ejemplo (Segmentos dinámicos `[...slug]` con una API)**
+![](https://cdn-images-1.medium.com/max/1600/1*E_yxStRHnP4mQEEqau9pig.gif)
+
+#### **Ejemplo — Segmentos dinámicos** `**[slug]**` **con una API**
 
 ```yaml
-src/app/pokemon/[...slug]/page.tsx
+src/app/pokemon/[slug]/page.tsx
 ```
 
-```typescript
+```js
 // src/app/pokemon/[slug]/page.tsx
 
 interface PageParams {
@@ -198,7 +217,7 @@ interface PokemonPageProps {
 interface Pokemon {
   name: string;
   sprites: {
-    front_default: string;
+    front_default: string,
   };
 }
 
@@ -234,24 +253,29 @@ export default async function Page({ params }: PokemonPageProps) {
 }
 ```
 
-> Nota:
+> **Nota:**  
 > Se han agregado dos `console.log()` en el código:
 >
-> - Uno dentro de `generateStaticParams` para identificar cuándo se generan los parámetros estáticos durante el build.
+> - Uno dentro de `generateStaticParams` para identificar **cuándo se generan los parámetros estáticos** durante el build.
 >
-> - Otro dentro de `fetchPokemon` para observar cuándo se ejecuta la llamada a la API.
+> - Otro dentro de `fetchPokemon` para observar **cuándo se ejecuta la llamada a la API**.
 
-Ejecuta en la consola `npm run build`, verás que Next.js genera los archivos estáticos correspondientes.
+Ejecuta en la consola `npm run build`, verás que Next.js genera los archivos estáticos correspondientes:
 
-Podras observar:
+![](https://cdn-images-1.medium.com/max/1600/1*QDmVB82kWnjvaYwJBXWknQ.png)
+
+Podemos observar:
 
 - Solo se ejecuta una sola vez `generateStaticParams` para definir las rutas que deben renderizarse durante el build.
+- Se ejecuta `fetchPokemon` por cada parámetro estático generado, en este caso son 3 (`bulbasaur, ivysaur, venusaur`).
 
-- Se ejecuta `fetchPokemon` por cada parámetro estático generado, en este caso son 3 (`bulbasaur`, `ivysaur`, `venusaur`).
+![](https://cdn-images-1.medium.com/max/1600/1*VjGTgVfdJnnJOoUdBYH_rw.png)
 
-Si revisas el directorio generado después del build en `/.next/server/app/pokemon`, podrás observar que Next.js ha creado los archivos estáticos para `pokemon/bulbasaur`, `pokemon/ivysaur`, `pokemon/venusaur`.
+Si revisas el directorio generado después del build en `/.next/server/app/pokemon`, podrás observar que Next.js ha creado los archivos estáticos para `pokemon/bulbasaur, pokemon/ivysaur, pokemon/venusaur`:
 
-> Importante: Next.js también genera la página dinámica `page.js` para manejar cualquier slug no contemplado estáticamente.
+![](https://cdn-images-1.medium.com/max/1600/1*4Lurxw_PuBYFImkgJA2I5A.png)
+
+> **Importante**: Next.js también genera la página dinámica `page.js` para manejar cualquier `slug` no contemplado estáticamente.
 
 Ejecuta en la consola `npm run start`, podrás acceder a esta página visitando:
 
@@ -260,6 +284,8 @@ http://localhost:3000/pokemon/bulbasaur
 http://localhost:3000/pokemon/ivysaur
 http://localhost:3000/pokemon/venusaur
 ```
+
+![](https://cdn-images-1.medium.com/max/1600/1*P5P8sg01F2VCgTDP2ZbkXA.gif)
 
 Cuando accedes a páginas que no están pre-renderizadas:
 
@@ -270,59 +296,60 @@ http://localhost:3000/pokemon/charizard
 http://localhost:3000/pokemon/ditto
 ```
 
-Cuando un parámetro no se definió como estático, Next.js lo procesa de forma dinámica y genera la página.
+![](https://cdn-images-1.medium.com/max/1600/1*roulaz8OeSMG0kjQQlRo1g.gif)
 
-Si revisas el directorio generado después del build en `/.next/server/app/pokemon`, podrás observar que Next.js ha creado los archivos estáticos de los páginas que se han generado.
+Cuando un **parámetro** **no se definió** como **estático**, Next.js lo **procesa** de forma **dinámica** y genera la **página**.
 
-> Importante:
->
-> - Si tienes `dynamicParams: true` (ver siguiente tema) y accedes a una ruta no generada, Next.js la renderiza dinámicamente durante el build (en desarrollo) o en producción (si tienes habilitado ISR - Incremental Static Regeneration).
->
-> - En futuros accesos una vez generada, Next.js ya no la vuelve a regenerar, a menos que el tiempo de revalidate haya expirado.
->
-> - En caso de que retorne un 404 NO genera ninguna página estática
+![](https://cdn-images-1.medium.com/max/1600/1*hXuPg8C9mGje8QLdFsS0qQ.png)
+
+Si revisas el directorio generado después del build en `/.next/server/app/pokemon`, podrás observar que Next.js ha creado los archivos estáticos de los páginas que se han generado:
+
+![](https://cdn-images-1.medium.com/max/1600/1*knDS8yMhIL1Xf0PeQVV31g.png)
 
 ### A considerar
 
+- Si tienes `_dynamicParams: true_` (ver siguiente tema) y accedes a una ruta **no generada**, Next.js **la renderiza dinámicamente** durante el build (en desarrollo) o en producción (si tienes habilitado ISR — Incremental Static Regeneration).
+
+- En futuros accesos una vez generada, **Next.js ya no la vuelve a regenerar**, a menos que el tiempo de `_revalidate_` haya expirado.
+- En caso de que retorne un 404 NO genera ninguna página estática.
 - Si la página tiene bugs, el tiempo del build aumentará.
-
 - Si los datos cambian después del build, necesitarías regenerar la app.
-
 - Solo debe usarse en rutas dinámicas, NO en rutas estáticas normales.
-
 - Si no tiene la página estática en el build, la primera vez se ejecutará como server-side (SSG).
 
 ---
 
 ## dynamicParams
 
-### ¿Qué es dynamicParams?
+### ¿Qué es `dynamicParams`?
 
-`dynamicParams` es una configuración opcional que se puede colocar en el archivo `page.tsx` para indicar si quieres permitir rutas dinámicas adicionales NO incluidas en el build.
+`dynamicParams`[[ref](https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamicparams)] es una **configuración opcional** que se puede colocar en el archivo `page.tsx` para **indicar si quieres permitir rutas dinámicas adicionales NO incluidas en el build**.
 
-Por defecto tiene `true`, es decir que si accedes a una ruta que no estaba generada dentro de generateStaticParams, Next.js intentará renderizarla dinámicamente por **SSR**.
+Por defecto tiene `true`, es decir que si accedes a una ruta que no estaba generada dentro de `generateStaticParams`, Next.js **intentará renderizarla dinámicamente** por SSR.
 
-### Ventajas de usar dynamicParams
+### Ventajas de usar `dynamicParams`
 
-- `dynamicParams: true` - Cuando no se han generado todas las rutas en el build, permitiendo manejar nuevas rutas.
+- `dynamicParams: true`— Cuando no se han generado todas las rutas en el build, permitiendo manejar nuevas rutas.
 
-- `dynamicParams: true` - Evita tener que hacer `npm run build` cada vez que hay cambios pequeños de rutas.
-
-- `dynamicParams: false` - Puedes restringir rutas no generadas en generateStaticParams, regresando un 404.
+- `dynamicParams: true`—Evita tener que hacer `npm run build` cada vez que hay cambios pequeños de rutas.
+- `dynamicParams: true` — La carga de la página utiliza **Streaming Server Rendering.**
+- `dynamicParams: false`—Puedes restringir rutas no generadas en `generateStaticParams`, regresando un 404.
 
 ### ¿Cómo funciona?
 
-- `dynamicParams: true` -Next.js hará una petición dinámica al servidor y generará la página en tiempo real.
+- `dynamicParams: true`—Next.js hará una petición dinámica al servidor y generará la página en tiempo real.
 
-- `dynamicParams: false` - Next.js devolverá un 404 si la ruta no estaba en `generateStaticParams`.
+- `dynamicParams: false`— Next.js devolverá un 404 si la ruta no estaba en `generateStaticParams`
 
-**Ejemplo (Segmentos dinámicos `[slug]`)**
+### Ejemplos
+
+#### **Ejemplo — Segmentos dinámicos** `**[slug]**`
 
 ```yaml
 src/app/blog/[slug]/page.tsx
 ```
 
-```typescript
+```js
 // src/app/blog/[slug]/page.tsx
 
 export const dynamicParams = false;
@@ -338,16 +365,20 @@ export function generateStaticParams() {
 export default async function Page({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string }>,
 }) {
   const { slug } = await params;
   return <div className="p-4">Parámetros recibidos: {slug}</div>;
 }
 ```
 
-Ejecuta en la consola `npm run build`, verás que Next.js genera los archivos estáticos correspondientes.
+Ejecuta en la consola `npm run build`, verás que Next.js genera los archivos estáticos correspondientes:
 
-Si revisas el directorio generado después del build en `/.next/server/app/blog`, podrás observar que Next.js ha creado los archivos estáticos para `blog/1`, `blog/2`
+![](https://cdn-images-1.medium.com/max/1600/1*A_1sMuXg1lSjBsXxFD0xOA.png)
+
+Si revisas el directorio generado después del build en `/.next/server/app/blog`, podrás observar que Next.js ha creado los archivos estáticos para `blog/1, blog/2`:
+
+![](https://cdn-images-1.medium.com/max/1600/1*dowE5ZSuap3aoAtoYNFOYw.png)
 
 Ejecuta en la consola `npm run start`, podrás acceder a esta página visitando:
 
@@ -359,15 +390,21 @@ http://localhost:3000/blog/3 → 404
 http://localhost:3000/blog/4 → 404
 ```
 
-> Importante: Next.js **NO** genera nuevas páginas dinámicas, ya que `dynamicParams = false`, es decir las rutas no pre-renderizadas regresan 404 automáticamente.
+![](https://cdn-images-1.medium.com/max/1600/1*m8_S_IAAF9RfkndxyyaFOA.gif)
+
+> **Importante**: Next.js **NO** genera nuevas páginas dinámicas, ya que `_dynamicParams = false_`, es decir las rutas no pre-renderizadas regresan 404 automáticamente.
 
 ### A considerar
 
 - Las rutas generadas en vivo NO estarán listas para el build inicial, por lo que podrían no ser indexadas para el SEO.
-
 - Manejar las rutas dinámicas requiere configurar bien errores 404.
-
 - Con `dynamicParams: false` las rutas no pre-renderizadas regresan 404 automáticamente.
+
+---
+
+Hasta este punto, has comprendido el uso de `generateStaticParams` para generar rutas estáticas de forma anticipada en aplicaciones que utilizan Static Site Generation (SSG). Además, aprendiste el propósito de la opción `dynamicParams`, que permite controlar si Next.js debe aceptar rutas no predefinidas o limitarse únicamente a las generadas estáticamente.
+
+---
 
 ## Ejecutar el proyecto
 

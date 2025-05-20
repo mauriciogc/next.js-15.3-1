@@ -328,7 +328,9 @@ Es decir…
 
 ---
 
-## Hasta este punto, has aprendido a utilizar el componente `Suspense` de forma sencilla dentro del App Router de Next.js, comprendiendo cómo suspende temporalmente la interfaz mientras se resuelven operaciones asíncronas. También implementamos un skeleton como interfaz de carga visual, mejorando la experiencia del usuario al proporcionar retroalimentación inmediata durante la carga de datos.
+Hasta este punto, has aprendido a utilizar el componente `Suspense` de forma sencilla dentro del App Router de Next.js, comprendiendo cómo suspende temporalmente la interfaz mientras se resuelven operaciones asíncronas. También implementamos un skeleton como interfaz de carga visual, mejorando la experiencia del usuario al proporcionar retroalimentación inmediata durante la carga de datos.
+
+---
 
 ## Ejecutar el proyecto
 

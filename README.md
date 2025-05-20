@@ -11,37 +11,35 @@
 
 ### ¿Qué es useParams?
 
-`useParams` [[ref]](https://nextjs.org/docs/app/api-reference/functions/use-params) es un `hook` de Next.js para **App Router** que permite acceder a los parámetros dinámicos de la URL en componentes del lado del cliente.
+`useParams`[[ref](https://nextjs.org/docs/app/api-reference/functions/use-params)] es un **hook** de **Next.js para App Router** que permite acceder a los **parámetros dinámicos** de la URL **en componentes del lado del cliente.**
 
-### ¿Por qué se usa?
+### ¿Por qué se usa?
 
-- Para acceder dinámicamente a valores `[slug]`, `[id]`, `[userId]`, etc. dentro de un componente cliente.
+- Para **acceder dinámicamente** a valores `[slug]`, `[id]`, `[userId]`, etc. dentro de un componente cliente.
 
-- Para renderizar dinámicamente contenido basado en la URL.
+- Para **renderizar dinámicamente** contenido basado en la URL.
+- Cuando **no requieres** hacer fetching server-side.
 
-- Cuando no requieres hacer fetching server-side.
-
-### Ventajas que tiene useParams
+### Ventajas que tiene `useParams`
 
 - Puedes leer los parámetros sin necesidad de hacer un componente server-side.
 
 - Útil en componentes interactivos que dependen de la URL.
-
-- No necesitas pasar params como propiedad.
+- No necesitas pasar `params` como propiedad.
 
 ### ¿Cómo funciona?
 
 - Se importa desde `next/navigation`.
 
-```typescript
+```js
 import { useParams } from 'next/navigation';
 ```
 
-Sólo puede usarse en componentes marcados con `'use client'`, es decir que el renderizado va a ser del lado del cliente (CSR).
+- **Sólo puede usarse** en **componentes** marcados con `**'use client'**`, es decir que el renderizado va a ser del lado del cliente (CSR)
 
-Para el caso de `[foldername]`, `[slug]` va a retornar un objeto:
+- Para el caso de `[foldername], [slug]` va a retornar un objeto:
 
-```typescript
+```yaml
 // /posts → /posts
 { }
 
@@ -53,26 +51,31 @@ Para el caso de `[foldername]`, `[slug]` va a retornar un objeto:
 
 // posts/[slug] → posts/3
 { slug: "3" }
-Para el caso de [...slug], [[…slug]] va a retornar un arreglo:
+```
 
+- Para el caso de `[...slug], [[…slug]]` va a retornar un arreglo:
+
+```yaml
 // countries/[...slug]/ → countries/america/mexico
 { slug: ["america", "mexico"] }
 ```
 
-**Ejemplo**
+### Ejemplos
+
+#### **Ejemplo (segmento dinámico simple)**
 
 ```yaml
 src/app/posts/[id]/page.tsx
 ```
 
-```typescript
+```js
 // src/app/posts/[id]/page.tsx
 
 'use client';
 
 import { useParams } from 'next/navigation';
 
-export default function PostView() {
+export default function PostPage() {
   const params = useParams<{ id: string }>();
 
   return (
@@ -83,13 +86,21 @@ export default function PostView() {
 }
 ```
 
-**Ejemplo 2**
+Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando:
+
+```yaml
+http://localhost:3000/1
+```
+
+![](https://cdn-images-1.medium.com/max/1600/1*GPe6ipgBdRK-xiq89v8mLQ.png)
+
+#### **Ejemplo** **(Segmentos dinámicos** `**[[...slug]]**`**)**
 
 ```yaml
 src/app/catalog/[[...slug]]/page.tsx
 ```
 
-```typescript
+```js
 // src/app/catalog/[[...slug]]/page.tsx
 
 'use client';
@@ -123,19 +134,24 @@ http://localhost:3000/catalog/men/shoes
 http://localhost:3000/catalog/men/shoes/running
 ```
 
-Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando:
-
-```yaml
-http://localhost:3000/1
-```
+![](https://cdn-images-1.medium.com/max/1600/1*daMj55FH9N6YD0bwpY9eJQ.gif)
 
 ### A considerar
 
-- Solo lo puedes usar en componentes cliente (`'use client'` **obligatorio**).
+- Solo lo puedes usar en **componentes cliente** (`'use client'` **obligatorio**).
 
-- No reemplaza a params en componentes server-side.
+- **No reemplaza** a `params` en componentes **server-side**.
+- No hace fetch automático de datos, solo **lee** la URL.
 
-- No hace fetch automático de datos, solo lee la URL.
+### Diferencia entre `params` como propiedad y `useParams`
+
+![](https://cdn-images-1.medium.com/max/1600/1*55cpyatHrhhiKOO7xcwcYA.png)
+
+---
+
+Hasta este punto, has aprendido a utilizar el hook `useParams` dentro del **App Router de Next.js**, comprendiendo cómo acceder a los parámetros de la ruta desde componentes cliente (CSR). También identificaste las diferencias clave entre `useParams` y la propiedad `params`.
+
+---
 
 ## Ejecutar el proyecto
 

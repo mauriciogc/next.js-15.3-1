@@ -7,7 +7,7 @@
 
 ---
 
-> Para todos los **ejemplos** se toma el siguiente **proyecto base [**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/hybrid-rendering)**] (branch: base-project-2).** Este proyecto contiene los archivos: `_src/app/page.tsx_` y `_src/app/layout.tsx_`, configurados con una estructura mínima.
+> Para todos los **ejemplos** se toma el siguiente **proyecto base [**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)**] (branch: base-project-2).** Este proyecto contiene los archivos: `src/app/page.tsx` y `src/app/layout.tsx`, configurados con una estructura mínima.
 
 > Para simular la carga de datos en los ejemplos vamos utilizar la API **jsonplaceholder**[[ref](https://jsonplaceholder.typicode.com/)].
 
@@ -115,7 +115,7 @@ export default function NotFoundPage() {
 
 ![](https://cdn-images-1.medium.com/max/1600/1*TB1I6IexwElNa_fOkXD3tw.png)
 
-Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:3000/chat](http://localhost:300)` :
+Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300/chat` :
 
 ![](https://cdn-images-1.medium.com/max/1600/1*JMuzHgbil3ZoXpfNJWWDpw.gif)
 

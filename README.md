@@ -60,7 +60,7 @@ Ejemplo en la estructura de carpetas:
 
 ![](https://cdn-images-1.medium.com/max/1600/1*hdNoab8XHE8KQwlGCq0AkA.png)
 
-###¿Cómo funciona?
+### ¿Cómo funciona?
 
 Antes de entender cómo funciona `loading.tsx`, expliquemos brevemente qué es `Suspense` de React.
 

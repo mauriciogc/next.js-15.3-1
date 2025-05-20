@@ -7,38 +7,41 @@
 
 ---
 
-> Para simular la carga de datos en los ejemplos vamos utilizaremos la siguiente API:
->
-> - themealdb [[ref](https://www.themealdb.com/)]
+> Para todos los **ejemplos** se toma el siguiente **proyecto base[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)**] (branch: base-project-2).** Este proyecto contiene los archivos: `src/app/page.tsx` y `src/app/layout.tsx`, configurados con una estructura mínima.
 
-## Suspense
+> Para simular la carga de datos en los ejemplos vamos utilizar la API **themealdb**[[ref](https://www.themealdb.com/)].
 
-> Para todos los ejemplos se toma el siguiente proyecto base [[ref](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)] (`branch: base-project-2`).
+## `Suspense`
 
-Además del uso de `loading.tsx`, Next.js también permite definir estados de carga personalizados manualmente para componentes específicos utilizando el componente Suspense de React.
+Además del uso de `loading.tsx`, Next.js también permite definir **estados de carga personalizados manualmente** para componentes específicos utilizando el componente `Suspense` de React.
 
 Esto es especialmente útil cuando estás trabajando con componentes cliente `'use client'` o estás cargando contenido de forma dinámica `next/dynamic`, donde `loading.tsx` no tiene efecto.
 
-Next.js y React permiten el renderizado estático (SSG) para optimizar el rendimiento inicial. Esto mejora los tiempos de carga percibidos, ya que una versión no interactiva de la página se entrega al usuario tan pronto como sea posible.
+**Next.js y React permiten** el **renderizado** **estático** (SSG) para optimizar el rendimiento inicial. Esto **mejora los tiempos de carga percibidos**, ya que una versión no interactiva de la página se entrega al usuario tan pronto como sea posible.
 
-Aunque la página llega rápido, aún es necesario completar la obtención de todos los datos en el servidor antes de que se pueda renderizar el HTML completo, por lo que aún puede ocurrir latencias en secciones que dependen de recursos externos.
-Streaming permite que Next.js divida el HTML de una página en fragmentos pequeños y los envíe al cliente progresivamente, conforme están listos. Esto quiere decir:
+![](https://cdn-images-1.medium.com/max/1600/1*f5XryQzQK080oqwu18wY6Q.png)
 
-- Partes prioritarias (layout, ,título, etc.) se muestren primero.
+Aunque la página llega rápido, aún **es necesario completar la obtención de todos los datos en el servidor** antes de que se pueda renderizar el HTML completo, por lo que aún puede ocurrir latencias en secciones que dependen de recursos externos.
 
-- Partes dependientes de datos (comentarios, análisis, productos, etc) se carguen después.
+Streaming permite que Next.js divida el HTML de una página en fragmentos pequeños y los envíe al cliente **progresivamente**, conforme están listos. Esto quiere decir:
 
-Esto encaja perfectamente con el modelo de componentes de React, donde cada componente se considera un fragmento independiente. Gracias a Suspense, puedes controlar el fallback visual por componente, como: Estadísticas, secciones lentas, Widgets cargados con `next/dynamic`.
+- **Partes prioritarias** (layout, ,título, etc.) se muestren primero.
 
-React puede empezar a hidratar la UI incluso antes de que todos los datos hayan llegado, lo cual mejora tanto el rendimiento técnico como la experiencia del usuario.
+- **Partes dependientes de dato**s (comentarios, análisis, productos, etc) se carguen después.
 
-### ¿Qué es React.Suspense?
+![](https://cdn-images-1.medium.com/max/1600/1*ENjodOUDXLOnEit3yPRSUw.png)
 
-`<Suspense>` es un componente nativo de React que permite "suspender" la renderización de una parte del árbol de componentes hasta que ciertas operaciones asincrónicas se completen. Su principal objetivo es proporcionar una experiencia de usuario fluida durante la carga de recursos como datos, componentes dinámicos o cualquier operación que no esté lista en el render inicial.
+Esto encaja perfectamente con el modelo de componentes de React, donde cada componente se considera un fragmento independiente. Gracias a `Suspense`, puedes controlar el fallback visual **por componente**, como: Estadísticas, secciones lentas, Widgets cargados con `next/dynamic`.
 
-En el contexto de Next.js (App Router), `<Suspense>` se utiliza como herramienta para controlar el flujo de renderizado progresivo, aprovechando el streaming de contenido desde el servidor y mostrando interfaces de carga personalizadas (fallbacks) de forma localizada y precisa.
+React puede empezar a hidratar la UI incluso **antes de que todos los datos hayan llegado**, lo cual mejora tanto el rendimiento técnico como la experiencia del usuario.
 
-```typescript
+### ¿Qué es `React.Suspense`?
+
+`<Suspense>` es un **componente nativo de React** que permite “**_suspender_**” la **renderización de una parte del árbol de componentes hasta que ciertas operaciones asincrónicas se completen**. Su principal objetivo es proporcionar una **experiencia de usuario fluida** durante la carga de recursos como datos, componentes dinámicos o cualquier operación que no esté lista en el render inicial.
+
+En el contexto de **Next.js (App Router)**, `<Suspense>` se utiliza como herramienta para **controlar el flujo de renderizado progresivo**, aprovechando el **streaming de contenido desde el servidor** y mostrando interfaces de carga personalizadas (fallbacks) de forma localizada y precisa.
+
+```js
 import { Suspense } from 'react';
 
 <Suspense fallback={<p>Cargando...</p>}>
@@ -50,38 +53,31 @@ import { Suspense } from 'react';
 
 - Permite renderizado asincrónico con un fallback.
 
-- Funciona tanto en el cliente como en el servidor (con React Server Components).
-
-- Habilita streaming progresivo desde el servidor.
-
-- Composición local: se puede usar varias veces, en diferentes partes del árbol de componentes.
-
-- Se integra con React.lazy, fetch, dynamics, y componentes suspendibles.
-
+- Funciona tanto en el **cliente** como en el **servidor** (con React Server Components).
+- Habilita **streaming progresivo** desde el servidor.
+- **Composición local**: se puede usar varias veces, en diferentes partes del árbol de componentes.
+- Se integra con `React.lazy`, `fetch`, `dynamics`, y componentes suspendibles.
 - Puede anidarse para mostrar múltiples niveles de carga diferenciados.
 
 ### Ventajas
 
-- Evita el bloqueo completo del renderizado: solo "suspende" partes del árbol y no toda la página como `loading.tsx`.
+- **Evita el bloqueo completo del renderizado**: solo “suspende” partes del árbol y no toda la página como `loading.tsx`.
 
-- Mejora la percepción de velocidad: el usuario ve el layout y partes de la UI mientras se cargan otras.
+- **Mejora la percepción de velocidad**: el usuario ve el layout y partes de la UI mientras se cargan otras.
+- **Permite granularidad en la carga**: fallbacks por segmento.
+- **Facilita el diseño de interfaces reactivas y escalables**.
 
-- Permite granularidad en la carga: fallbacks por segmento.
+### ¿Cómo se crea o implementa?
 
-- Facilita el diseño de interfaces reactivas y escalables.
+Para usar `<Suspense>`, hay que importarlo desde React:
 
-### ¿Cómo se crea o impleme`nta?
-
-Para
-usar `<Suspense>`, hay que importarlo desde React:
-
-```typescript
+```js
 import { Suspense } from 'react';
 ```
 
-Se utiliza como un wrapper alrededor de los componentes que pueden suspenderse, y se le proporciona un fallback, que puede ser cualquier componente de carga (cargando, spinner, skeleton, animación, etc.) mientras se carga el contenido.
+Se utiliza como un wrapper alrededor de los componentes que pueden suspenderse, y se le proporciona un `fallback`, que puede ser cualquier componente de carga (cargando, spinner, skeleton, animación, etc.) mientras se carga el contenido.
 
-```typescript
+```js
 <Suspense fallback={<div>Loading...</div>}>
   <MyAsyncComponent />
 </Suspense>
@@ -92,20 +88,18 @@ Se utiliza como un wrapper alrededor de los componentes que pueden suspenderse, 
 - React evalúa el componente envuelto por `<Suspense>`.
 
 - Si el componente ejecuta una promesa (`fetch` o `dynamic()`), React pausa esa rama del árbol.
-
-- Mientras espera, muestra el contenido del fallback.
-
+- Mientras espera, muestra el contenido del `fallback`.
 - Una vez resuelta la promesa, React reintenta renderizar el componente original y lo inserta reemplazando el fallback.
 
-Lo interesante es que en Next.js App Router, este proceso también puede ocurrir desde el servidor, enviando primero el fallback al cliente, y luego el resto del contenido en cuanto está listo. Esto es posible a al streaming de React 18.
+Lo interesante es que en **Next.js App Router**, este proceso **también** **puede ocurrir desde el servidor**, enviando primero el `fallback` al cliente, y luego el resto del contenido en cuanto está listo. Esto es posible a al **streaming de React 18**.
 
 ### Ejemplos
 
-#### **Ejemplo - Básico**
+#### Ejemplo — Básico
 
 Crea el componente `DummyComponent` en `src/components/`:
 
-```typescript
+```js
 // src/components/DummyComponent
 
 export default async function DummyComponent() {
@@ -121,9 +115,9 @@ export default async function DummyComponent() {
 }
 ```
 
-Importa el componente `DummyComponent` y el componente Suspense a la página global `src/app/page.tsx`:
+Importa el componente `DummyComponent` y el componente `Suspense` a la página global `src/app/page.tsx`:
 
-```typescript
+```js
 // src/app/page.tsx
 
 import { Suspense } from 'react';
@@ -144,13 +138,17 @@ export default function Home() {
 }
 ```
 
-Al iniciar el servidor con `npm run dev` y acceder a `http://localhost:3000`, verás que al ejecutarse la función fetch dentro del componente `DummyComponent`, se suspende su renderizado durante 3 segundos. Durante ese tiempo, React muestra el contenido definido en el fallback y, una vez que la promesa se resuelve, renderiza nuevamente el componente original.
+![](https://cdn-images-1.medium.com/max/1600/1*AXah8ITHLEqUK2eXdIjmbg.png)
 
-#### **Ejemplo - Con un componente Skeleton**
+Al iniciar el servidor con `npm run dev` y acceder a `http://localhost:3000`, verás que al ejecutarse la función `fetch` dentro del componente `DummyComponent`, se suspende su renderizado durante 3 segundos. Durante ese tiempo, React muestra el contenido definido en el `fallback` y, una vez que la promesa se resuelve, renderiza nuevamente el componente original.
 
-Crea el componente `CardSkeleton` en `src/components` :
+![](https://cdn-images-1.medium.com/max/1600/1*dU2s4o5hrO8fomHlpFQ6kA.gif)
 
-```typescript
+#### Ejemplo — Con un componente Skeleton
+
+Crea el componente `CardSkeleton` en `src/components` :
+
+```js
 // src/components/CardSkeleton.tsx
 
 interface CardSkeletonProps {
@@ -175,7 +173,7 @@ export default function CardSkeleton({ repeat = 1 }: CardSkeletonProps) {
 
 Importa el componente `CardSkeleton` y agrega otro `Suspense` al componente `DummyComponent` en la página global `src/app/page.tsx`:
 
-```typescript
+```js
 // src/app/page.tsx
 
 import { Suspense } from 'react';
@@ -201,19 +199,23 @@ export default function Home() {
 }
 ```
 
-Al iniciar el servidor con `npm run dev` y acceder a `http://localhost:3000`, verás que React muestra el fallback,donde el primero muestra un simple texto de carga y el segundo un componente Skeleton visual. Una vez que la promesa se resuelve, React vuelve a intentar renderizar los componentes originales, reemplazando los fallbacks por el contenido real.
+![](https://cdn-images-1.medium.com/max/1600/1*o9RrmvdWfL-AAcwhcGaP4A.png)
 
-#### **Ejemplo - Cargando una lista de recetas**
+Al iniciar el servidor con `npm run dev` y acceder a `http://localhost:3000`, verás que React muestra el `fallback`,donde el primero muestra un simple texto de carga y el segundo un componente _Skeleton_ visual. Una vez que la promesa se resuelve, React vuelve a intentar renderizar los componentes originales, reemplazando los fallbacks por el contenido real.
+
+![](https://cdn-images-1.medium.com/max/1600/1*XsT3JvkwZplbe2ANDrwsAA.gif)
+
+#### Ejemplo —Cargando una lista de recetas
 
 Crea el componente `RecipeCard` en `src/components/`:
 
-```typescript
+```js
 //src/components/RecipeCard.tsx
 
 'use client';
 
 type Props = {
-  recipe: { strMeal: string; strInstructions: string };
+  recipe: { strMeal: string, strInstructions: string },
 };
 
 export default function RecipeCard({ recipe }: Props) {
@@ -226,17 +228,17 @@ export default function RecipeCard({ recipe }: Props) {
 }
 ```
 
-Crea el servicio `recipeService` en `/src/services/` :
+Crea el servicio `recipeService` en `/src/services/` :
 
-```typescript
+```js
 // src/services/recipeService.ts
 
 const BASE_URL = 'https://www.themealdb.com/api/json/v1/1';
 
 type Recipe = {
-  idMeal: string;
-  strMeal: string;
-  strInstructions: string;
+  idMeal: string,
+  strMeal: string,
+  strInstructions: string,
 };
 
 export async function fetchRecipes(
@@ -260,7 +262,7 @@ export async function fetchRecipes(
 
 Crea la `page.tsx` de recetas en `src/app/recipes`:
 
-```typescript
+```js
 // src/app/recipe/page.tsx
 
 import { Suspense } from 'react';
@@ -292,39 +294,41 @@ export default function RecipePage() {
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:3000`, ve a la sección de recetas (`/recipe`).
+![](https://cdn-images-1.medium.com/max/1600/1*P5IMmFiPw2pewF-I6838aQ.png)
 
-Cuando se usa Suspense de esta manera, React evalúa cada bloque de forma independiente. Si el contenido dentro de un bloque Suspense se "suspende", es decir, hay una promesa pendiente como un await, React muestra el fallback correspondiente solo en esa sección.
+Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:3000](http://localhost:300)`, ve a la sección de recetas (`/recipe`).
+
+![](https://cdn-images-1.medium.com/max/1600/1*WNpwSerrB5YYd12fXfA9kA.gif)
+
+Cuando se usa `Suspense` de esta manera, React evalúa **cada bloque de forma independiente**. Si el contenido dentro de un bloque `Suspense` se “_suspende_”, es decir, hay una promesa pendiente como un `await`, React muestra el `fallback` correspondiente **solo en esa sección**.
 
 Es decir…
 
 - El servidor empieza a renderizar la página.
 
-- Llega a `<RecipeCardWithData type="beef" />` y detecta una operación asíncrona → suspende todo lo que este dentro de Suspense.
-
-- React activa el fallback asociado `<CardSkeleton />` para esa sección.
-
+- Llega a `<RecipeCardWithData type="beef" />` y detecta una operación asíncrona → **suspende todo lo que este dentro de** `**Suspense**`**.**
+- React activa el `fallback` asociado `<CardSkeleton />` para esa sección.
 - Lo mismo ocurre con `<RecipeCardWithData type="beef" />`.
-
-- Cada sección se resuelve de forma separada y React reemplaza el skeleton con el componente `<RecipeCard>` cuando la promesa termina.
+- Cada sección **se resuelve de forma separada** y React reemplaza el skeleton con el componente `<RecipeCard>` cuando la promesa termina.
 
 ### Aspectos a considerar / Buenas prácticas
 
 - Usa `<Suspense>` donde los componentes pueden tardar en visualizarse.
-
 - Colócalo dentro de layouts o páginas para aprovechar el streaming.
 
-- No mezcles Suspende en cliente y servidor sin entender qué componente es cuál ya que `'use client'` puede cambiar el comportamiento.
-
-- Usa suspense: true con `next/dynamic` para que funcione correctamente.
-
+- No mezcles `Suspende` en cliente y servidor sin entender qué componente es cuál ya que `'use client'` puede cambiar el comportamiento.
+- Usa `suspense: true` con `next/dynamic` para que funcione correctamente.
 - No pongas lógica de negocio dentro de fallbacks (sólo UI).
+- `Suspense` solo funciona en React +18.
+- No uses `Suspense` en componentes que no lanzan promesas.
 
-- Suspense solo funciona en React +18.
+### loading.tsx o Suspense
 
-- No uses Suspense en componentes que no lanzan promesas.
+![](https://cdn-images-1.medium.com/max/1600/1*OuZV99JHJB-7RkAH3C0XIQ.png)
 
 ---
+
+## Hasta este punto, has aprendido a utilizar el componente `Suspense` de forma sencilla dentro del App Router de Next.js, comprendiendo cómo suspende temporalmente la interfaz mientras se resuelven operaciones asíncronas. También implementamos un skeleton como interfaz de carga visual, mejorando la experiencia del usuario al proporcionar retroalimentación inmediata durante la carga de datos.
 
 ## Ejecutar el proyecto
 

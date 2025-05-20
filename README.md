@@ -306,7 +306,7 @@ Es decir…
 
 - El servidor empieza a renderizar la página.
 
-- Llega a `<RecipeCardWithData type="beef" />` y detecta una operación asíncrona → **suspende todo lo que este dentro de** `**Suspense**`**.**
+- Llega a `<RecipeCardWithData type="beef" />` y detecta una operación asíncrona → **suspende todo lo que este dentro de** `Suspense`**.**
 - React activa el `fallback` asociado `<CardSkeleton />` para esa sección.
 - Lo mismo ocurre con `<RecipeCardWithData type="beef" />`.
 - Cada sección **se resuelve de forma separada** y React reemplaza el skeleton con el componente `<RecipeCard>` cuando la promesa termina.

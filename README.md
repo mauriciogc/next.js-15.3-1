@@ -64,46 +64,20 @@ Nos genera una estructura como la siguiente [[ref](https://nextjs.org/docs/app/g
 
 Donde:
 
-- `**public/**` — Carpeta donde colocas archivos estáticos accesibles directamente desde el navegador. (Ej. una imagen `logo.png`, será accesible desde `[https://tusitio.com/logo.png](https://tusitio.com/logo.png.)`).
-- `**src/**`— Carpeta principal para organizar el código fuente.
-- `**src/app/**`— Sistema basado en carpetas (App Router). Cada subcarpeta representa una ruta. Aqui se definen páginas, layouts, templates y componentes relacionados con las rutas.
-- `**src/app/page.tsx**`— Archivo obligatorio que representa una página, en este caso la ruta raíz (`/`).
+- **`public/`** — Carpeta donde colocas archivos estáticos accesibles directamente desde el navegador. (Ej. una imagen `logo.png`, será accesible desde `[https://tusitio.com/logo.png](https://tusitio.com/logo.png.)`).
+- **`src/`**— Carpeta principal para organizar el código fuente.
+- **`src/app/`**— Sistema basado en carpetas (App Router). Cada subcarpeta representa una ruta. Aqui se definen páginas, layouts, templates y componentes relacionados con las rutas.
+- **`src/app/page.tsx`**— Archivo obligatorio que representa una página, en este caso la ruta raíz (`/`).
 
-- `**src/app/layout.tsx**`— Define la estructura general que se aplica a la ruta y subrutas. Es como un `App.tsx` pero más estructurado. Útil para definir cabeceras, barras laterales, pies de página, etc..
+- **`src/app/layout.tsx`**— Define la estructura general que se aplica a la ruta y subrutas. Es como un `App.tsx` pero más estructurado. Útil para definir cabeceras, barras laterales, pies de página, etc..
   > **Importante** saber que se ejecuta del lado del servidor.
-- `**src/app/globals.css**`— Archivo CSS global donde Tailwind importa sus estilos base. Aquí puedes agregar estilos globales personalizados.
+- **`src/app/globals.css`**— Archivo CSS global donde Tailwind importa sus estilos base. Aquí puedes agregar estilos globales personalizados.
 
-- `**eslint.config.mjs**`— Configuración de ESLint, encargado de analizar el código estático.
-- `**next-env.d.ts**`— Archivo generado automáticamente para que TypeScript entienda los tipos específicos de _Next.js_ (No editar).
-- `**next.config.ts**`— Archivo de configuración de _Next.js_ . Puedes modificar comportamientos globales (rutas personalizadas, redirecciones, headers, etc).
-- `**postcss.config.mjs**`— Configuración para PostCSS, que Tailwind utiliza internamente para procesar CSS.
-- `**tsconfig.json**`— Configuración de TypeScript. Define reglas de compilación, rutas, alias y compatibilidad del proyecto.
-
-#### :: Actualiza la página principal
-
-Vamos a simplificar la página principal. Abre el archivo `src/app/page.tsx` y sustituye el código generado, por el siguiente:
-
-```js
-// src/app/page.tsx
-
-export default function Home() {
-  return (
-    <main className="flex justify-center items-center min-h-screen">
-      <h1 className="text-3xl font-bold">
-        ¡Hola Mundo desde Next.js + Tailwind!
-      </h1>
-    </main>
-  );
-}
-```
-
-Donde:
-
-- `export default function Home()` — Es un componente como React, en este caso una página (`/`)
-
-- Se usa Tailwind para estilos `items-center, min-h-screen, etc.`
-
-- Al llamarse `page.tsx`, _Next.js_ hace una página automáticamente.
+- **`eslint.config.mjs`**— Configuración de ESLint, encargado de analizar el código estático.
+- **`next-env.d.ts`**— Archivo generado automáticamente para que TypeScript entienda los tipos específicos de _Next.js_ (No editar).
+- **`next.config.ts`**— Archivo de configuración de _Next.js_ . Puedes modificar comportamientos globales (rutas personalizadas, redirecciones, headers, etc).
+- **`postcss.config.mjs`**— Configuración para PostCSS, que Tailwind utiliza internamente para procesar CSS.
+- **`tsconfig.json`**— Configuración de TypeScript. Define reglas de compilación, rutas, alias y compatibilidad del proyecto.
 
 ---
 

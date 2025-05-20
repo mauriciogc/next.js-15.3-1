@@ -7,8 +7,6 @@
 
 ---
 
----
-
 > Para todos los **ejemplos** se toma el siguiente **proyecto base [**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/hybrid-rendering)**] (branch: base-project-2).** Este proyecto contiene los archivos: `_src/app/page.tsx_` y `_src/app/layout.tsx_`, configurados con una estructura mínima.
 
 > Para simular la carga de datos en los ejemplos vamos utilizar la API **jsonplaceholder**[[ref](https://jsonplaceholder.typicode.com/)].
@@ -78,7 +76,7 @@ Ejemplo en la estructura de carpetas:
 
 ### Ejemplos
 
-**Ejemplo — Not found en raíz**
+#### **Ejemplo — Not found en raíz**
 
 Crea el `not-found.tsx` en `src/app/` :
 
@@ -121,7 +119,7 @@ Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:3000/chat](
 
 ![](https://cdn-images-1.medium.com/max/1600/1*JMuzHgbil3ZoXpfNJWWDpw.gif)
 
-**Ejemplo — Uso con validación de parámetros**
+#### **Ejemplo — Uso con validación de parámetros**
 
 Crea el `not-found.tsx` y `page.tsx` del blog en `src/app/blog/[id]` :
 

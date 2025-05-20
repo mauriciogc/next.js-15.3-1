@@ -7,33 +7,31 @@
 
 ---
 
-Cuando trabajamos con rutas dinámicas, es importante saber cuando puede ser conveniente usar CSR, SSR o SSG con cada tipo de segmento (`[slug]`, `[...slug]`, `[[...slug]]`, `[id]`).
+## Next.js -Renderizado híbrido (CSR, SSR, SSG) con rutas dinámicas avanzadas ([slug], […slug], [[…slug]])
+
+Cuando trabajamos con rutas dinámicas, es importante saber cuando puede ser conveniente usar CSR, SSR o SSG con cada tipo de segmento (`[slug]`, `[...slug]`, `[[...slug]]`, `[id]`). Veamos la siguiente tabla:
+
+![](https://cdn-images-1.medium.com/max/1600/1*Br55wVQAFeOagOMTFMw0LA.png)
 
 A continuación veremos varios ejemplos, utilizando APIs públicas y distintas estrategias de renderizado híbrido.
 
-Para simular la carga de datos en los ejemplos vamos utilizaremos las siguientes APIs:
+> Para simular la carga de datos en los ejemplos vamos a utilizar las siguientes APIs\*\*:
+>
+> - Poke API [[ref](https://pokeapi.co/)]
+> - **Dungeons and Dragons**[[ref](https://www.dnd5eapi.co/docs/)]
+> - **Anime Schedule** [[ref](https://animeschedule.net/)]
 
-- Poke API [[ref](https://pokeapi.co/)]
+Antes de entrar a los ejemplos, primero vamos a entender **el hook** `useParams`, **cuándo se usa** y **en qué se diferencia** de `params` en la obtención de datos para **SSR** o **SSG,** para eso, te invito a leer la siguiente entrada **Nexts.js — Hook useParams [**[**ref**](https://mauriciogc.medium.com/nexts-js-hook-useparams-c1abbb32f996)**].**
 
-- Dungeons and Dragons [[ref](https://www.dnd5eapi.co/docs/)]
+### CSR (Client Side Rendering)
 
-- Anime Schedule [[ref](https://animeschedule.net/)]
-
----
-
-## CSR (Client Side Rendering)
-
-### `[slug]`
+#### `[slug]`
 
 - Contenido que depende de interacciones del usuario o datos del navegador.
 
 - Permite una experiencia de usuario más dinámica.
 
-```yaml
-src/app/csr/pokemon/[slug]/page.tsx
-```
-
-```typescript
+```js
 // src/app/csr/pokemon/[slug]/page.tsx
 
 'use client';
@@ -93,20 +91,20 @@ http://localhost:3000/csr/pokemon/ditton
 http://localhost:3000/csr/pokemon/pikachu
 ```
 
-Si haces clic derecho en la página y seleccionas **"Ver el código fuente de la página"**, podrás validar que el contenido no aparece dentro del HTML. Esto ocurre porque la página fue renderizada en el cliente (CSR), y el contenido se genera después con JavaScript/React una vez que la app ha sido cargada en el navegador.
+![](https://cdn-images-1.medium.com/max/1600/1*5TEYKVS_EW9M6g5HOUFORw.gif)
 
-### `[…slug]`
+Si haces clic derecho en la página y seleccionas **“Ver el código fuente de la página”**, podrás validar que el contenido **no aparece** dentro del HTML. Esto ocurre porque la página fue renderizada en el **cliente** (CSR), y el contenido se genera **después** con JavaScript/React una vez que la app ha sido cargada en el navegador.
+
+![](https://cdn-images-1.medium.com/max/1600/1*5aMOK8jsuZj3L9UNHpfl7Q.png)
+
+#### `[…slug]`
 
 - Ideal para contenido que depende de interacciones del usuario o datos del navegador.
 
 - Permite una experiencia de usuario más dinámica.
 
-```yaml
-src/app/csr/dnd/[...slug]/page.tsx
-```
-
-```typescript
-// src/app/csr/dnd/[...slug]/page.tsx
+```js
+// app/csr/dnd/[...slug]/page.tsx
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -170,19 +168,16 @@ http://localhost:3000/csr/dnd/monster/adult-brass-dragon
 http://localhost:3000/csr/dnd/monster/acolyte
 ```
 
-### `[[…slug]]`
+![](https://cdn-images-1.medium.com/max/1600/1*LHT2mouIvOH63f0yShvQhQ.gif)
+
+#### `[[…slug]]`
 
 - Puedes construir URLs muy flexibles para filtros.
-
 - Si no se proporciona ningún parámetro, la ruta sigue funcionando.
 
 - Todo se maneja del lado del cliente, permitiendo interacción sin recarga.
 
-```yaml
-src/app/csr/anime/[[...slug]]/page.tsx
-```
-
-```typescript
+```js
 // src/app/csr/anime/[[...slug]]/page.tsx
 'use client';
 
@@ -271,21 +266,19 @@ http://localhost:3000/csr/anime/2020/movie/drama
 http://localhost:3000/csr/anime/2020/movie/drama/Made-in-abyss
 ```
 
+![](https://cdn-images-1.medium.com/max/1600/1*KsiocqfIt9cvWhfAjGH6qA.gif)
+
 ---
 
-## ## SSR (Server Side Rendering)
+### SSR (Server Side Rendering)
 
-### `[slug]`
+#### `[slug]`
 
 - El contenido se renderiza en el servidor, lo que mejora el SEO.
-
+-
 - Los datos están disponibles antes de que la página se entregue al navegador.
 
-```yaml
-src/app/ssr/pokemon/[slug]/page.tsx
-```
-
-```typescript
+```js
 // src/app/ssr/pokemon/[slug]/page.tsx
 
 const API_URL = 'https://pokeapi.co/api/v2/pokemon';
@@ -297,7 +290,7 @@ interface PokemonPageProps {
 interface Pokemon {
   name: string;
   sprites: {
-    front_default: string;
+    front_default: string,
   };
 }
 
@@ -339,19 +332,19 @@ http://localhost:3000/ssr/pokemon/ditton
 http://localhost:3000/ssr/pokemon/pikachu
 ```
 
-Si haces clic derecho en la página y seleccionas **"Ver el código fuente de la página"**, podrás validar que el contenido ya está cargado en el HTML. Esto ocurre porque la página fue renderizada en el servidor (SSR), no en el cliente (CSR).
+![](https://cdn-images-1.medium.com/max/1600/1*N0LRwsIl4o2I-2KAKMmCYg.gif)
 
-### `[…slug]`
+Si haces clic derecho en la página y seleccionas **“Ver el código fuente de la página”**, podrás validar que el **contenido ya está cargado en el HTML**. Esto ocurre porque la página fue renderizada en el **servidor** (SSR), **no** en el **cliente** (CSR).
+
+![](https://cdn-images-1.medium.com/max/1600/1*BjHxP-yWLk4EOpKOl7hnUQ.png)
+
+#### `[…slug]`
 
 - Ideal para contenido que depende de interacciones del usuario o datos del navegador.
 
 - Permite una experiencia de usuario más dinámica.
 
-```yaml
-src/app/ssr/dnd/[...slug]/page.tsx
-```
-
-```typescript
+```js
 // src/app/ssr/dnd/[...slug]/page.tsx
 
 const API_URL = 'https://www.dnd5eapi.co/api/monsters';
@@ -410,18 +403,16 @@ http://localhost:3000/ssr/dnd/monster/adult-brass-dragon
 http://localhost:3000/ssr/dnd/monster/acolyte
 ```
 
-### `[[…slug]]`
+![](https://cdn-images-1.medium.com/max/1600/1*KOK0TvsMBbmGB5LumPb8LA.gif)
 
-- Se genera HTML completo con contenido visible desde el primer render (SEO-friendly).
+#### `[[…slug]]`
+
+- Se genera **HTML completo** con contenido visible desde el primer render (SEO-friendly).
 
 - Permite manejar múltiples combinaciones de filtros en una misma ruta sin crear componentes adicionales.
 
-```yaml
-src/app/ssr/anime/[[...slug]]/page.tsx
-```
-
-```typescript
-//src/app/ssr/anime/[[...slug]]/page.tsx
+```js
+// src/app/ssr/anime/[[...slug]]/page.tsx
 
 const API_URL = 'https://animeschedule.net/api/v3/anime';
 const IMAGE_URL = 'https://img.animeschedule.net/production/assets/public/img';
@@ -499,21 +490,21 @@ http://localhost:3000/ssr/anime/2019/tv/comedy
 http://localhost:3000/ssr/anime/2019/tv/comedy/karakai-jouzu
 ```
 
+![](https://cdn-images-1.medium.com/max/1600/1*5loinRkrRHPsQE-HbWfsRw.gif)
+
 ---
 
-## SSG (Static Site Generation)
+Antes de entrar a los ejemplos, primero vamos a entender la **función `generateStaticParams`**, para eso, te invito a leer la siguiente entrada **Next.j s— generateStaticParams y dynamicParams [**[**ref**](https://mauriciogc.medium.com/next-js-generatestaticparams-y-dynamicparams-3e616ba53f31)**]**.
 
-### `[slug]`
+### SSG (Static Site Generation)
 
-- Las páginas se generan en tiempo de construcción (build), lo que resulta en tiempos de carga muy rápidos.
+#### `[slug]`
+
+- Las páginas se generan en tiempo de construcción (`build`), lo que resulta en tiempos de carga muy rápidos.
 
 - Para contenido que no cambia frecuentemente.
 
-```yaml
-src/app/ssg/pokemon/[slug]/page.tsx
-```
-
-```typescript
+```js
 // src/app/ssg/pokemon/[slug]/page.tsx
 
 const API_URL = 'https://pokeapi.co/api/v2/pokemon';
@@ -525,7 +516,7 @@ interface PageProps {
 interface Pokemon {
   name: string;
   sprites: {
-    front_default: string;
+    front_default: string,
   };
 }
 
@@ -576,7 +567,9 @@ export default async function Page({ params }: PageProps) {
 }
 ```
 
-Ejecuta en la consola `npm run build`, verás que Next.js genera los archivos estáticos correspondientes.
+Ejecuta en la consola `npm run build`, verás que Next.js genera los archivos estáticos correspondientes:
+
+![](https://cdn-images-1.medium.com/max/1600/1*LSMyhG2IjNbQQpqXL_8xBQ.png)
 
 Ejecuta en la consola `npm run start`, podrás acceder a esta página visitando:
 
@@ -589,19 +582,17 @@ http://localhost:3000/ssg/pokemon/ditton
 http://localhost:3000/ssg/pokemon/pikachu
 ```
 
-> Recuerda: Al tener `dynamicParams: true` (default) Next.js va a renderizar dinámicamente durante el build (en desarrollo) o en producción (si tienes habilitado ISR).
+![](https://cdn-images-1.medium.com/max/1600/1*xuT77ZU4eXIZJzrTOo4_XQ.gif)
 
-### `[…slug]`
+> **Recuerda**: Al tener `dynamicParams: true` (default) Next.js va **a renderizar dinámicamente** durante el build (en desarrollo) o en producción (si tienes habilitado ISR).
+
+#### `[…slug]`
 
 - Las páginas se generan en tiempo de construcción, lo que resulta en tiempos de carga muy rápidos.
 
 - Ideal para contenido que no cambia frecuentemente.
 
-```yaml
-src/app/ssg/dnd/[...slug]/page.tsx
-```
-
-```typescript
+```js
 // src/app/ssg/dnd/[...slug]/page.tsx
 
 // Solo acepta los pre-renderizados
@@ -676,7 +667,9 @@ export default async function Page({ params }: PageProps) {
 }
 ```
 
-Ejecuta en la consola `npm run build`, verás que Next.js genera los archivos estáticos correspondientes.
+Ejecuta en la consola `npm run build`, verás que Next.js genera los archivos estáticos correspondientes:
+
+![](https://cdn-images-1.medium.com/max/1600/1*VN5IuOrk9NQIiW1c4jW2lg.png)
 
 Ejecuta en la consola `npm run start`, podrás acceder a esta página visitando:
 
@@ -692,22 +685,19 @@ http://localhost:3000/ssr/dnd/monster/ancient-blue-dragon
 http://localhost:3000/ssr/dnd/monster/ancient-copper-dragon
 ```
 
-> Recuerda: Al tener `dynamicParams: false` las páginas que no estén pre-renderizadas Next.js va a retornar un error 404.
+![](https://cdn-images-1.medium.com/max/1600/1*PjrqJ1Al-IZJgO9wU9WXvg.gif)
 
-### `[[…slug]]`
+> **Recuerda**: Al tener `dynamicParams: false` las páginas que no estén pre-renderizadas Next.js va a **retornar** un error **404**.
+
+#### :: [[…slug]]
 
 - Genera rutas estáticas y ultra rápidas desde el build.
 
 - Optimiza para SEO desde el primer render.
-
 - Puedes usar `generateStaticParams()` para controlar qué rutas se precargan.
 
-```yaml
-src/app/ssg/anime/[[...slug]]/page.tsx
-```
-
-```typescript
-//src/app/ssg/anime/[[...slug]]/page.tsx
+```js
+// src/app/ssg/anime/[[...slug]]/page.tsx
 export const dynamicParams = false;
 
 const API_URL = 'https://animeschedule.net/api/v3/anime';
@@ -790,7 +780,9 @@ export default async function Page({ params }: PageProps) {
 }
 ```
 
-Ejecuta en la consola `npm run build`, verás que Next.js genera los archivos estáticos correspondientes.
+Ejecuta en la consola `npm run build`, verás que Next.js genera los archivos estáticos correspondientes:
+
+![](https://cdn-images-1.medium.com/max/1600/1*wSbxOF0vMeVcePkvuAB-MA.png)
 
 Ejecuta en la consola `npm run start`, podrás acceder a esta página visitando:
 
@@ -807,7 +799,13 @@ http://localhost:3000/csr/anime/2024/tv/action
 http://localhost:3000/csr/anime/2024/tv/action/solo-leveling
 ```
 
-> Recuerda: Al tener `dynamicParams: false` las páginas que no estén pre-renderizadas Next.js va a retornar un error 404.
+![](https://cdn-images-1.medium.com/max/1600/1*K4j-nmBuPA4AfRqtzb7DTQ.gif)
+
+> **Recuerda**: Al tener `dynamicParams: false` las páginas que no estén pre-renderizadas Next.js va a **retornar** un error **404**.
+
+---
+
+Hasta este punto, hemos explorado ejemplos prácticos de Client-Side Rendering (CSR), Server-Side Rendering (SSR) y Static Site Generation (SSG) aplicados a rutas dinámicas avanzadas (`[slug]`, `[...slug]` y `[[...slug]]`). También aprendiste conceptos clave del enrutamiento como `useParams`, `generateStaticParams` y `dynamicParams`, entendiendo cómo y cuándo aplicarlos según el tipo de renderizado y la estructura de la ruta.
 
 ---
 

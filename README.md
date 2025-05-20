@@ -229,7 +229,7 @@ Entonces:
 
 Hasta este punto, has aprendido a **utilizar correctamente el archivo** `**not-found.tsx**` **dentro del App Router de Next.js**, entendiendo su propósito, cuándo se ejecuta y cómo se diferencia del comportamiento que ofrece `error.tsx`.
 
---
+---
 
 ## Ejecutar el proyecto
 

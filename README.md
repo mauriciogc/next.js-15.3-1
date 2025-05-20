@@ -149,6 +149,8 @@ Esto ayuda a evitar errores y asegura que **solo las carpetas válidas se convie
 
 ---
 
+## Hasta este punto, ya sabes cómo **crear páginas en Next.js**, conoces las **rutas estáticas**, **rutas estáticas anidadas**, así como el concepto de **colocation** dentro del **App Router**.
+
 ## Ejecutar el proyecto
 
 Para correr o ejecutar el proyecto [[ref]](https://nextjs.org/docs/app/getting-started/installation#run-the-development-server):

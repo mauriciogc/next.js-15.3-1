@@ -15,11 +15,11 @@
 
 ### ¿Qué es `loading.tsx`?
 
-`loading.tsx` es un archivo especial en el sistema de rutas del **App Router** de Next.js que permite definir una interfaz de carga **para una ruta específica** mientras se resuelven **datos o componentes asincrónicos**. Su función principal es proporcionar un **_fallback_** **visual** **inmediato** (como un spinner, skeleton o mensaje) mientras la página o el layout asociado se termina de cargar.
+`loading.tsx` es un archivo especial en el sistema de rutas del **App Router** de Next.js que permite definir una interfaz de carga **para una ruta específica** mientras se resuelven **datos o componentes asincrónicos**. Su función principal es proporcionar un **fallback** **visual** **inmediato** (como un spinner, skeleton o mensaje) mientras la página o el layout asociado se termina de cargar.
 
 `loading.tsx` es una convención de archivo introducida con el App Router (Next.js 13+), altamente **integrada** con la **arquitectura** moderna basada en `React Suspense`, _streaming server rendering_, y componentes de servidor/cliente mixtos.
 
-> _Internamente, Next.js lo utiliza como fallback de un_ `_<Suspense />_`_._
+> Internamente, Next.js lo utiliza como fallback de un `<Suspense />`.
 
 ### Principales características
 

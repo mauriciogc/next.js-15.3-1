@@ -7,94 +7,91 @@
 
 ---
 
-> Para simular la carga de datos en los ejemplos vamos utilizaremos la siguiente API:
->
-> - themoviedb [[ref](https://developer.themoviedb.org/docs/getting-started)]
+## layout.tsx
 
-## Layout.tsx
+> **Todos los ejemplos los podrás encontrar en el repositorio next.js-15.3–1[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1)**]**
 
-> Para todos los ejemplos se toma el siguiente proyecto base [[ref](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)] (`branch: base-project-2`).
+> Para todos los **ejemplos** se toma el siguiente **proyecto base[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/hybrid-rendering)**] (branch: base-project-2).** Este proyecto contiene los archivos: `src/app/page.tsx` y `src/app/layout.tsx`, configurados con una estructura mínima.
 
-### ¿Qué es layout.tsx?
+### ¿Qué es `layout.tsx`?
 
-El archivo `layout.tsx` es una convención del App Router de Next.js 13+, usado para definir la estructura persistente de una ruta y sus subrutas. Es un Server Component por defecto que se renderiza una única vez y permanece montado entre navegaciones dentro de su árbol de rutas.
+El archivo `layout.tsx` es una convención del **App Router** de Next.js 13+, usado para **definir la estructura persistente** de una **ruta** y sus **subrutas**. Es un **Server Component** por defecto que se renderiza una única vez y permanece **montado entre navegaciones** dentro de su árbol de rutas.
 
-Su propósito principal es encapsular elementos como headers, sidebars, footers, providers (theme, auth, etc.) y layout visual, evitando su re-renderizado innecesario, mejorando el rendimiento y facilitando la composición modular de interfaces complejas.
+Su propósito principal es **encapsular** **elementos** como _headers, sidebars, footers, providers (theme, auth, etc.) y layout visual_, **evitando su re-renderizado innecesario**, mejorando el rendimiento y facilitando la composición modular de interfaces complejas.
 
 ### Principales características
 
-- Persistencia entre rutas hijas: evita desmontes innecesarios.
+- **Persistencia entre rutas hijas:** evita desmontes innecesarios.
+- **Composición jerárquica:** layouts anidados para estructuras complejas.
 
-- Composición jerárquica: layouts anidados para estructuras complejas.
-
-- Server Components por defecto: ideales para render inicial optimizado.
-
-- Soporte de params dinámicos (desde Next.js 15+).
-
-- Compatible con Server Components y Client Components.
-
+- **Server Components por defecto:** ideales para render inicial optimizado.
+- **Soporte de `params` dinámicos** (desde Next.js 15+).
+- **Compatible con Server Components y Client Components**.
 - Compatible con `loading.tsx`, `error.tsx`, `not-found.tsx`.
-
 - Ideal para envolver contextos (Auth, Theme, i18n, etc).
 
 ### Ventajas
 
-- Rendimiento superior: el layout no se desmonta, solo cambia el contenido.
+- **Rendimiento superior:** el layout no se desmonta, solo cambia el contenido.
 
-- Código más limpio y DRY: evita repetir estructura visual.
-
-- Mejor experiencia de usuario: transiciones más suaves.
-
-- Extensibilidad: permite layouts independientes para secciones como `/admin`, `/dashboard`, `/auth`, etc.
-
-- Composición reactiva: ideal para diseño basado en componentes reutilizables.
+- **Código más limpio y DRY:** evita repetir estructura visual.
+- **Mejor experiencia de usuario:** transiciones más suaves.
+- **Extensibilidad:** permite layouts independientes para secciones como `/admin`, `/dashboard`, `/auth`, etc.
+- **Composición reactiva:** ideal para diseño basado en componentes reutilizables.
 
 ### ¿Cómo se crea o implementa?
 
-- Dentro de una carpeta de ruta (`app/`, `app/about`/, `app/media/[slug]/`, etc.), crea un archivo `layout.tsx`.
+- Dentro de una carpeta de ruta (`app/`, `app/about/`, `app/[slug]/`, etc.), crea un archivo `layout.tsx`.
 
 - Exporta un componente React de servidor.
+- **Usa** `**children**` **obligatoriamente.**
 
-- **Usa `children` obligatoriamente.**
-
-```typescript
+```js
 // Layout.tsx
 
-export default function Layout({ hildren }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return <section>{children}</section>;
 }
 ```
 
+Ejemplo en la estructura de carpetas:
+
+![](https://cdn-images-1.medium.com/max/1600/1*pKjnM7fUza2GlPWvII6sDA.png)
+
 ### ¿Cómo funcionan?
 
-- Cuando Next.js renderiza una ruta, comienza desde el layout raíz (/app/layout.tsx) y desciende anidando todos los layouts correspondientes hasta llegar a la página.
+Cuando Next.js renderiza una ruta, **comienza desde el layout raíz** (`/app/layout.tsx`) y desciende anidando todos los layouts correspondientes hasta llegar a la página.
 
-```yaml
-/src/app/layout.tsx  ⟶  layout.tsx de subcarpeta (si existe)  ⟶  page.tsx
-```
+- Los layouts se procesan en el **servidor** durante la construcción de la ruta.
 
-- Los layouts se procesan en el servidor durante la construcción de la ruta.
-
-- Internamente, Next.js utiliza el árbol de rutas (Routing Tree) para componer los layouts y las páginas.
-
-- Cada layout puede agregar su propia capa de HTML, CSS o lógica.
-
-- Al ser Server Components por defecto, su ejecución no llega al cliente salvo que se use `'use client'`.
-
-- Se integran con el sistema de streaming y suspense, lo que permite mostrar contenido progresivamente.
-  `params` se resuelve antes del renderizado del layout si está dentro de una carpeta dinámica.
-
-- Los layouts no se desmontan al navegar dentro del mismo grupo.
+- Internamente, Next.js utiliza el **árbol de rutas** (`Routing Tree`) para componer los layouts y las páginas.
+- Cada layout puede agregar **su propia capa de HTML, CSS o lógica**.
+- Al ser Server Components por defecto, su ejecución **no llega al cliente** salvo que se use `'use client'`.
+- Se integran con el sistema de **streaming y suspense**, lo que permite mostrar contenido progresivamente.
+- `params` se resuelve antes del renderizado del layout si está dentro de una carpeta dinámica.
+- Los layouts **no se desmontan** al navegar dentro del mismo grupo.
 
 Esto permite que estados como autenticación, navegación, temas o menús, se mantengan persistentes.
 
+#### Visualización de la página principal (`/`)
+
+![](https://cdn-images-1.medium.com/max/1600/1*-u1ENWXRFkIkX0rgOMquaw.png)
+
+#### Visualización de la página `/media/movies` (`/media/[...slug]` )
+
+![](https://cdn-images-1.medium.com/max/1600/1*IIrR1ReWCV5ZgNTe0iqjWg.png)
+
+#### Visualización de la página `/person`
+
+![](https://cdn-images-1.medium.com/max/1600/1*1Wiw6apEp3AJDiXuoptIZw.png)
+
 ### Ejemplos
 
-#### **Ejemplo básico - Layout raíz**
+#### Ejemplo básico — Layout raíz
 
 Crea el componente `Navbar` y `Footer` en `src/components/`:
 
-```typescript
+```js
 // src/components/Navbar.tsx
 'use client';
 
@@ -127,8 +124,9 @@ const Navbar = () => {
 export default Navbar;
 ```
 
-```typescript
+```js
 // app/components/Footer.tsx
+
 const Footer = () => {
   return (
     <footer className="bg-blue-950 text-white p-4 text-center">
@@ -140,9 +138,9 @@ const Footer = () => {
 export default Footer;
 ```
 
-Importa el componente `Navbar`, `Footer` al layout global (**RootLayout**) `src/app/layout.tsx`:
+Importa el componente `Navbar, Footer` al layout global (**RootLayout**) `src/app/layout.tsx`:
 
-```typescript
+```js
 //src/app/layout.tsx
 
 import './globals.css';
@@ -152,7 +150,7 @@ import Footer from '@/components/Footer';
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode,
 }>) {
   return (
     <html lang="en">
@@ -168,7 +166,7 @@ export default function RootLayout({
 }
 ```
 
-> Nota: Este `layout` se usa para toda la app. Es ideal para colocar fuentes, temas y estructura general de HTML.
+![](https://cdn-images-1.medium.com/max/1600/1*U4pnFG24qS9eRnMAyqn7XQ.png)
 
 Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando:
 
@@ -176,21 +174,23 @@ Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando
 http://localhost:3000
 ```
 
-> Importante: Es obligatorio siempre poner `{children}`, ya que durante la renderización se rellenará con los segmentos de ruta.
+![](https://cdn-images-1.medium.com/max/1600/1*DfHR0C-aeeZ2hjt-j3vlug.gif)
 
-#### **Ejemplo - Layout anidado**
+> **Importante**: Es **obligatorio** siempre poner `{children}`, ya que durante la renderización se rellenará con los segmentos de ruta.
 
-Puedes tener layouts dentro de subcarpetas y Next.js los encapsulará automáticamente.
+#### Ejemplo — Layout anidado
 
-Crea el layout y su página en src/app/media/[...slug]/ :
+Puedes tener **layouts** **dentro** de **subcarpetas** y **Next.js** los **encapsula** **automáticamente**.
 
-```typescript
+Crea el `layout.tsx` y `page.tsx` de media en `src/app/media/[...slug]/` :
+
+```js
 // src/app/media/[...slug]/layout.tsx
 
 export default async function MoviesLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode,
 }) {
   return (
     <div className="flex flex-col min-h-screen p-4">
@@ -203,13 +203,13 @@ export default async function MoviesLayout({
 }
 ```
 
-```typescript
+```js
 //src/app/media/[...slug]/page.tsx
 
 export default async function MediaPage({
   params,
 }: {
-  params: Promise<{ slug: string[] }>;
+  params: Promise<{ slug: string[] }>,
 }) {
   const { slug } = await params;
   return (
@@ -220,13 +220,17 @@ export default async function MediaPage({
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300` y navega por el menú.
+![](https://cdn-images-1.medium.com/max/1600/1*RVPny72FG4G8OQfunK6mGQ.png)
 
-#### **Ejemplo - Layouts independientes**
+Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:3000](http://localhost:300)` y navega por el menú.
 
-Agrega al menú `Navbar` la sección de "Person" :
+![](https://cdn-images-1.medium.com/max/1600/1*UMmZvq2ZQ9PiKlbQ4Ei9Aw.gif)
 
-```typescript
+#### Ejemplo — Layouts independientes
+
+Agrega al menú `Navbar` la sección de “_Person_” :
+
+```js
 // src/components/Navbar.tsx
 'use client';
 
@@ -264,13 +268,15 @@ const Navbar = () => {
 export default Navbar;
 ```
 
-Crea el layout y su página en `src/app/person/` :
+Crea el `loading.tsx` y `page.tsx` de person en `src/app/person/` :
 
-```typescript
+```js
+// src/app/person/layout.tsx
+
 export default function PersonLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode,
 }) {
   return (
     <div className="p-4 min-h-screen bg-slate-200 text-slate-800">
@@ -287,7 +293,7 @@ export default function PersonLayout({
 }
 ```
 
-```typescript
+```js
 // src/app/person/page.tsx
 
 export default function PersonPage() {
@@ -299,15 +305,19 @@ export default function PersonPage() {
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300` y navega por el menú.
+![](https://cdn-images-1.medium.com/max/1600/1*o5m5N2cEYZV4DoXvuIZKtA.png)
 
-#### **Ejemplo - Layout con params y navegación dinámica**
+Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:3000](http://localhost:300)` y navega por el menú.
 
-Desde **Next.js 15**, los layouts también pueden recibir los parámetros dinámicos (`params`) de la URL. Bastante útil cuando necesitas personalizar la estructura del layout (idioma, categoría, tipo, etc) de acuerdo a la ruta activa.
+![](https://cdn-images-1.medium.com/max/1600/1*6-UyogaNZmE0Cc3acZxMJA.gif)
+
+#### Ejemplo — Layout con `params` y navegación dinámica
+
+Desde **Next.js 15**, los **layouts** también pueden recibir los **parámetros dinámicos (**`params`**) de la URL**. Bastante útil cuando necesitas **personalizar la estructura del layout** (idioma, categoría, tipo, etc) de acuerdo a la ruta activa.
 
 Actualiza el layout `media/[...slug]/layout`:
 
-```typescript
+```js
 // src/app/media/[...slug]/layout.tsx
 
 const TYPE_TITLES: Record<string, string> = {
@@ -319,8 +329,8 @@ export default async function MoviesLayout({
   children,
   params,
 }: {
-  children: React.ReactNode;
-  params: Promise<{ slug: string[] }>;
+  children: React.ReactNode,
+  params: Promise<{ slug: string[] }>,
 }) {
   const { slug } = await params;
   const [type] = slug;
@@ -343,13 +353,17 @@ export default async function MoviesLayout({
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300` y navega por el menú.
+![](https://cdn-images-1.medium.com/max/1600/1*TCyaTMt9XvRwHMNgkHkgnw.png)
 
-#### **Ejemplo - Layout con más de un params y navegación dinámica**
+Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:3000](http://localhost:300)` y navega por el menú.
 
-Crea el menú dinámico en `src/constants/navigation.ts`:
+![](https://cdn-images-1.medium.com/max/1600/1*nPzbJ8Pn17bY2PDBZs-DiQ.gif)
 
-```typescript
+#### Ejemplo — Layout con más de un `params` y navegación dinámica
+
+Crea el menú dinámico `NAVIGATION` en `src/constants/navigation.ts`:
+
+```js
 //src/constants/navigation.ts
 
 export const NAVIGATION = {
@@ -382,7 +396,7 @@ export const NAVIGATION = {
 
 Importa `NAVIGATION` y actualiza el componente `NavBar`:
 
-```typescript
+```js
 // src/components/Navbar.tsx
 
 'use client';
@@ -425,9 +439,9 @@ const Navbar = () => {
 export default Navbar;
 ```
 
-Importa `NAVIGATION` y actualizar el layout `media/[...slug]/layout`
+Importa `NAVIGATION` y actualizar el layout `media/[...slug]/layout` :
 
-```typescript
+```js
 // src/app/media/[...slug]/layout.tsx
 
 import { NAVIGATION } from '@/constants/navigation';
@@ -462,21 +476,25 @@ export default async function MoviesLayout({
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300` y navega por el menú.
+![](https://cdn-images-1.medium.com/max/1600/1*NuSbpEKMj4clVWSO2ZeySg.png)
+
+Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:3000](http://localhost:300)` y navega por el menú.
+
+![](https://cdn-images-1.medium.com/max/1600/1*ax9KZGbLjwBqwXor7FnjGQ.gif)
 
 ### A considerar
 
-- `layout.tsx` debe incluir `{children}`, siempre.
+- `layout.tsx` **debe incluir** `{children}`, siempre.
+- **No** puedes acceder a `searchParams` o `pathname` dentro de layouts.
+- **No** se deben usar **hooks** (`useEffect`) **directamente** a menos que sea un **Client Component**.
 
-- No puedes acceder a `searchParams` o `pathname` dentro de layouts.
+- **Puedes** **anidar layouts indefinidamente**, pero evita sobreestructura innecesaria.
+- **No puedes sobrescribir layouts existentes** desde una subruta.
+- Los `params` solo se **actualizan** si el **segmento** dinámico **cambia** (no entre rutas hijas estáticas).
 
-- No se deben usar hooks (`useEffect`) directamente a menos que sea un Client Component.
+---
 
-- Puedes anidar layouts indefinidamente, pero evita sobreestructura innecesaria.
-
-- No puedes sobrescribir layouts existentes desde una subruta.
-
-- Los `params` solo se actualizan si el segmento dinámico cambia (no entre rutas hijas estáticas).
+Hasta este punto, has aprendido a utilizar `layout.tsx` como pilar para la estructura visual y lógica de tu aplicación Next.js. Has explorado cómo definir un layout global, cómo anidar layouts dentro de rutas específicas, e incluso cómo personalizar su comportamiento con `params` dinámicos.
 
 ---
 

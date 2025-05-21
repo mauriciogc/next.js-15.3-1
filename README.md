@@ -162,10 +162,13 @@ export default function NotFoundPage() {
 
 import { notFound } from 'next/navigation';
 
-export default async function BlogPage({ params }: { params: { id: string } }) {
-  const res = await fetch(
-    `https://jsonplaceholder.typicode.com/posts/${params.id}`
-  );
+interface PageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default async function BlogPage({ params }: PageProps) {
+  const { id } = await params;
+  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
   if (!res.ok) return notFound(); // Se ejecuta manualmente
 
   const blog = await res.json();

@@ -36,6 +36,7 @@ A continuación, se detallan las principales ramas y los temas que cubren:
 | [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/suspense)                                          | `suspense`                                          | Explicación y ejemplos del componente de React : `<Suspense>`.                                                                                         |
 | [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/error)                                             | `error`                                             | Explicación y ejemplos del archivo : `error.tsx`.                                                                                                      |
 | [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/not-found)                                         | `not-found`                                         | Explicación y ejemplos del archivo : `not-found.tsx`.                                                                                                  |
+| [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/global-error)                                      | `global-error`                                      | Explicación y ejemplos del archivo : `global-error.tsx`.                                                                                               |
 
 > Este repositorio **se actualizará continuamente** con nuevos temas y ejemplos.
 

@@ -9,11 +9,11 @@
 
 ## global-error.tsx
 
-> Para todos los **ejemplos** se toma el siguiente **proyecto base[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)**] (branch: base-project-2).** Este proyecto contiene los archivos: `_src/app/page.tsx_` y `_src/app/layout.tsx_`, configurados con una estructura mínima.
+> Para todos los **ejemplos** se toma el siguiente **proyecto base[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)**] (branch: base-project-2).** Este proyecto contiene los archivos: `src/app/page.tsx` y `src/app/layout.tsx`, configurados con una estructura mínima.
 
 > Para simular la carga de datos en los ejemplos vamos utilizar la API **jsonplaceholder**[[ref](https://jsonplaceholder.typicode.com/)].
 
-### ¿Qué es global-error`.tsx`?
+### ¿Qué es `global-error.tsx`?
 
 `global-error.tsx` es un archivo especial del sistema de convenciones de Next.js que permite definir una **interfaz global de fallback para errores no controlados** dentro del **App Router**. A diferencia de los archivos `error.tsx` específicos por segmento, `global-error.tsx` se utiliza para capturar **cualquier error no manejado a lo largo de toda la aplicación**.
 
@@ -106,7 +106,7 @@ Esto va a garantizar una re-renderización sincronizada de ambos lados, cliente 
 - Si un error ocurre en cualquier parte de la aplicación y no hay un `error.tsx` local para manejarlo...
 
 - Next.js asciende por la jerarquía de rutas buscando un archivo `error.tsx`.
-- Si no encuentra ninguno, **renderiza** `**global-error.tsx**` como fallback de nivel superior.
+- Si no encuentra ninguno, **renderiza** `global-error.tsx` como fallback de nivel superior.
 - El componente recibe `error` y `reset()` como props.
 - La función `reset()` permite reintentar el renderizado del árbol afectado.
 
@@ -137,7 +137,7 @@ export default function GlobalError({
   const router = useRouter();
   useEffect(() => {
     // Enviar a un servicio externo como Sentry, LogRocket, etc.
-    console.error('Error en series:', error);
+    console.error('Error en el blog:', error);
   }, [error]);
 
   return (
@@ -230,7 +230,7 @@ Los siguientes pasos son para bloquear/desbloquear la API y probar el mensaje:
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Z5DA2JX6cRaFAEVBnxCZHw.png)
 
-Y ocurre un error en el `fetch()` o `render`, y no tienes un `error.tsx` ahí, **Next.js cargará** `**global-error.tsx**`.
+Y ocurre un error en el `fetch()` o `render`, y no tienes un `error.tsx` ahí, **Next.js cargará** `global-error.tsx`.
 
 ### Comparativa: global-error.tsx vs error.tsx vs not-found.tsx
 
@@ -270,7 +270,7 @@ cd next.js-15.3-1
 Cambia a la rama:
 
 ```bash
-git checkout error
+git checkout global-error
 ```
 
 Instala las dependencias:

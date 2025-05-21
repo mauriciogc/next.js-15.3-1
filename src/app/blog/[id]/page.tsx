@@ -1,7 +1,5 @@
 // src/app/blog/[id]/page.tsx
 
-//import { notFound } from 'next/navigation';
-
 interface PageProps {
   params: Promise<{ id: string }>;
 }
@@ -10,7 +8,7 @@ export default async function BlogPage({ params }: PageProps) {
   const { id } = await params;
 
   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
-  if (!res.ok) throw new Error('¡Error inesperado en el render del post 13!');
+  if (!res.ok) throw new Error('¡Error!');
 
   const blog = await res.json();
   return (

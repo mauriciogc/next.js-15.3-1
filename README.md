@@ -15,6 +15,8 @@ La idea es que puedas explorar **casos reales y progresivos**, entender cómo se
 
 ## Temas y ramas disponibles
 
+> **Acá puedes ver todas las stories de next.js [**[**ref**](https://mauriciogc.medium.com/list/nextjs-b7b4cc4c4974)**]**
+
 A continuación, se detallan las principales ramas y los temas que cubren:
 
 | Link                                                                                                        | Rama                                                | Descripción                                                                                                                                            |
@@ -37,6 +39,7 @@ A continuación, se detallan las principales ramas y los temas que cubren:
 | [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/error)                                             | `error`                                             | Explicación y ejemplos del archivo : `error.tsx`.                                                                                                      |
 | [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/not-found)                                         | `not-found`                                         | Explicación y ejemplos del archivo : `not-found.tsx`.                                                                                                  |
 | [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/global-error)                                      | `global-error`                                      | Explicación y ejemplos del archivo : `global-error.tsx`.                                                                                               |
+| [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/template)                                          | `template`                                          | Explicación y ejemplos del archivo : `template.tsx`.                                                                                                   |
 
 > Este repositorio **se actualizará continuamente** con nuevos temas y ejemplos.
 

@@ -452,7 +452,9 @@ export default async function AlbumsPage() {
 
 Agrega la imagen de spotify en `/public/images`
 
-![Spotify Logo](https://cdn-images-1.medium.com/max/1600/0*9MPWWoZBEUW5eFj5.png)
+```yaml
+https://github.com/mauriciogc/next.js-15.3-1/blob/template/public/images/spotify.png
+```
 
 Agrega el `Link` hacia `/albums` en `src/app/page.tsx`
 

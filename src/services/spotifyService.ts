@@ -1,8 +1,7 @@
 // src/services/spotifyService.ts
 
 const SPOTIFY_API = 'https://api.spotify.com/v1';
-const TOKEN =
-  'BQDkS8HqTgt6ZA0oFsFoJSc2ExHXtekd8gF5ulIH228raAxirzZQUpjmGZN8qKKV6Cf9chH5BglZuTWQPx58iMQ8ad_ZDIXZ3h_dkiCPm7W_fUPfBb_8l6NFcIUjf04MrgiLxVE5DL8';
+const TOKEN = 'TOKEN SPOTIFY';
 
 /**
  * Obtiene albumes de Spotify.

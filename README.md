@@ -40,6 +40,7 @@ A continuación, se detallan las principales ramas y los temas que cubren:
 | [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/not-found)                                         | `not-found`                                         | Explicación y ejemplos del archivo : `not-found.tsx`.                                                                                                  |
 | [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/global-error)                                      | `global-error`                                      | Explicación y ejemplos del archivo : `global-error.tsx`.                                                                                               |
 | [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/template)                                          | `template`                                          | Explicación y ejemplos del archivo : `template.tsx`.                                                                                                   |
+| [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/route)                                             | `route`                                             | Explicación y ejemplos del archivo : `route.ts`.                                                                                                       |
 
 > Este repositorio **se actualizará continuamente** con nuevos temas y ejemplos.
 

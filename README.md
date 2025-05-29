@@ -41,6 +41,7 @@ A continuación, se detallan las principales ramas y los temas que cubren:
 | [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/global-error)                                      | `global-error`                                      | Explicación y ejemplos del archivo : `global-error.tsx`.                                                                                               |
 | [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/template)                                          | `template`                                          | Explicación y ejemplos del archivo : `template.tsx`.                                                                                                   |
 | [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/route)                                             | `route`                                             | Explicación y ejemplos del archivo : `route.ts`.                                                                                                       |
+| [Link](https://github.com/mauriciogc/next.js-15.3-1/tree/route-groups-private-folders)                      | `route-groups-private-folders`                      | Explicación básica de Route Groups `(folder)` y Private Folders `_folder`                                                                              |
 
 > Este repositorio **se actualizará continuamente** con nuevos temas y ejemplos.
 

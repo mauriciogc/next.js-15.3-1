@@ -21,9 +21,9 @@ A continuación, se detallan las principales ramas y los temas que cubren:
 
 ### Fundamentos
 
-| Título                         | Descripción                                                                               | Artículo                                                                  | Rama                          |
-| ------------------------------ | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | ----------------------------- |
-| Fundamentos básicos de Next.js | <ul><li>¿Qué es Next.js?</li><li>Crear un proyecto</li><li>Ejecutar el proyecto</li></ul> | [Medium](https://medium.com/@mauriciogc/next-js-fundamentos-2cee80e16778) | [Github](tree/create-project) |
+| Título                         | Descripción                                                                               | Artículo                                                                  | Rama                                                                       |
+| ------------------------------ | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| Fundamentos básicos de Next.js | <ul><li>¿Qué es Next.js?</li><li>Crear un proyecto</li><li>Ejecutar el proyecto</li></ul> | [Medium](https://medium.com/@mauriciogc/next-js-fundamentos-2cee80e16778) | [Github](https://github.com/mauriciogc/next.js-15.3-1/tree/create-project) |
 
 ### Páginas, Rutas: estáticas, dinámicas, Renderizado.
 

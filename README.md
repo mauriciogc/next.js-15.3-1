@@ -82,6 +82,10 @@ Todos los **Top-Level Files** van directamente en la raíz del proyecto:
 - **Permiten optimizaciones y ajustes de rendimiento** (imágenes, cache, minificación).
 - **Enlazan con herramientas externas**: linters, analizadores, tracer de OpenTelemetry, etc.
 
+### Comparativa rápida de funciones
+
+![](https://cdn-images-1.medium.com/max/1600/1*JY3DUhl1vh9AaE_ewWW-gA.png)
+
 ---
 
 Hasta este punto, hemos explorado los **Top-Level Files** de Next.js, entendiendo que no forman parte del árbol de rutas, pero **sí impactan profundamente en el comportamiento global de nuestra aplicación**.

@@ -58,6 +58,14 @@ A continuación, se detallan las principales ramas y los temas que cubren:
 | Fundamentos básicos de Archivos de enrutamiento (App Router)      | <ul><li>¿Qué son los archivos de enrutamiento?</li><ul><li>Básicos</li><li>Mejora UX y manejo de errores</li><li>Comportamientos específicos</li></ul><li>¿Dónde se colocan?</li><li>¿Por qué son importantes?</li></ul> | [Medium](https://mauriciogc.medium.com/next-js-archivos-de-enrutamiento-app-router-f148fd9b270d) | [Github](https://github.com/mauriciogc/next.js-15.3-1/tree/routing-files) |
 | Archivo `layout.tsx`<br/>_**Nota**: Revisar el componente `Link`_ | <ul><li>¿Qué es `layout.tsx`?</li><li>Principales características</li><li>Ventajas</li><li>¿Cómo se crea o implementa?</li><li>¿Cómo funciona?</li><li>Ejemplos</li><li>A considerar</li></ul>                           | Medium                                                                                           | [Github](https://github.com/mauriciogc/next.js-15.3-1/tree/layout)        |
 
+### Route Groups & Private Folders
+
+---
+
+| Título                                                | Descripción                                                                                                                                          | Artículo | Rama                                                                                     |
+| ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ---------------------------------------------------------------------------------------- |
+| Fundamentos básicos de Route Groups & Private Folders | <ul><li>¿Qué son?</li><li> Route Groups `(folder)`, Private Folders `_folder`</li><li>¿Dónde se colocan?</li><li>¿Por qué son importantes?</li></ul> | Medium   | [Github](https://github.com/mauriciogc/next.js-15.3-1/tree/route-groups-private-folders) |
+
 ### Funciones, hooks, componentes y otros...
 
 ---

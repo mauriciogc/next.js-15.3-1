@@ -80,12 +80,6 @@ export default {
 
 ![](https://cdn-images-1.medium.com/max/1600/1*ARbO_tbsp92ueO__gvFY8A.png)
 
-### Configuraciones
-
-- Configuraciones básicas, de entorno y avanzadas. [ref]
-- Optimización de recursos y caché, y Ecosistema, herramientas y compiladores [ref]
-- Server Actions [ref]
-
 ### Buenas prácticas
 
 - Documenta cualquier cambio en `basePath` si haces despliegues en subrutas.

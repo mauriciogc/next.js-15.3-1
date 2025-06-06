@@ -1,7 +1,13 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  cacheHandler: require.resolve('./lib/InMemoryCacheHandler.js'),
+  cacheMaxMemorySize: 0,
+  devIndicators: { position: 'bottom-right' },
+  images: {
+    loader: 'custom',
+    loaderFile: './image/image-loader.js',
+  },
 };
 
 export default nextConfig;

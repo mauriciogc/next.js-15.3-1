@@ -233,7 +233,7 @@ module.exports = {
 **Consideraciones:**  
 Útil para evitar errores de CORS en entornos de desarrollo con múltiples dominios.
 
-#### `headers**` — [[ref](https://nextjs.org/docs/app/api-reference/config/next-config-js/headers)]
+#### `headers` — [[ref](https://nextjs.org/docs/app/api-reference/config/next-config-js/headers)]
 
 **¿Qué es?**
 Permite definir **cabeceras personalizadas para rutas específicas**. Muy útil para políticas de seguridad (`CSP`, `X-Frame-Options`), `CORS`, o control de caching.

@@ -21,7 +21,7 @@
 
 ### Optimización de recursos y caché
 
-####`images` — [[ref](https://nextjs.org/docs/app/api-reference/config/next-config-js/images)]
+#### `images` — [[ref](https://nextjs.org/docs/app/api-reference/config/next-config-js/images)]
 
 **¿Qué es?**
 Permite **definir un cargador de imágenes personalizado** mediante la opción `loader: 'custom'` y especificando un archivo `loaderFile`.

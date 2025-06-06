@@ -98,7 +98,7 @@ Permite **personalizar completamente la lógica de almacenamiento en caché** ut
 
 **¿Cuándo usarlo?**
 
-- Necesitas \*\*caché compartida entre múltiples instancias de servidores.
+- Necesitas caché compartida entre múltiples instancias de servidores.
 - Quieres manejar el TTL, invalidación o estructuras de clave/valor tú mismo.
 - Estás implementando un **sistema de CDN o prerendering a medida**.
 - Quieres hacer persistencia en disco, S3, Redis, etc., en lugar de memoria local.

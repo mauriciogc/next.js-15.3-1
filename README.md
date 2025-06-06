@@ -443,7 +443,7 @@ module.exports = {
 - El Valor debe ser de tipo `string`.
 - Si se omite, Next.js genera un UUID.
 
-#### `onDemandEntries**` — [[ref](https://nextjs.org/docs/app/api-reference/config/next-config-js/onDemandEntries)]
+#### `onDemandEntries` — [[ref](https://nextjs.org/docs/app/api-reference/config/next-config-js/onDemandEntries)]
 
 **¿Qué es?**
 Controla cómo se cargan las páginas bajo demanda en desarrollo (`next dev`). Puedes ajustar cuánto tiempo se mantiene un módulo activo sin acceso.
@@ -500,7 +500,7 @@ Donde:
 
 > **Descarga los ejemplos [**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/next-config)**] (branch: next-config)**
 
-#### `**expireTime**`— [[ref](https://nextjs.org/docs/app/api-reference/config/next-config-js/expireTime)]
+#### `expireTime`— [[ref](https://nextjs.org/docs/app/api-reference/config/next-config-js/expireTime)]
 
 **¿Qué es?**
 Permite controlar cuánto tiempo Next.js debe mantener activos los segmentos de rutas del App Router en memoria en producción.

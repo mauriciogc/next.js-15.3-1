@@ -392,7 +392,7 @@ Busca la traza que representa la petición realizada al servicio externo **JSONP
 
 ![](https://cdn-images-1.medium.com/max/1600/1*KYkXCfwqt2tQlkleZPW-4g.png)
 
-> Para detener el contenedor solo ejecuta en consola: `docker stop jaeger`
+> Para **detener** el contenedor solo ejecuta en consola: `docker stop jaeger`
 
 ### ¿Se puede usar con layouts, loading o templates?
 

@@ -390,8 +390,6 @@ Al iniciar el servidor con `npm run dev`, accede a `http://localhost:3000` y nav
 
 Busca la traza que representa la petición realizada al servicio externo **JSONPlaceholder**. Dentro de ella podrás inspeccionar los detalles del span, incluyendo el método HTTP, la URL solicitada, el código de respuesta, y la duración de la operación.
 
-![](https://cdn-images-1.medium.com/max/1600/1*KYkXCfwqt2tQlkleZPW-4g.png)
-
 > Para **detener** el contenedor solo ejecuta en consola: `docker stop jaeger`
 
 ### ¿Se puede usar con layouts, loading o templates?

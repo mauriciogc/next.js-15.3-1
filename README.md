@@ -321,7 +321,7 @@ export function AlbumCard({
 }
 ```
 
-Crea el archivo .env.local dentro del directorio raíz del proyecto (no dentro de /src):
+Crea el archivo `.env.local` dentro del directorio raíz del proyecto (no dentro de `/src`):
 
 ```ini
 # SPOTIFY Config

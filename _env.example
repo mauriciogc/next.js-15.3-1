@@ -1,0 +1,7 @@
+# APP Version
+NEXT_PUBLIC_APP_VERSION = x.x.x
+NEXT_PUBLIC_ENV=enviroment
+
+# TMDB Config
+TMDB_API_KEY = abcd1234supersecret
+TMDB_BASE_URL = https://api.themoviedb.org/3

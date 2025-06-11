@@ -235,20 +235,27 @@ curl -X POST http://localhost:3000/api/contact \
 
 #### Ejemplo 3— GET con servicio externo (themoviedb)
 
+Crea el archivo `.env.local` dentro del directorio raíz del proyecto (no dentro de `/src`):
+
+```ini
+# TMDB Config
+TMDB_API_KEY = abcd1234supersecret
+TMDB_BASE_URL = https://api.themoviedb.org/3
+```
+
 Crea el servicio `tmdbService.ts` en `/src/services` :
 
 ```js
 // src/services/tmdbService.ts
-
-const TMDB_API_KEY = 'TU API KEY';
-const BASE_URL = 'https://api.themoviedb.org/3';
+const API_KEY = process.env.TMDB_API_KEY;
+const BASE_URL = process.env.TMDB_BASE_URL;
 
 export async function getSeries(type = 'tv') {
-  if (!TMDB_API_KEY) throw new Error('No API key provided');
+  if (!API_KEY) throw new Error('No API key provided');
 
   const res = await fetch(`${BASE_URL}/${type}/top_rated`, {
     headers: {
-      Authorization: `Bearer ${TMDB_API_KEY}`,
+      Authorization: `Bearer ${API_KEY}`,
     },
     cache: 'no-store',
   });

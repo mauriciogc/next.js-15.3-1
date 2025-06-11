@@ -321,23 +321,29 @@ export function AlbumCard({
 }
 ```
 
+Crea el archivo .env.local dentro del directorio raíz del proyecto (no dentro de /src):
+
+```ini
+# SPOTIFY Config
+SPOTIFY_API_KEY = abcd1234supersecret
+SPOTIFY_BASE_URL = https://api.spotify.com/v1
+```
+
 Crea el servicio `spotifyService.ts` en `/src/services` :
 
 ```js
 // src/services/spotifyService.ts
 
-const SPOTIFY_API = 'https://api.spotify.com/v1';
-const TOKEN = 'TOKEN SPOTIFY';
+const BASE_URL = process.env.SPOTIFY_BASE_URL;
+const API_KEY = process.env.SPOTIFY_API_KEY;
 
 /**
  * Obtiene albumes de Spotify.
- * @param search - Término de búsqueda (por defecto 'soundtracks')
- * @returns Lista de álbumes relacionados con el término de búsqueda
  */
 export async function fetchNewReleases(search = 'soundtracks') {
-  const res = await fetch(`${SPOTIFY_API}/search?q=${search}&type=album`, {
+  const res = await fetch(`${BASE_URL}/search?q=${search}&type=album`, {
     headers: {
-      Authorization: `Bearer ${TOKEN}`,
+      Authorization: `Bearer ${API_KEY}`,
     },
     next: { revalidate: 6000 },
   });
@@ -349,13 +355,11 @@ export async function fetchNewReleases(search = 'soundtracks') {
 
 /**
  * Obtiene los detalles de un álbum por su ID.
- * @param id - ID del álbum a buscar
- * @returns Detalles del álbum
  */
 export async function fetchAlbumById(id: string) {
-  const res = await fetch(`${SPOTIFY_API}/albums/${id}`, {
+  const res = await fetch(`${BASE_URL}/albums/${id}`, {
     headers: {
-      Authorization: `Bearer ${TOKEN}`,
+      Authorization: `Bearer ${API_KEY}`,
     },
   });
 

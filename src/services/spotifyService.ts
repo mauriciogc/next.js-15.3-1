@@ -1,7 +1,7 @@
 // src/services/spotifyService.ts
 
-const SPOTIFY_API = 'https://api.spotify.com/v1';
-const TOKEN = 'TOKEN SPOTIFY';
+const BASE_URL = process.env.SPOTIFY_BASE_URL;
+const API_KEY = process.env.SPOTIFY_API_KEY;
 
 /**
  * Obtiene albumes de Spotify.
@@ -9,9 +9,9 @@ const TOKEN = 'TOKEN SPOTIFY';
  * @returns Lista de álbumes relacionados con el término de búsqueda
  */
 export async function fetchNewReleases(search = 'soundtracks') {
-  const res = await fetch(`${SPOTIFY_API}/search?q=${search}&type=album`, {
+  const res = await fetch(`${BASE_URL}/search?q=${search}&type=album`, {
     headers: {
-      Authorization: `Bearer ${TOKEN}`,
+      Authorization: `Bearer ${API_KEY}`,
     },
     next: { revalidate: 6000 },
   });
@@ -27,9 +27,9 @@ export async function fetchNewReleases(search = 'soundtracks') {
  * @returns Detalles del álbum
  */
 export async function fetchAlbumById(id: string) {
-  const res = await fetch(`${SPOTIFY_API}/albums/${id}`, {
+  const res = await fetch(`${BASE_URL}/albums/${id}`, {
     headers: {
-      Authorization: `Bearer ${TOKEN}`,
+      Authorization: `Bearer ${API_KEY}`,
     },
   });
 

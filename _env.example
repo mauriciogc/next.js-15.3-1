@@ -1,0 +1,7 @@
+# TMDB Config
+TMDB_API_KEY = abcd1234supersecret
+TMDB_BASE_URL = https://api.themoviedb.org/3
+
+# SPOTIFY Config
+SPOTIFY_API_KEY = abcd1234supersecret
+SPOTIFY_BASE_URL = https://api.spotify.com/v1

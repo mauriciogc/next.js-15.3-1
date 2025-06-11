@@ -225,13 +225,21 @@ const Card = ({ title, imageUrl, age }: CardProps) => {
 export default Card;
 ```
 
+Crea el archivo `.env.local` dentro del directorio raíz del proyecto (no dentro de `/src`):
+
+```ini
+# TMDB Config
+TMDB_API_KEY = abcd1234supersecret
+TMDB_BASE_URL = https://api.themoviedb.org/3
+```
+
 Crea el servicio `tmdbService` en `/src/services/` :
 
 ```js
 // src/services/tmdbService.tsx
 
-const API_KEY = 'TU-API-KEY';
-const BASE_URL = 'https://api.themoviedb.org/3';
+const API_KEY = process.env.TMDB_API_KEY;
+const BASE_URL = process.env.TMDB_BASE_URL;
 
 const options = {
   headers: {

@@ -1,8 +1,7 @@
-// src/app/services/tmdbService.tsx
+// src/services/tmdbService.tsx
 
-const API_KEY = 'TU API KEY';
-
-const BASE_URL = 'https://api.themoviedb.org/3';
+const API_KEY = process.env.TMDB_API_KEY;
+const BASE_URL = process.env.TMDB_BASE_URL;
 
 const options = {
   headers: {

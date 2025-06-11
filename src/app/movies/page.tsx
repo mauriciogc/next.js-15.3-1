@@ -1,4 +1,10 @@
-import { fetchMovies } from '../../services/tmdbService';
+// src/app/movies/
+import { fetchMovies } from '@/services/tmdbService';
+
+type Movie = {
+  id: number;
+  title: string;
+};
 
 export default async function MoviesPage() {
   const data = await fetchMovies('popular');
@@ -6,7 +12,7 @@ export default async function MoviesPage() {
   return (
     <div>
       <ul>
-        {data.results.map((movie: any) => (
+        {data.results.map((movie: Movie) => (
           <li key={movie.id}>{movie.title}</li>
         ))}
       </ul>

@@ -1,0 +1,3 @@
+# TMDB Config
+NEXT_PUBLIC_TMDB_API_KEY = abcd1234supersecret
+NEXT_PUBLIC_TMDB_BASE_URL = https://api.themoviedb.org/3

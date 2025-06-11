@@ -235,17 +235,26 @@ export default function List({ list }: { list: List[] }) {
 }
 ```
 
+Crea el archivo `.env.local` dentro del directorio raíz del proyecto (no dentro de `/src`):
+
+```ini
+# TMDB Config
+# Se ponen publicas ya que hay un ejemplo que consume
+# el servicio y es un client component
+NEXT_PUBLIC_TMDB_API_KEY = abcd1234supersecret
+NEXT_PUBLIC_TMDB_BASE_URL = https://api.themoviedb.org/3
+```
+
 Crea el servicio `tmdbService` en `src/services/`:
 
 ```js
 // src/services/tmdbService.ts
-
-const TMDB_API_KEY = 'TU API KEY';
-
-const BASE_URL = 'https://api.themoviedb.org/3';
+const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+const BASE_URL = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
 
 export async function getSeries(type = 'tv') {
-  let token = TMDB_API_KEY;
+  await new Promise((resolve) => setTimeout(resolve, 1500));
+  let token = API_KEY;
 
   if (!token) throw new Error('No API key provided');
 
@@ -254,6 +263,7 @@ export async function getSeries(type = 'tv') {
       Authorization: `Bearer ${token}`,
     },
   });
+  setTimeout(() => {}, 3000);
 
   if (!res.ok) {
     throw new Error(`Error al obtener series: ${res.statusText}`);

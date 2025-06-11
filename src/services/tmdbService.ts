@@ -1,12 +1,10 @@
 // src/services/tmdbService.ts
-
-const TMDB_API_KEY = 'TU API';
-
-const BASE_URL = 'https://api.themoviedb.org/3';
+const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+const BASE_URL = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
 
 export async function getSeries(type = 'tv') {
   await new Promise((resolve) => setTimeout(resolve, 1500));
-  let token = TMDB_API_KEY;
+  let token = API_KEY;
 
   if (!token) throw new Error('No API key provided');
 

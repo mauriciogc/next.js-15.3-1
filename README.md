@@ -14,6 +14,8 @@
 
 > Para todos los **ejemplos** se toma el siguiente **proyecto base[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)**] (branch: base-project-2).** Este proyecto contiene los archivos: `src/app/page.tsx` y `src/app/layout.tsx`, configurados con una estructura mínima.
 
+> Para simular la carga de datos en los ejemplos vamos utilizar la API **themoviedb**[[ref](https://developer.themoviedb.org/docs/getting-started)].
+
 ### ¿Qué son?
 
 Los archivos `env.*` son mecanismos de configuración que permiten definir **variables de entorno** que pueden ser accedidas tanto en tiempo de ejecución (server) como en tiempo de build (browser, si se explicita).

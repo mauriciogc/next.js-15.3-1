@@ -7,11 +7,14 @@
 
 ---
 
-> Para todos los **ejemplos** se toma el siguiente **proyecto base [**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)**] (branch: base-project-2).** Este proyecto contiene los archivos: `src/app/page.tsx` y `src/app/layout.tsx`, configurados con una estructura mínima.
+## not-found.tsx
+
+> **Todos los ejemplos los podrás encontrar en el repositorio next.js-15.3–1[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1)**]  
+> Acá puedes ver todas las stories de next.js [**[**ref**](https://mauriciogc.medium.com/list/nextjs-v15-b7b4cc4c4974)**]**
+
+> Para todos los **ejemplos** se toma el siguiente **proyecto base[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)**] (branch: base-project-2).** Este proyecto contiene los archivos: `src/app/page.tsx` y `src/app/layout.tsx`, configurados con una estructura mínima.
 
 > Para simular la carga de datos en los ejemplos vamos utilizar la API **jsonplaceholder**[[ref](https://jsonplaceholder.typicode.com/)].
-
-## not-found.tsx
 
 ### ¿Qué es not-found`.tsx`?
 
@@ -63,7 +66,7 @@ notFound();
 
 Ejemplo en la estructura de carpetas:
 
-![](https://cdn-images-1.medium.com/max/1600/1*rXeSiHCllw8TDGT3ZYkUFw.png)
+![](https://cdn-images-1.medium.com/max/800/1*0pSpbbkc3ddMtRb6THYAkw.png)
 
 ### ¿Cómo funciona?
 
@@ -113,9 +116,9 @@ export default function NotFoundPage() {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*TB1I6IexwElNa_fOkXD3tw.png)
+![](https://cdn-images-1.medium.com/max/800/1*QvEHMVE3Fu5GtHvg5XYE1Q.png)
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:300/chat` :
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000/chat`:
 
 ![](https://cdn-images-1.medium.com/max/1600/1*JMuzHgbil3ZoXpfNJWWDpw.gif)
 
@@ -181,9 +184,9 @@ export default async function BlogPage({ params }: PageProps) {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*hS4JskbNZUzhY8q6iU-7NQ.png)
+![](https://cdn-images-1.medium.com/max/800/1*B_u8yjFWzptK4gxoEz-ULQ.png)
 
-Al iniciar el servidor (`npm run dev`), accede a `[http://localhost:3000/blog](http://localhost:300)`, podrás observar que manda el `not-found.tsx` más cercano que en este caso es `app/not-found.tsx`
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000/blog`, podrás observar que manda el `not-found.tsx` más cercano que en este caso es `app/not-found.tsx`
 
 ![](https://cdn-images-1.medium.com/max/1600/1*KYLEuUZfsTykDtoRzIeSGQ.gif)
 

@@ -195,9 +195,9 @@ export default async function BlogPage({ params }: PageProps) {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*O35abNnnTy7Edjbb-8dXkw.png)
+![](https://cdn-images-1.medium.com/max/800/1*n98s0a_NlszVsKGlJI0lQA.png)
 
-Ejecuta en la consola `npm run build && npm run start`, podrás acceder a esta página visitando `http://localhost:3000/blog/1`
+Al ejecutar en la consola `npm run build && npm run start`, acceder a `http://localhost:3000/blog/1`
 
 ![](https://cdn-images-1.medium.com/max/1600/1*t5wcksNZZgemM9L4t_w-vg.gif)
 
@@ -228,13 +228,13 @@ Los siguientes pasos son para bloquear/desbloquear la API y probar el mensaje:
 
 **Sí**. Si tienes una página o layout que carga contenido asíncrono:
 
-![](https://cdn-images-1.medium.com/max/1600/1*Z5DA2JX6cRaFAEVBnxCZHw.png)
+![](https://cdn-images-1.medium.com/max/800/1*Vicyu4J_2PtvT0FuySn-eg.png)
 
 Y ocurre un error en el `fetch()` o `render`, y no tienes un `error.tsx` ahí, **Next.js cargará** `global-error.tsx`.
 
 ### Comparativa: global-error.tsx vs error.tsx vs not-found.tsx
 
-![](https://cdn-images-1.medium.com/max/1600/1*bLmL5CdFTNVIpSJ363AvkA.png)
+![](https://cdn-images-1.medium.com/max/800/1*9EGIA4R8WS4RZ8VotHSQZA.png)
 
 ---
 

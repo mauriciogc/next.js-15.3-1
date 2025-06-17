@@ -7,6 +7,8 @@
 
 ---
 
+## template.tsx
+
 > **Todos los ejemplos los podrás encontrar en el repositorio next.js-15.3–1[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1)**]**
 
 > **Acá puedes ver todas las stories de next.js [**[**ref**](https://mauriciogc.medium.com/list/nextjs-b7b4cc4c4974)**]**
@@ -14,8 +16,6 @@
 > Para todos los **ejemplos** se toma el siguiente **proyecto base[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)**] (branch: base-project-2).** Este proyecto contiene los archivos: `_src/app/page.tsx_` y `_src/app/layout.tsx_`, configurados con una estructura mínima.
 
 > Para simular la carga de datos en los ejemplos vamos utilizar la API **spotify**[[ref](https://developer.spotify.com/documentation/web-api)].
-
-## template.tsx
 
 ### ¿Qué es `template.tsx`?
 
@@ -64,7 +64,7 @@ Puedes envolver el contenido en animaciones, contextos u otras instancias necesa
 
 Ejemplo en la estructura de carpetas:
 
-![](https://cdn-images-1.medium.com/max/1600/1*QFPomQ5aDfHcIdgsLZR3AA.png)
+![](https://cdn-images-1.medium.com/max/800/1*EI4ll7gPPUODRghJPtDhZw.png)
 
 ### ¿Cómo funcionan?
 
@@ -235,9 +235,9 @@ export default function Home() {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*WKEr_osuowPVFhX5-_xmPw.png)
+![](https://cdn-images-1.medium.com/max/800/1*9Q-pqZXNsOhgYO2QqVRnhg.png)
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:3000` y navegar por a la sección de `/dashboard`.
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000` , navegar por a la sección de `/dashboard`.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*Ngov_8yqcUf8FwtiadOXxQ.gif)
 
@@ -251,9 +251,9 @@ Esto es posible porque el archivo `layout.tsx` ubicado en `/app/dashboard/layout
 
 Cambia el nombre de `app/dashboard/layout.tsx` por `app/dashboard/template.tsx`
 
-![](https://cdn-images-1.medium.com/max/1600/1*WHP9y5tWDLG4Frjeb2ryog.png)
+![](https://cdn-images-1.medium.com/max/800/1*6i5nZDlS1k52X70xqTXU9A.png)
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:3000` y navegar por a la sección de `/dashboard`.
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000` , navegar por a la sección de `/dashboard`.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*_wq4a-gryacrSXgKGNyjlA.gif)
 
@@ -483,9 +483,9 @@ export default function Home() {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*nrZqGQ6U5Pf9JN4GElvfKQ.png)
+![](https://cdn-images-1.medium.com/max/800/1*FapvnFs3mzpcumGWOPtKpg.png)
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:3000` y navegar por a la sección de `/albums`.
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000` , navegar por a la sección de `/albums`.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*ag21xfM81me1glS8t5UuiA.gif)
 
@@ -543,9 +543,9 @@ export default async function AlbumDetailPage({ params }: PageProps) {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*jYcS_-Pgg6n2QvYwN5FWTQ.png)
+![](https://cdn-images-1.medium.com/max/800/1*QZbFo0E6n64zorsv5YEa7Q.png)
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:3000` y navegar por a la sección de `/albums` y al detalle de algún album.
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000` , navegar por a la sección de `/albums`, dar click en algún álbum para ver el detalle.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*7xe2h87zx5doc4mUx-GlPg.gif)
 
@@ -557,9 +557,9 @@ Este comportamiento es posible porque el archivo `app/albums/layout.tsx` **se ma
 
 Cambia el nombre de `app/albums/layout.tsx` por `app/albums/template.tsx`
 
-![](https://cdn-images-1.medium.com/max/1600/1*ash3CM9RSMZ2BCmk1of_9Q.png)
+![](https://cdn-images-1.medium.com/max/800/1*VuKvWswikdiv76Duq2bCIA.png)
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:3000` y navegar por a la sección de `/albums` y al detalle de algún album.
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000` , navegar por a la sección de `/albums`, dar click en algún álbum para ver el detalle.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*jHyqrNR_IhhqWxlcl9G52g.gif)
 
@@ -588,7 +588,7 @@ Este comportamiento ocurre porque el archivo `app/albums/template.tsx` **fuerza 
 
 Esto es especialmente útil si estás haciendo navegación tipo detalle:
 
-![](https://cdn-images-1.medium.com/max/1600/1*DLhlQmmsH4YPcoT3RcsF0Q.png)
+![](https://cdn-images-1.medium.com/max/800/1*tzTq9j3gn7wV6nUSW-kytQ.png)
 
 ### ¿Se puede tener un `template.tsx` global?
 
@@ -607,7 +607,7 @@ Esto es especialmente útil si estás haciendo navegación tipo detalle:
 
 ### layout.tsx o template.tsx
 
-## ![](https://cdn-images-1.medium.com/max/1600/1*NzRgQg3v1eVdoD8NB8K_vA.png)
+![](https://cdn-images-1.medium.com/max/800/1*O1sqSYYZehkJIIfF3V1-5w.png)
 
 ---
 

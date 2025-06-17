@@ -176,9 +176,9 @@ export default function Home() {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*l5GO7gtgoYS-LRxEjKH2bA.png)
+![](https://cdn-images-1.medium.com/max/800/1*WCHky9TYeofbJqo1AR99Zg.png)
 
-Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando `http://localhost:3000`, da clic en “Ir a error controlado”
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000` , dar clic en “Ir a error controlado”
 
 ![](https://cdn-images-1.medium.com/max/1600/1*L_r4z_etcbibj6KU3crvuQ.gif)
 
@@ -373,9 +373,9 @@ export default function Home() {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*eQ7F_cZ8vtbWPfIsJEqysA.png)
+![](https://cdn-images-1.medium.com/max/800/1*SbZwoE6g3e8KJClX67ibGQ.png)
 
-Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando `http://localhost:300`, da clic en “Ir a las series”.
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000` , dar clic en “Ir a las series”
 
 ![](https://cdn-images-1.medium.com/max/1600/1*1IPXeVEbfgYMCZg960kevw.gif)
 
@@ -594,9 +594,9 @@ export default function Home() {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*bfyBkHoCsGUVScdsNJeY7A.png)
+![](https://cdn-images-1.medium.com/max/800/1*swMTmmjGTGGeT6kWGoVSSQ.png)
 
-Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando `http://localhost:3000`, da clic en “Ir a las películas”.
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000` , dar clic en “Ir a las películas”
 
 ![](https://cdn-images-1.medium.com/max/1600/1*pJDB4y75Pmo-K6X7zZfoBw.gif)
 
@@ -795,9 +795,9 @@ export default function Home() {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*nTyxZA3cafZAol9NvhfiwQ.png)
+![](https://cdn-images-1.medium.com/max/800/1*kEhRxqEFnMl3n5BZHx1xHQ.png)
 
-Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando `http://localhost:3000`, da clic en “Ir al top”.
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000` , dar clic en “Ir al top”
 
 ![](https://cdn-images-1.medium.com/max/1600/1*rFHg4dsfJ4jtWTfeeck85A.gif)
 

@@ -56,7 +56,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 Ejemplo en la estructura de carpetas:
 
-![](https://cdn-images-1.medium.com/max/1600/1*pKjnM7fUza2GlPWvII6sDA.png)
+![](https://cdn-images-1.medium.com/max/800/1*IULDIKTb-o0mJ0YLiq4EWw.png)
 
 ### ¿Cómo funcionan?
 
@@ -75,15 +75,15 @@ Esto permite que estados como autenticación, navegación, temas o menús, se ma
 
 #### Visualización de la página principal (`/`)
 
-![](https://cdn-images-1.medium.com/max/1600/1*-u1ENWXRFkIkX0rgOMquaw.png)
+![](https://cdn-images-1.medium.com/max/800/1*9paKdRYNzUev7c-XDRIMzA.png)
 
 #### Visualización de la página `/media/movies` (`/media/[...slug]` )
 
-![](https://cdn-images-1.medium.com/max/1600/1*IIrR1ReWCV5ZgNTe0iqjWg.png)
+![](https://cdn-images-1.medium.com/max/800/1*hYLiZrJ0sCtdvLoDTBPDRA.png)
 
 #### Visualización de la página `/person`
 
-![](https://cdn-images-1.medium.com/max/1600/1*1Wiw6apEp3AJDiXuoptIZw.png)
+![](https://cdn-images-1.medium.com/max/800/1*nvevAxQy8RZ_LYhJtLXmow.png)
 
 ### Ejemplos
 
@@ -166,9 +166,9 @@ export default function RootLayout({
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*U4pnFG24qS9eRnMAyqn7XQ.png)
+![](https://cdn-images-1.medium.com/max/800/1*xQXYAF6ykUSBOfLkxSxtlA.png)
 
-Al iniciar el servidor (`npm run dev`), podrás acceder a esta página visitando:
+Al iniciar el servidor `npm run dev`, podrás acceder a esta página visitando:
 
 ```yaml
 http://localhost:3000
@@ -220,9 +220,9 @@ export default async function MediaPage({
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*RVPny72FG4G8OQfunK6mGQ.png)
+![](https://cdn-images-1.medium.com/max/800/1*ynqhnpYsH88Ix1KsepegEQ.png)
 
-Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:3000](http://localhost:300)` y navega por el menú.
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:300` y navegar por el menú.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*UMmZvq2ZQ9PiKlbQ4Ei9Aw.gif)
 
@@ -305,9 +305,9 @@ export default function PersonPage() {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*o5m5N2cEYZV4DoXvuIZKtA.png)
+![](https://cdn-images-1.medium.com/max/800/1*LPRmVP1kQ41s2OjO6976Xw.png)
 
-Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:3000](http://localhost:300)` y navega por el menú.
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:300` y navegar por el menú.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*6-UyogaNZmE0Cc3acZxMJA.gif)
 
@@ -353,9 +353,9 @@ export default async function MoviesLayout({
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*TCyaTMt9XvRwHMNgkHkgnw.png)
+![](https://cdn-images-1.medium.com/max/800/1*wx2DytWfLr5fDTEEJ15EBQ.png)
 
-Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:3000](http://localhost:300)` y navega por el menú.
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:300` y navegar por el menú.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*nPzbJ8Pn17bY2PDBZs-DiQ.gif)
 
@@ -476,9 +476,9 @@ export default async function MoviesLayout({
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*NuSbpEKMj4clVWSO2ZeySg.png)
+![](https://cdn-images-1.medium.com/max/800/1*ocGI8Sw2D5UW6zdtk7rrWw.png)
 
-Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:3000](http://localhost:300)` y navega por el menú.
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:300` y navegar por el menú.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*ax9KZGbLjwBqwXor7FnjGQ.gif)
 

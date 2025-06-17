@@ -9,9 +9,12 @@
 
 ## `loading.tsx`
 
+> **Todos los ejemplos los podrás encontrar en el repositorio next.js-15.3–1[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1)**]  
+> Acá puedes ver todas las stories de next.js [**[**ref**](https://mauriciogc.medium.com/list/nextjs-v15-b7b4cc4c4974)**]**
+
 > Para todos los **ejemplos** se toma el siguiente **proyecto base[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-2)**] (branch: base-project-2).** Este proyecto contiene los archivos: `src/app/page.tsx` y `src/app/layout.tsx`, configurados con una estructura mínima.
 
-> Para simular la carga de datos en los ejemplos vamos utilizar la API **themoviedb**[[ref](https://developer.themoviedb.org/docs/getting-started)].
+> Para simular la carga de datos en los ejemplos vamos utilizar la API **themoviedb [[ref](https://developer.themoviedb.org/docs/getting-started)]**.
 
 ### ¿Qué es `loading.tsx`?
 
@@ -58,7 +61,7 @@ export default function Loading() {
 
 Ejemplo en la estructura de carpetas:
 
-![](https://cdn-images-1.medium.com/max/1600/1*hdNoab8XHE8KQwlGCq0AkA.png)
+![](https://cdn-images-1.medium.com/max/800/1*uwT7ACWe7Xpbhk3thTakLA.png)
 
 ### ¿Cómo funciona?
 
@@ -82,7 +85,7 @@ Internamente, Next.js aplica la estrategia de **segment-based streaming**:
 
 **Esto sucede automáticamente e implícitamente sin necesidad de usar** `Suspense` **manualmente.**
 
-![](https://cdn-images-1.medium.com/max/1600/1*w1Y6Aym1o6qwRYDl5vy02Q.png)
+![](https://cdn-images-1.medium.com/max/800/1*PgJJ9xJtCO1YEjzgHcZoOw.png)
 
 Esto es **posible** gracias al **soporte** **nativo** de **React 18** para `Suspense` y al streaming parcial de Next.js. Cuando la promesa de los datos se resuelve, el contenido final reemplaza al fallback `loading.tsx` sin necesidad de un re-render completo del árbol.
 
@@ -135,9 +138,9 @@ export default async function Home() {
 
 > **Recuerda**: El `loading.tsx` se activa automáticamente porqué `page.tsx` contiene código asíncrono.
 
-![](https://cdn-images-1.medium.com/max/1600/1*BE6Tkl9D8iS2enh-mRTXEg.png)
+![](https://cdn-images-1.medium.com/max/800/1*2_q9VoQLNjTM7fGUSifMBg.png)
 
-Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:300](http://localhost:300)`, verás el `loading.tsx` durante 5 segundos y luego se cargará el contenido.
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000`, verás el `loading.tsx` durante 5 segundos y luego se cargará el contenido.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*wHvV-PB4_r4ojKhOirgvSA.gif)
 
@@ -329,9 +332,9 @@ export default async function MoviesPage() {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*A_68ahjpR42XdWKapVr-Dg.png)
+![](https://cdn-images-1.medium.com/max/800/1*lKaW3kitUb_984vriZ_o9w.png)
 
-Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:300](http://localhost:300)`, navega a la sección de `Movies`, verás el `loading.tsx` y luego se cargará el contenido.
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000`, navega a la sección de `Movies`, verás el `loading.tsx` y luego se cargará el contenido.
 
 ![](https://cdn-images-1.medium.com/max/1600/1*3bwb6XulCV7zlbDveKof0w.gif)
 
@@ -469,9 +472,9 @@ export default async function DesignArticlesPage() {
 }
 ```
 
-![](https://cdn-images-1.medium.com/max/1600/1*3Pw56UgB3SFyZfbiTurw5A.png)
+![](https://cdn-images-1.medium.com/max/800/1*b9VmCbJhpmcrAS7r9iq9Ww.png)
 
-Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:300](http://localhost:300)`, ve a la sección de blog y navega en las dos secciones que tiene (`blog/tech` y `blog/design`).
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000`, ve a la sección de blog y navega en las dos secciones que tiene (`blog/tech` y `blog/design`).
 
 ![](https://cdn-images-1.medium.com/max/1600/1*DFjrpSwgP2NTKlIsdTkAog.gif)
 
@@ -483,7 +486,7 @@ Podemos observar lo siguiente:
 
 Esto tiene todo el sentido si analizamos la estructura de carpetas de forma jerárquica:
 
-![](https://cdn-images-1.medium.com/max/1600/1*ZR3miyda1P2etKDRf4kaQw.png)
+![](https://cdn-images-1.medium.com/max/800/1*LPLKp3b7KHsOWpYxcU7CoQ.png)
 
 #### ¿Por qué ocurre esto?
 
@@ -501,9 +504,9 @@ Entonces:
 
 Cambiale el nombre a `src/app/blog/loading.tsx`
 
-![](https://cdn-images-1.medium.com/max/1600/1*7Egz_erl5wJ2-GhzJcXiOw.png)
+![](https://cdn-images-1.medium.com/max/800/1*ZDOT_vaLveQasyvlrzXRog.png)
 
-Al iniciar el servidor (`npm run dev`), acceder a `[http://localhost:300](http://localhost:300)`, ve a la sección de blog y navega en las dos secciones que tiene (`blog/tech` y `blog/design`).
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000`, ve a la sección de blog y navega en las dos secciones que tiene (`blog/tech` y `blog/design`).
 
 ![](https://cdn-images-1.medium.com/max/1600/1*D1ndfiDwW5B-GY_EB8G6fg.gif)
 

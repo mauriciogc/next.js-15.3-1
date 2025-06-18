@@ -7,43 +7,70 @@
 
 ---
 
-Este proyecto contiene únicamente los archivos esenciales: `src/app/page.tsx` y `src/app/layout.tsx`, ambos configurados con una estructura mínima, sin código adicional, para que puedas comenzar desde una base sencilla.
+Este proyecto incluye una actualización visual y estructural de estilos utilizando TailwindCSS v4 con soporte para temas `light` y `dark`, inspirado en interfaces modernas.
 
-## Actualiza la página principal
+### Estilos de tema actualizados (`globals.css`)
 
-```Typescript
-// src/app/page.tsx
+Se definieron variables CSS personalizadas para ambos temas:
 
-export default function Home() {
-  return (
-    <main className="flex justify-center items-center min-h-screen">
-      <h1 className="text-3xl font-bold">Página principal</h1>
-    </main>
-  );
-}
+- `--color-background`
+- `--color-foreground`
+- `--color-primary`
+- `--color-muted`
+- `--color-border`
+- `--color-overlay`
+
+Además, se agregaron estilos base con `@layer base` y componentes reutilizables como:
+
+- `.container`
+- `.title`
+- `.subTitle`
+- `.pill-button`, `.pill-default`, `.pill-active`
+- `.pill-badge`
+
+> Estos estilos permiten adaptar la UI automáticamente a `prefers-color-scheme: dark`.
+
+### Página simple
+
+```html
+<main className="container">
+  <h1 className="title">Página principal</h1>
+</main>
 ```
 
-```typescript
-//src/app/layout.tsx
+### Botones
 
-import './globals.css';
+```html
+<div className="flex gap-3 flex-wrap items-center px-4 py-3 rounded-xl">
+  <button className="pill-button pill-button-default">Primary</button>
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
-      <body className="antialiased">{children}</body>
-    </html>
-  );
-}
+  <button className="pill-button pill-button-active flex items-center">
+    Secondary
+  </button>
+
+  <button className="pill-button pill-button-default flex items-center">
+    Primary
+    <span className="pill-badge">01</span>
+  </button>
+
+  <button className="pill-button pill-button-active flex items-center">
+    Secondary
+    <span className="pill-badge">02</span>
+  </button>
+</div>
 ```
+
+- `.pill-button-default`: Fondo gris claro, borde suave.
+
+- `.pill-button-active`: Fondo negro/blanco según tema.
+
+- `.pill-badge`: Número pequeño con fondo coral.
+
+![](https://cdn-images-1.medium.com/max/1600/1*g6WY3h5L_EDIFmrSwuhbyw.png)
 
 ---
 
-## Ejecutar el proyecto
+## Ejecutar el proyecto
 
 Para correr o ejecutar el proyecto [[ref]](https://nextjs.org/docs/app/getting-started/installation#run-the-development-server):
 
@@ -56,8 +83,6 @@ Abre en tu navegador:
 ```bash
 http://localhost:3000
 ```
-
-Si todo está correcto, deberás ver `Página principal`
 
 ---
 
@@ -73,7 +98,7 @@ cd next.js-15.3-1
 Cambia a la rama:
 
 ```bash
-git checkout base-project-2
+git checkout base-project-3
 ```
 
 Instala las dependencias:
@@ -93,5 +118,3 @@ Abre tu navegador en:
 ```yaml
 http://localhost:3000
 ```
-
----

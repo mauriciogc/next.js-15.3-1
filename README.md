@@ -89,7 +89,7 @@ Los **archivos de enrutamiento** son **archivos** con **nombres** **reservados**
 
 Dentro del directorio `/app`, en las rutas que quieras controlar. Pueden convivir dentro de la misma carpeta.
 
-![](https://cdn-images-1.medium.com/max/1600/1*D7W3BW9FmpcZRXZ5aPJ1gQ.png)
+![](https://cdn-images-1.medium.com/max/800/1*qBjwChblJvBtQowPNxMEWQ.png)
 
 ### ¿Por qué son importantes?
 

@@ -38,6 +38,8 @@ Además, se agregaron estilos base con `@layer base` y componentes reutilizables
 </main>
 ```
 
+![](https://cdn-images-1.medium.com/max/1600/1*HHj94VlLCrrr7NO0vnAxLQ.png)
+
 ### Botones
 
 ```html

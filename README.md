@@ -102,7 +102,7 @@ export function GET(request: NextRequest) {
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:3000`, el **endpoint** estará disponible como `/api/hello`:
+Al iniciar el servidor `npm run dev`, el **endpoint** estará disponible como `http://localhost:3000/api/hello`:
 
 ```bash
 curl http://localhost:3000/api/hello
@@ -165,7 +165,7 @@ export async function GET() {
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), acceder a `http://localhost:3000`, el **endpoint** estará disponible como `/api/time`:
+Al iniciar el servidor `npm run dev`, el **endpoint** estará disponible como `http://localhost:3000/api/time`:
 
 ```bash
 curl http://localhost:3000/api/time
@@ -217,7 +217,7 @@ export async function POST(req: NextRequest) {
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), el **endpoint** estará disponible como `/api/contact` :
+Al iniciar el servidor `npm run dev`, el **endpoint** estará disponible como `http://localhost:3000/api/contact`:
 
 ```bash
 ##Success
@@ -322,7 +322,7 @@ export async function GET(request: NextRequest) {
 }
 ```
 
-Al iniciar el servidor (`npm run dev`), el **endpoint** estará disponible como `/api/contact` :
+Al iniciar el servidor `npm run dev`, el **endpoint** estará disponible como `http://localhost:3000/api/contact`:
 
 ```yaml
 curl "http://localhost:3000/api/media"
@@ -368,7 +368,7 @@ export function GET() {
 
 > Aunque puede parecer que usar `Response` es más sencillo, en realidad no lo es. Cuando necesitas manejar **múltiples cookies**, realizar una **serialización adecuada**, garantizar una buena **legibilidad del código** y realizar un **seteo seguro**, todo debe hacerse **manualmente**. Esto incrementa la complejidad y el riesgo de errores. Por eso, **se recomienda utilizar** `**NextResponse**` **en entornos Next.js**.
 
-Al iniciar el servidor (`npm run dev`), el **endpoint** estará disponible como `/api/cookies` :
+Al iniciar el servidor `npm run dev`, el **endpoint** estará disponible como `http://localhost:3000/api/cookies`:
 
 ```yaml
 curl -i http://localhost:3000/api/cookies

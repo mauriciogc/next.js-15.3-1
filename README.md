@@ -42,7 +42,9 @@ Internamente utiliza la API `Request/Response` nativa del Web Platform, compleme
 
 Ambos provienen de `next/server` y están optimizados para Edge:
 
+```js
 import { NextRequest, NextResponse } from 'next/server';
+```
 
 `NextResponse` es una extensión del objeto `Response` de la **Web API**, proporcionada por Next.js. Está diseñado para **interactuar con funcionalidades específicas del framework**, como redirecciones, reescrituras, manipulación de cookies o headers, y control de flujo en middleware o endpoints.
 

@@ -40,31 +40,36 @@ Internamente utiliza la API `Request/Response` nativa del Web Platform, compleme
 
 ### NextResponse y NextRequest
 
+Ambos provienen de `next/server` y están optimizados para Edge:
+
+import { NextRequest, NextResponse } from 'next/server';
+
 `NextResponse` es una extensión del objeto `Response` de la **Web API**, proporcionada por Next.js. Está diseñado para **interactuar con funcionalidades específicas del framework**, como redirecciones, reescrituras, manipulación de cookies o headers, y control de flujo en middleware o endpoints.
 
 `NextRequest` es una extensión del estándar `Request` del **Web Platform**, proporcionada por Next.js. Diseñada para **agregar funcionalidades** adicionales relevantes en el contexto de ejecución del servidor (ya sea Node.js o Edge Runtime).
 
 #### ¿Por qué usar `NextRequest` y `NextResponse`? —
 
-##### `NextRequest` (extiende de `Request`)
+**`NextRequest` (extiende de `Request`)**
 
 Ofrece métodos y propiedades específicas de Next.js, como:
 
-- `request.cookies.get()` – Acceso directo a cookies.
+- `.nextUrl` – Una instancia de `URL` enriquecida con información de pathname, query, etc..
 
-- `request.geo` – Información geográfica (en edge).
-- `request.ip` – IP del usuario.
-- `request.nextUrl` – Utilidades para parsing de URL y pathname.
+- `.cookies.get(name)` – Acceso directo a cookies.
+- `.headers.get(name)` – Acceso directo a encabezados.
+- `.geo`, `.ip`– Disponibles si se habilita Vercel.
 
-##### `NextResponse` (extiende de `Response**`)
+**`NextResponse` (extiende de `Response`)**
 
-Facilita:
+Ofrece formas de retornar un control de flujo o una respuesta directa:
 
-- `.json(data)` – Para respuestas JSON formateadas.
+- `.next()` – Continuar navegación.
 
 - `.redirect(url)` – Redirección simple.
 - `.rewrite(url)` – Reescritura del request.
-- `.cookies.set()` – Manejo de cookies de forma declarativa.
+- `.json(data)` – Para respuestas JSON formateadas.
+- `.headers.set()`, `.cookies.set()` – Manejo de headers/cookies de forma declarativa.
 
 #### Diferencias clave (`Request` or `NextRequest`)—
 

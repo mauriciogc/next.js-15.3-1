@@ -68,6 +68,22 @@ Además, se agregaron estilos base con `@layer base` y componentes reutilizables
 
 ![](https://cdn-images-1.medium.com/max/1600/1*g6WY3h5L_EDIFmrSwuhbyw.png)
 
+### Fuente DM Sans integrada (Google Fonts)
+
+Se integró la fuente DM Sans usando `next/font/google` y se aplicó globalmente al layout principal:
+
+```tsx
+import { DM_Sans } from 'next/font/google';
+
+const dmSans = DM_Sans({
+  weight: '300',
+  subsets: ['latin'],
+});
+
+<html lang="en" className={dmSans.className}>
+
+```
+
 ---
 
 ## Ejecutar el proyecto

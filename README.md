@@ -348,6 +348,8 @@ Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000` y navega
 
 Los **Route Groups** `(folder)` son una poderosa herramienta de organización en Next.js App Router que permiten aislar comportamientos, compartir layouts, y mantener una estructura escalable **sin afectar la URL visible**. Cuando se combinan con `layout`, `middleware`, y segment configs, permiten un control absoluto sobre la arquitectura de enrutamiento.
 
+---
+
 ## Ejecutar el proyecto
 
 Para correr o ejecutar el proyecto [[ref]](https://nextjs.org/docs/app/getting-started/installation#run-the-development-server):

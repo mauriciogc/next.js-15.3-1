@@ -59,7 +59,7 @@ Es una técnica de organización interna del App Router para mejorar la arquitec
 
 ### Ejemplos
 
-#### Ejemplo 1 — Agrupando\*\* `/login` y `/register`
+#### Ejemplo 1 — Agrupando `/login` y `/register`
 
 Crea el grupo `(auth)` dentro de `/app`.
 

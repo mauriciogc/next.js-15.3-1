@@ -145,9 +145,11 @@ Para encapsular helpers solo usados por la página `/about`. Crea la `getTeam.ts
 ```js
 // src/app/about/_helpers/getTeam.ts
 export const team = ['Angie', 'Peter', 'Mau'];
+```
 
 Crea la `page.tsx` de **About** en `src/app/about` :
 
+```ts
 // src/app/about/page.tsx
 import { team } from './_helpers/getTeam';
 

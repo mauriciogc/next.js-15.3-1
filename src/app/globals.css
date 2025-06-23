@@ -65,7 +65,7 @@
 /* Components */
 @layer components {
   .container {
-    @apply flex flex-col items-start w-full  px-8 sm:px-16 md:px-36 lg:px-52 xl:px-80 2xl:px-96 pt-24 h-full;
+    @apply flex flex-col items-start w-full px-8 sm:px-16 md:px-36 lg:px-52 xl:px-80 2xl:px-96 pt-24 h-full;
   }
   .title {
     @apply text-4xl sm:text-5xl lg:text-6xl mb-2 text-(--color-primary);

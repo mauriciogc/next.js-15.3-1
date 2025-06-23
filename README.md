@@ -86,6 +86,8 @@ A continuación, se detallan las principales ramas y los temas que cubren:
 
 ### Parallel and Intercepted Routes
 
+---
+
 | Título                                                 | Descripción                                                                                                                                                                                                                                                          | Artículo | Rama                                                                                        |
 | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------- |
 | Fundamentos básicos de Parallel and Intercepted Routes | <ul><li>¿Qué son?</li><li>Parallel routes — `@`</li><li>Intercepted routes — `(.)`, `(..)`, `(..)(..)`, `(...)`</li><li>¿Por qué son importantes?</li><li>A considerar</li></ul>                                                                                     | Medium   | [Github](https://github.com/mauriciogc/next.js-15.3-1/tree/parallel-and-intercepted-routes) |

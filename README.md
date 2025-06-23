@@ -84,6 +84,13 @@ A continuación, se detallan las principales ramas y los temas que cubren:
 | Route Groups `(folder)`                               | <ul><li>¿Qué son?</li><li>Principales características</li><li>Ventajas</li><li>¿Cómo se crea o implementa?</li><li>¿Cómo funciona?</li><li>Ejemplos</li><li>Router group anidado</li><li>A considerar</li></ul> | Medium   | [Github](https://github.com/mauriciogc/next.js-15.3-1/tree/route-groups)                 |
 | Private Folders `_folder`                             | <ul><li>¿Qué es?</li><li>Principales características</li><li>Ventajas</li><li>¿Cómo se crea o implementa?</li><li>¿Cómo funciona?</li><li>Ejemplos</li><li>A considerar</li></ul>                               | Medium   | [Github](https://github.com/mauriciogc/next.js-15.3-1/tree/private-folders)              |
 
+### Parallel and Intercepted Routes
+
+| Título                                                 | Descripción                                                                                                                                                                                                                                                          | Artículo | Rama                                                                                        |
+| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------- |
+| Fundamentos básicos de Parallel and Intercepted Routes | <ul><li>¿Qué son?</li><li>Parallel routes — `@`</li><li>Intercepted routes — `(.)`, `(..)`, `(..)(..)`, `(...)`</li><li>¿Por qué son importantes?</li><li>A considerar</li></ul>                                                                                     | Medium   | [Github](https://github.com/mauriciogc/next.js-15.3-1/tree/parallel-and-intercepted-routes) |
+| Parallel Routes                                        | <ul><li>¿Qué son?</li><li>Principales características</li><li>Ventajas</li><li>¿Cómo se crea o implementa?</li><li>¿Cómo funciona?</li><li>Ejemplos</li><li>¿Qué pasa si el usuario no tiene permisos para un slot y accede a la URL?</li><li>A considerar</li></ul> | Medium   | [Github](https://github.com/mauriciogc/next.js-15.3-1/tree/parallel-routes)                 |
+
 ### Funciones, hooks, componentes y otros...
 
 ---

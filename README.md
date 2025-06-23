@@ -691,7 +691,7 @@ cd next.js-15.3-1
 Cambia a la rama:
 
 ```bash
-git checkout base-project-3
+git checkout parallel-routes
 ```
 
 Instala las dependencias:

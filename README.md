@@ -7,132 +7,77 @@
 
 ---
 
-Este proyecto incluye una actualización visual y estructural de estilos utilizando TailwindCSS v4 con soporte para temas `light` y `dark`, inspirado en interfaces modernas.
+##  Parallel and Intercepted Routes
 
-### Estilos de tema actualizados (`globals.css`)
+> **Todos los ejemplos los podrás encontrar en el repositorio next.js-15.3–1[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1)**]  
+> Acá puedes ver todas las stories de next.js [**[**ref**](https://mauriciogc.medium.com/list/nextjs-v15-b7b4cc4c4974)**]**
 
-Se definieron variables CSS personalizadas para ambos temas:
+> Para todos los **ejemplos** se toma el siguiente **proyecto base[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-3)**] (branch: base-project-3).** Este proyecto incluye actualización visual y estructural de estilos utilizando TailwindCSS v4.
 
-- `--color-background`
-- `--color-foreground`
-- `--color-primary`
-- `--color-muted`
-- `--color-border`
-- `--color-overlay`
+### ¿Qué son?
 
-Además, se agregaron estilos base con `@layer base` y componentes reutilizables como:
+**Parallel Routes** y **Intercepted Routes** son capacidades avanzadas del sistema de enrutamiento de Next.js (App Router), que permiten tener múltiples rutas renderizadas de forma simultánea desde distintos niveles de la jerarquía del árbol de archivos.
 
-- `.container`
-- `.title`
-- `.subTitle`
-- `.pill-button`, `.pill-default`, `.pill-active`
-- `.pill-badge`
+- **Parallel Routes (**`@slot`**)**: Permiten renderizar múltiples rutas hijas al mismo tiempo dentro de un mismo layout padre, ideales para experiencias tipo dashboard, inbox o navegación dividida.
 
-> Estos estilos permiten adaptar la UI automáticamente a `prefers-color-scheme: dark`.
+- **Intercepted Routes (**`(.)`**,** `(..)`**,** `(...)`**)**: permiten renderizar rutas desde otros niveles de la jerarquía de rutas, sin alterar la URL del usuario, lo cual es útil para modales, drawers o contenidos inyectados en layouts.
 
-### Página simple
+### Parallel routes
 
-```html
-<main className="container">
-  <h1 className="title">Página principal</h1>
-</main>
-```
+`@folder`** — Named Slot (Parallel Route)**
 
-![](https://cdn-images-1.medium.com/max/1600/1*HHj94VlLCrrr7NO0vnAxLQ.png)
+- **Qué es**: Una carpeta con prefijo `@` que define un `slot` en tu layout para mostrar contenido paralelo a otras rutas.
 
-### Botones
+- **Funcionamiento**: el layout principal importa múltiples segmentos desde distintas rutas simultáneamente.
+- **Cuándo usar**: Dashboards, bandejas de entrada, vistas divididas, split views.
 
-```html
-<div className="flex gap-3 flex-wrap items-center px-4 py-3 rounded-xl">
-  <button className="pill-button pill-button-default">Primary</button>
+### Intercepted routes
 
-  <button className="pill-button pill-button-active flex items-center">
-    Secondary
-  </button>
+#### `(.)folder` — Intercepted Same Level
 
-  <button className="pill-button pill-button-default flex items-center">
-    Primary
-    <span className="pill-badge">01</span>
-  </button>
+- **Qué es**: Intercepta una ruta del **mismo nivel** jerárquico.
 
-  <button className="pill-button pill-button-active flex items-center">
-    Secondary
-    <span className="pill-badge">02</span>
-  </button>
-</div>
-```
+- **Funcionamiento**: Renderiza el contenido como si fuera parte de la ruta actual, sin cambiar la URL.
+- **Cuándo usar**: Abrir modales desde una lista.
 
-- `.pill-button-default`: Fondo gris claro, borde suave.
+#### `(..)folder` — Intercepted One Level Above
 
-- `.pill-button-active`: Fondo negro/blanco según tema.
+- **Qué es**: Intercepta una ruta del **nivel superior inmediato**.
 
-- `.pill-badge`: Número pequeño con fondo coral.
+- **Funcionamiento**: Permite renderizar una ruta fuera del segmento actual sin alterar la URL.
+- **Cuándo usar**: Mostrar contenido desde una ruta superior mientras se mantiene el contexto.
 
-![](https://cdn-images-1.medium.com/max/1600/1*g6WY3h5L_EDIFmrSwuhbyw.png)
+#### `(..)(..)folder` — Intercepted Two Levels Above
 
-### Fuente DM Sans integrada (Google Fonts)
+- **Qué es**: Intercepta rutas desde dos niveles superiores.
 
-Se integró la fuente DM Sans usando `next/font/google` y se aplicó globalmente al layout principal:
+- **Funcionamiento**: Útil cuando una ruta necesita renderizar un modal desde una sección muy distante.
+- **Cuándo usar**: Overlay de contenido global desde una ruta profundamente anidada.
 
-```tsx
-import { DM_Sans } from 'next/font/google';
+#### `(...)folder` — Intercept from Root
 
-const dmSans = DM_Sans({
-  weight: '300',
-  subsets: ['latin'],
-});
+- **Qué es**: Intercepta desde la raíz del proyecto (como si lo sacaras de cualquier parte del árbol).
 
-<html lang="en" className={dmSans.className}>
+- **Funcionamiento**: Permite renderizar rutas globales desde cualquier contexto.
+- **Cuándo usar**: Overlays globales, rutas tipo login, drawers flotantes, settings globales.
 
-```
+### ¿Por qué son importantes?
+
+- Permiten construir interfaces **más dinámicas y modulares**.
+
+- Facilitan la **experiencia fluida** sin navegación completa.
+- **Separan responsabilidades visuales** (modal vs contenido principal).
+- Reutilizan layouts con contenido flexible y múltiples slots simultáneos.
+- Soportan **experiencias modernas tipo SPA** con lógica desacoplada.
+
+### A considerar
+
+- Usa `@slot` para vistas paralelas como inbox/feed o editor/preview.
+
+- Usa `(.)`, `(..)` o `(...)` para inyectar rutas tipo modal sin alterar navegación.
+- Organiza tus intercept routes cerca de donde serán montadas.
+- Siempre separa tus layouts `layout.tsx` de vistas `page.tsx`.
 
 ---
 
-## Ejecutar el proyecto
-
-Para correr o ejecutar el proyecto [[ref]](https://nextjs.org/docs/app/getting-started/installation#run-the-development-server):
-
-```bash
-npm run dev
-```
-
-Abre en tu navegador:
-
-```bash
-http://localhost:3000
-```
-
----
-
-## Cómo descargar el proyecto
-
-Clona el repositorio:
-
-```bash
-git clone https://github.com/mauriciogc/next.js-15.3-1
-cd next.js-15.3-1
-```
-
-Cambia a la rama:
-
-```bash
-git checkout base-project-3
-```
-
-Instala las dependencias:
-
-```bash
-npm install
-```
-
-Ejecuta el proyecto en modo desarrollo:
-
-```bash
-npm run dev
-```
-
-Abre tu navegador en:
-
-```yaml
-http://localhost:3000
-```
+**Hasta este punto…** hemos explorado las Parallel e Intercepted Routes de Next.js, comprendiendo cómo permiten construir interfaces dinámicas, inyectar vistas desde distintos niveles y controlar múltiples rutas simultáneamente sin romper la estructura del layout.

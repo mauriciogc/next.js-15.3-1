@@ -24,7 +24,7 @@
 
 ### Parallel routes
 
-`@folder`** — Named Slot (Parallel Route)**
+`@folder` — Named Slot (Parallel Route)
 
 - **Qué es**: Una carpeta con prefijo `@` que define un `slot` en tu layout para mostrar contenido paralelo a otras rutas.
 

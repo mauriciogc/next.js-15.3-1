@@ -70,7 +70,7 @@ Cada uno de los `@folders` se convierte en un **slot que puedes nombrar y montar
 
 ### ¿Cómo funciona?
 
-Las Parallel Routes funcionan como una extensión del layout tradicional de Next.js, donde **en lugar de un solo** `**children**`, puedes definir múltiples **slots** que se completan con los segmentos paralelos (`@folder`).
+Las Parallel Routes funcionan como una extensión del layout tradicional de Next.js, donde **en lugar de un solo** `children`, puedes definir múltiples **slots** que se completan con los segmentos paralelos (`@folder`).
 
 - El sistema de rutas App Router identifica `@` como un **named slot**.
 

@@ -90,4 +90,9 @@
   .overlay {
     background-color: var(--color-overlay);
   }
+
+  .noscroll {
+    overflow-y: hidden;
+    overflow-x: hidden;
+  }
 }

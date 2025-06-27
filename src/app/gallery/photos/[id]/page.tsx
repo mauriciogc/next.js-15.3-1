@@ -1,5 +1,5 @@
 //src app/gallery/photos/[id]/page.tsx
-import Card from '@/components/photo-card';
+import PhotoCard from '@/components/photo-card';
 import DetailPhoto from '@/components/detail-photo';
 
 export default async function PhotoPage({
@@ -18,7 +18,11 @@ export default async function PhotoPage({
       <h2 className="subTitle">Suggestions</h2>
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
         {suggestions.map((id) => (
-          <Card key={id} id={id.toString()} url={`/gallery/photos/${id}`} />
+          <PhotoCard
+            key={id}
+            id={id.toString()}
+            url={`/gallery/photos/${id}`}
+          />
         ))}
       </div>
     </div>

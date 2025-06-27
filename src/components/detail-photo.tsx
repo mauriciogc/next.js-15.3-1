@@ -1,5 +1,4 @@
 //src/components/detail-photo.tsx
-
 export default function DetailPhoto({ id }: { id: string }) {
   return (
     <div className="bg-(--color-background) text-(--color-foreground) rounded-xl overflow-hidden">

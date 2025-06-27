@@ -1,4 +1,5 @@
-import { Modal } from './modal';
+import Modal from '@/components/modal';
+import DetailPhoto from '@/components/detail-photo';
 
 export default async function PhotoModal({
   params,
@@ -6,5 +7,9 @@ export default async function PhotoModal({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  return <Modal>{id}---</Modal>;
+  return (
+    <Modal>
+      <DetailPhoto id={id} />
+    </Modal>
+  );
 }

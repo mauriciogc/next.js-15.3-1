@@ -16,7 +16,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={dmSans.className}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <div className="flex items-center justify-between w-full h-full max-w-screen-xl mx-auto px-2 sm:px-6 lg:px-8 pt-20">
+          <div className="w-full">{children}</div>
+          <div id="modal-root" />
+        </div>
+      </body>
     </html>
   );
 }

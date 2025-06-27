@@ -1,5 +1,5 @@
-//src/app/gallery/layout.tsx
-export default function GalleryLayout({
+//src/app/projects/[projectId]/layout.tsx
+export default function ProjectLayout({
   children,
   modal,
 }: {
@@ -8,7 +8,7 @@ export default function GalleryLayout({
 }) {
   return (
     <div>
-      <h1 className="title">Gallery</h1>
+      <h1 className="title">Project View</h1>
       {children}
       {modal}
     </div>

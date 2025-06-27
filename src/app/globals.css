@@ -8,7 +8,8 @@
   --primary: #f25e3d;
   --muted: #e5e5e5;
   --border: #d4d4d4;
-  --overlay: rgba(0, 0, 0, 0.05);
+  --overlay: rgba(0, 0, 0, 0.8);
+  --highlight: #b45309;
 
   --font-sans: ui-sans-serif, system-ui, sans-serif;
 }
@@ -21,7 +22,8 @@
 
     --muted: #2a2a2a;
     --border: #333333;
-    --overlay: rgba(255, 255, 255, 0.1);
+    --overlay: rgba(32, 32, 32, 0.8);
+    --highlight: #fbbf24;
   }
 }
 
@@ -33,6 +35,7 @@
   --color-muted: var(--muted);
   --color-border: var(--border);
   --color-overlay: var(--overlay);
+  --color-highlight: var(--highlight);
   --font-sans: var(--font-sans);
 }
 
@@ -58,7 +61,7 @@
   }
 
   a:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
 }
 
@@ -79,7 +82,9 @@
   .pill-button-default {
     @apply bg-(--color-muted) text-(--color-foreground) hover:bg-(--color-border);
   }
-
+  .pill-button-primary {
+    @apply bg-(--color-primary) text-white hover:bg-(--color-primary)/70;
+  }
   .pill-button-active {
     @apply bg-(--color-foreground) text-(--color-background) hover:bg-(--color-primary) hover:text-white;
   }

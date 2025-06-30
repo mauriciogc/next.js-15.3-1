@@ -599,13 +599,9 @@ Puedes visitar directamente `http://localhost:3000/task/abc123` o modifica la UR
 
 Con esta estructura, ya tenemos cubiertos ambos escenarios esenciales:
 
-#### — Ruta interceptada (`src/app/projects/[projectId]/@modal/(..)(..)tasks/[taskId]/page.tsx`)
+- **Ruta interceptada (`src/app/projects/[projectId]/@modal/(..)(..)tasks/[taskId]/page.tsx`)**: Esta ruta permite mostrar el detalle de la tarea como **modal**, manteniendo el contexto del proyecto actual.
 
-- Esta ruta permite mostrar el detalle de la tarea como **modal**, manteniendo el contexto del proyecto actual.
-
-####  — Ruta real (`src/app/tasks/[taskId]/page.tsx`)
-
-- Esta ruta sirve como página independiente, ideal para accesos directos, compartir enlaces, SEO y fallback si se recarga la página.
+- **Ruta real (`src/app/tasks/[taskId]/page.tsx`)**: Esta ruta sirve como página independiente, ideal para accesos directos, compartir enlaces, SEO y fallback si se recarga la página.
 
 ## Ambas deben coexistir para garantizar una experiencia de usuario fluida tanto en navegación interna como en accesos directos o desde otras fuentes externas.
 

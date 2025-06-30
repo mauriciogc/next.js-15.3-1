@@ -25,6 +25,16 @@ Deberás generar un interceptador en:
 
 Dentro de `/projects/[projectID]`, cualquier navegación hacia `/task/[taskId]` será interceptada y redireccionada al slot `@modal` para que lo muestre como modal.
 
+**No olvides que…** Intercepting Routes requiere dos contextos.
+
+Para que el patrón de rutas interceptadas funcione correctamente, **debes definir siempre dos rutas complementarias**:
+
+- **Ruta interceptada:** Se utiliza para navegación interna (por ejemplo, desde un feed o vista padre).
+
+- **Ruta real:** Se utiliza para accesos directos, recargas de página, compartir enlaces o SEO.
+
+> Si omites la ruta real, acceder directamente a la URL completa provocará un **404**, ya que Next.js no podrá renderizar la página fuera del layout interceptado.
+
 En consola instala el paquete de `lucide-react` para agregar iconos:
 
 ```bash

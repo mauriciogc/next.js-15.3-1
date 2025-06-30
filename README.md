@@ -463,7 +463,7 @@ cd next.js-15.3-1
 Cambia a la rama:
 
 ```bash
-git checkout example-.-intercepting-routes
+git checkout example-intercepting-routes--same-level
 ```
 
 Instala las dependencias:

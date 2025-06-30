@@ -603,7 +603,7 @@ Con esta estructura, ya tenemos cubiertos ambos escenarios esenciales:
 
 - **Ruta real (`src/app/tasks/[taskId]/page.tsx`)**: Esta ruta sirve como página independiente, ideal para accesos directos, compartir enlaces, SEO y fallback si se recarga la página.
 
-## Ambas deben coexistir para garantizar una experiencia de usuario fluida tanto en navegación interna como en accesos directos o desde otras fuentes externas.
+Ambas deben coexistir para garantizar una experiencia de usuario fluida tanto en navegación interna como en accesos directos o desde otras fuentes externas.
 
 ## Ejecutar el proyecto
 

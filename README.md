@@ -53,7 +53,7 @@ import { PanelLeftOpen, PanelLeftClose, FolderOpen } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-export default function SidebarSkeletonLayout() {
+export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const router = useRouter();
 

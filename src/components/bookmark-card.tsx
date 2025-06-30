@@ -1,5 +1,5 @@
-//src/components/project-card.tsx
-import { ArrowUpRight, ArrowRight } from 'lucide-react';
+//src/components/bookmark-card.tsx
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function BookmarkCard({ url }: { url: string }) {

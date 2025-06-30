@@ -1,3 +1,4 @@
+// src/components/detail-task.tsx
 export default function DetailTask({ id }: { id: string }) {
   return (
     <div className="max-w-3xl p-6 bg-(--color-background) text-(--color-foreground) border border-(--color-border) rounded-xl space-y-6">

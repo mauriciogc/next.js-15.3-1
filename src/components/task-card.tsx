@@ -1,5 +1,8 @@
 //src/components/task-card.tsx
-export default function TaskCard() {
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+
+export default function TaskCard({ url }: { url: string }) {
   return (
     <div className="flex justify-between items-center bg-(--color-background) border border-(--color-border) rounded-lg p-4 transition-colors duration-300 ease-in-out">
       {/* Info de proyecto */}
@@ -23,6 +26,13 @@ export default function TaskCard() {
           +2
         </div>
       </div>
+      <Link
+        href={url}
+        scroll={false}
+        className="pill-button pill-button-default pill-button-active p-2"
+      >
+        <ArrowRight className="w-3 h-3" />
+      </Link>
     </div>
   );
 }

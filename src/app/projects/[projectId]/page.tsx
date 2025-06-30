@@ -1,6 +1,4 @@
 //src/app/projects/[projectId]/page.tsx
-import Link from 'next/link';
-
 import BookmarkCard from '@/components/bookmark-card';
 import TaskCard from '@/components/task-card';
 
@@ -31,9 +29,7 @@ export default async function ProjectDashboardSkeleton({
 
       <div className="flex flex-col space-y-3">
         {tasks.map((id) => (
-          <Link href={`/tasks/${id}`} key={id} scroll={false}>
-            <TaskCard />
-          </Link>
+          <TaskCard key={id} url={`/tasks/${id}`} />
         ))}
       </div>
     </div>

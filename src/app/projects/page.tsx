@@ -1,3 +1,4 @@
+// src/app/projects/page.tsx
 import ProjectCard from '@/components/project-card';
 
 export default function ProjectsPage() {

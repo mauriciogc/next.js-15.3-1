@@ -2,7 +2,7 @@
 import ProjectCard from '@/components/project-card';
 
 export default function ProjectsPage() {
-  const projects = Array.from({ length: 6 }, (_, i) => crypto.randomUUID());
+  const projects = Array.from({ length: 6 }, () => crypto.randomUUID());
 
   return (
     <>

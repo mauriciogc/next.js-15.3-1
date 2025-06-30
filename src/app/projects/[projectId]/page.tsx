@@ -8,8 +8,8 @@ export default async function ProjectDashboardSkeleton({
   params: Promise<{ projectId: string }>;
 }) {
   const { projectId } = await params;
-  const favourites = Array.from({ length: 3 }, (_, i) => crypto.randomUUID());
-  const tasks = Array.from({ length: 8 }, (_, i) => crypto.randomUUID());
+  const favourites = Array.from({ length: 3 }, () => crypto.randomUUID());
+  const tasks = Array.from({ length: 8 }, () => crypto.randomUUID());
 
   return (
     <div className="bg-(--color-background) text-(--color-foreground) space-y-5 p-6 max-w-6xl mx-auto">

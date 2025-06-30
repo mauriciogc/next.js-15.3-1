@@ -1,7 +1,7 @@
 // src/components/sidebar.tsx
 'use client';
 
-import { PanelLeftOpen, PanelLeftClose, FolderOpen } from 'lucide-react';
+import { PanelLeftOpen, PanelLeftClose, TvMinimal } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -47,10 +47,10 @@ export default function SidebarSkeletonLayout() {
       <nav className="flex-1 overflow-y-auto px-2 py-4 space-y-3">
         <div
           className="flex items-center gap-3 rounded-md bg-transparent px-3 py-2 text-(--color-foreground) hover:bg-(--color-overlay) transition-all duration-200 cursor-pointer"
-          onClick={() => handleClick('/projects')}
+          onClick={() => handleClick('/reels')}
         >
-          <FolderOpen className="w-6 h-6" />
-          {!isCollapsed && <span className="text-sm">Projects</span>}
+          <TvMinimal className="w-6 h-6" />
+          {!isCollapsed && <span className="text-sm">Reels</span>}
         </div>
 
         {Array.from({ length: 5 }).map((_, i) => (

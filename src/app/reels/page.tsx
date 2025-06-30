@@ -1,26 +1,28 @@
 'use client';
 
-import Link from 'next/link';
-
-const mockReels = [
-  { id: '1', user: 'mauri_dev', desc: 'Mi reel en JS' },
-  { id: '2', user: 'frontqueen', desc: 'CSS animation 🔥' },
-];
+import ReelCard from '@/components/reel-card';
+import Stories from '@/components/stories';
+import SuggestionsSidebar from '@/components/suggestions-sidebar';
 
 export default function ReelsFeed() {
+  const mockReels = Array.from({ length: 6 }, () => crypto.randomUUID());
+
   return (
-    <div className="h-screen overflow-y-scroll snap-y snap-mandatory">
-      {mockReels.map((reel) => (
-        <div
-          key={reel.id}
-          className="h-screen snap-start flex flex-col justify-center items-center border-b border-gray-800"
-        >
-          <Link href={`/reel/${reel.id}`} className="text-xl font-bold">
-            ▶ {reel.user}
-          </Link>
-          <p className="text-sm text-gray-300">{reel.desc}</p>
+    <>
+      <div className="flex justify-center gap-8 px-4 py-6">
+        {/* Feed principal */}
+        <div className="flex flex-col items-center space-y-6  w-full">
+          <Stories />
+          {mockReels.map((i) => (
+            <ReelCard key={i} url={`/p/${i}`} />
+          ))}
         </div>
-      ))}
-    </div>
+
+        {/* Sidebar derecho (oculto en mobile) */}
+        <div className="hidden lg:block w-[300px] shrink-0">
+          <SuggestionsSidebar />
+        </div>
+      </div>
+    </>
   );
 }

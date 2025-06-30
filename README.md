@@ -276,7 +276,7 @@ export default function Default() {
 
 > **Recuerda:** El archivo `default.tsx` sirve para mantener la integridad del layout donde se encuentran los slots.
 
-Crea el interceptor `page.tsx` del **detalle de la foto** dentro de `src/app/gallery/@modal/(.)photos/[id]page.tsx`:
+Crea el interceptor `page.tsx` del **detalle de la foto** dentro de `src/app/gallery/@modal/(.)photos/[id]/page.tsx`:
 
 ```js
 // src/app/gallery/@modal/(.)photos/[id]/page.tsx
@@ -420,6 +420,18 @@ export default async function PhotoPage({
 Intenta visitar directamente `http://localhost:3000/gallery/photos/3` o modifica la URL manualmente en el navegador (sin usar navegación por clic).
 
 ![](https://cdn-images-1.medium.com/max/800/1*A-uBd0B7ZizEkrfy2LuTnw.gif)
+
+Con esta estructura, ya tenemos cubiertos ambos escenarios esenciales:
+
+**— Ruta interceptada** (`src/app/gallery/@modal/(.)photos/[id]/page.tsx`)
+
+- Esta ruta permite mostrar el detalle de la tarea como **modal**, manteniendo el contexto del proyecto actual.
+
+**— Ruta real** (`src/app/gallery/photos/[id]`)
+
+- Esta ruta sirve como página independiente, ideal para accesos directos, compartir enlaces, SEO y fallback si se recarga la página.
+
+Ambas deben coexistir para garantizar una experiencia de usuario fluida tanto en navegación interna como en accesos directos o desde otras fuentes externas.
 
 ---
 

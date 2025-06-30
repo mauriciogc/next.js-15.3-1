@@ -423,13 +423,9 @@ Intenta visitar directamente `http://localhost:3000/gallery/photos/3` o modifica
 
 Con esta estructura, ya tenemos cubiertos ambos escenarios esenciales:
 
-**— Ruta interceptada** (`src/app/gallery/@modal/(.)photos/[id]/page.tsx`)
+- **Ruta interceptada (`src/app/gallery/@modal/(.)photos/[id]/page.tsx`)**: Esta ruta permite mostrar el detalle de la tarea como **modal**, manteniendo el contexto del proyecto actual.
 
-- Esta ruta permite mostrar el detalle de la tarea como **modal**, manteniendo el contexto del proyecto actual.
-
-**— Ruta real** (`src/app/gallery/photos/[id]`)
-
-- Esta ruta sirve como página independiente, ideal para accesos directos, compartir enlaces, SEO y fallback si se recarga la página.
+- **Ruta real (`src/app/gallery/photos/[id]`)**: Esta ruta sirve como página independiente, ideal para accesos directos, compartir enlaces, SEO y fallback si se recarga la página.
 
 Ambas deben coexistir para garantizar una experiencia de usuario fluida tanto en navegación interna como en accesos directos o desde otras fuentes externas.
 

@@ -431,7 +431,7 @@ Ambas deben coexistir para garantizar una experiencia de usuario fluida tanto en
 
 ---
 
-## Ejecutar el proyecto
+## Ejecutar el proyecto.
 
 Para correr o ejecutar el proyecto [[ref]](https://nextjs.org/docs/app/getting-started/installation#run-the-development-server):
 

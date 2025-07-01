@@ -1,5 +1,4 @@
 //src/app/layout.tsx
-
 import Sidebar from '@/components/sidebar';
 import './globals.css';
 
@@ -12,8 +11,10 @@ const dmSans = DM_Sans({
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang="en" className={dmSans.className}>
@@ -21,8 +22,9 @@ export default function RootLayout({
         <Sidebar />
 
         <div className="pl-20 overflow-y-auto">
-          <div className="flex items-center justify-between w-full h-full max-w-screen-xl mx-auto px-2 sm:px-6 lg:px-8 pt-20">
+          <div className="w-full grid grid-cols-1 gap-6 p-6">
             <div className="w-full">{children}</div>
+            {modal}
             <div id="modal-root" />
           </div>
         </div>

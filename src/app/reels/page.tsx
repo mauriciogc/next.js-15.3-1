@@ -1,29 +1,37 @@
-// src/app/reels/page.tsx
-import ReelCard from '@/components/reel-card';
-import Stories from '@/components/stories';
-import SuggestionsSidebar from '@/components/suggestions-sidebar';
-const mockReels = [
-  '00a41623-457e-4f9a-9031-679096ae3655',
-  'd872c3fa-81d4-46fb-a100-ff4754530e12',
-  '9297d606-1695-4d2f-96b9-92010d15a746',
-  'd34c57b4-4486-47a9-93b4-f7e1e09c7707',
-  '3cc52721-8d65-48a3-9734-48080d189807',
-  'bf491444-db28-4cb6-8eda-720f133f9342',
-];
-
-export default function ReelsFeed() {
+//src/app/reels/page.tsx
+export default function ReelsPage() {
   return (
-    <div className="flex justify-center gap-8 px-4 py-6">
-      <div className="flex flex-col items-center space-y-6  w-full">
-        <Stories />
-        {mockReels.map((id) => (
-          <ReelCard url={`/p/${id}`} key={id} />
-        ))}
-      </div>
+    <div className="bg-(--color-background) text-(--color-foreground) space-y-5 p-6 max-w-6xl mx-auto">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div
+          className="w-full max-w-[380px] h-[640px] bg-(--color-background) rounded-lg overflow-hidden relative flex flex-col border border-(--color-border)"
+          key={i}
+        >
+          <div className="flex items-center gap-3 p-4 border-b border-(--color-border)">
+            <div className="w-10 h-10 bg-(--color-muted) rounded-full" />
+            <div className="flex flex-col gap-1">
+              <div className="w-24 h-3 bg-(--color-muted) rounded-full" />
+              <div className="w-16 h-2 bg-(--color-muted) rounded-full" />
+            </div>
+          </div>
 
-      <div className="hidden lg:block w-[300px] shrink-0">
-        <SuggestionsSidebar />
-      </div>
+          <div className="flex-1 flex items-center justify-center px-6 text-center">
+            <div className="space-y-2">
+              <div className="w-3/4 h-4 bg-(--color-muted) rounded" />
+              <div className="w-2/4 h-4 bg-(--color-muted) rounded" />
+            </div>
+          </div>
+
+          <div className="px-4 py-3 space-y-2 border-t border-(--color-border)">
+            <div className="flex space-x-2">
+              <div className="w-10 h-10 bg-(--color-muted) rounded-full" />
+              <div className="w-10 h-10 bg-(--color-muted) rounded-full" />
+            </div>
+            <div className="w-full h-3 bg-(--color-muted) rounded-full" />
+            <div className="w-3/5 h-3 bg-(--color-muted) rounded-full" />
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

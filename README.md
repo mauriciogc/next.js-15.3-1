@@ -7,7 +7,7 @@
 
 ---
 
-## ` (..)segment` (Interceptar un nivel arriba)
+##  `(...)segment` (**Interceptar** **desde la raíz)**
 
 > **Todos los ejemplos los podrás encontrar en el repositorio next.js-15.3–1[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1)**]  
 > Acá puedes ver todas las stories de next.js [**[**ref**](https://mauriciogc.medium.com/list/nextjs-v15-b7b4cc4c4974)**]**
@@ -18,19 +18,21 @@
 
 ---
 
-Al hacer clic en el “Reels” se navegará a `/reels`, posteriormente se podrá dar clic en un reel, donde navegará a `/p/[reelId]`, pero el contenido de esa ruta será interceptado y renderizado **como un modal** sin desmontar el feed principal. Esto se logra con:
+Al hacer clic en el ícono de “Login” desde el sidebar, se navegará a `/login`, pero el contenido de esa ruta será **interceptado globalmente**, sin importar desde qué parte de la app se invoque. Esto se logra con:
 
-- `(..)` — Para interceptar una ruta con un nivel arriba.
+Esto se logra con:
+
+- `(...)` — Para interceptar una ruta desde **la raíz** sin importar el nivel actual.
 
 - `@modal` — Para aislar visualmente el modal de forma paralela.
 
-![](https://cdn-images-1.medium.com/max/1600/1*7iS1p_qFaP21ZmL7epdOZA.gif)
+![](https://cdn-images-1.medium.com/max/1600/1*aJoTo7n52hz-8Iv1clAWYg.gif)
 
 Deberás generar un interceptador en:
 
-![](https://cdn-images-1.medium.com/max/1600/1*ZR8lzylsbNr3Ubd2Af0YdA.png)
+![](https://cdn-images-1.medium.com/max/1600/1*3zJnk49nVagHhz3ruVfG9A.png)
 
-Dentro de `/reels`, cualquier navegación hacia `/p/[reelId]` será interceptada y redireccionada al slot `@modal` para que lo muestre como modal.
+Cualquier navegación hacia `/login` será interceptada y redireccionada al slot `@modal` para que lo muestre como modal.
 
 **No olvides que…** Intercepting Routes requiere dos contextos.
 
@@ -50,13 +52,19 @@ En consola instala el paquete de `lucide-react` para agregar iconos:
 npm install lucide-react
 ```
 
-Crea el componente `sidebar.tsx` en `src/components` :
+Crea el componente `sidebar.tsx` en `src/components` . Deberá de ir `/reels`, `/projects`, `/login`:
 
 ```js
 // src/components/sidebar.tsx
 'use client';
 
-import { PanelLeftOpen, PanelLeftClose, TvMinimalPlay } from 'lucide-react';
+import {
+  PanelLeftOpen,
+  PanelLeftClose,
+  LogIn,
+  TvMinimalPlay,
+  Folder,
+} from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -107,8 +115,14 @@ export default function SidebarSkeletonLayout() {
           <TvMinimalPlay className="w-6 h-6" />
           {!isCollapsed && <span className="text-sm">Reels</span>}
         </div>
-
-        {Array.from({ length: 5 }).map((_, i) => (
+        <div
+          className="flex items-center gap-3 rounded-md bg-transparent px-3 py-2 text-(--color-foreground) hover:bg-(--color-overlay) transition-all duration-200 cursor-pointer"
+          onClick={() => handleClick('/projects')}
+        >
+          <Folder className="w-6 h-6" />
+          {!isCollapsed && <span className="text-sm">Projects</span>}
+        </div>
+        {Array.from({ length: 4 }).map((_, i) => (
           <div
             key={i}
             className={`flex items-center gap-3 rounded-md bg-transparent px-3 py-2 hover:bg-(--color-overlay) transition-all duration-200`}
@@ -123,6 +137,13 @@ export default function SidebarSkeletonLayout() {
 
       {/* Footer */}
       <div className="shrink-0 px-2 py-4 space-y-3 border-t border-(--color-border)">
+        <div
+          className="flex items-center gap-3 rounded-md bg-transparent px-3 py-2 text-(--color-foreground) hover:bg-(--color-overlay) transition-all duration-200 cursor-pointer"
+          onClick={() => handleClick('/login')}
+        >
+          <LogIn className="w-6 h-6" />
+          {!isCollapsed && <span className="text-sm">Login</span>}
+        </div>
         <div
           className={`bg-(--color-muted) rounded-md transition-all ${
             isCollapsed ? 'w-10 h-10 mx-auto' : 'h-10 w-full'
@@ -203,160 +224,40 @@ export default function Modal({ children }: { children: React.ReactNode }) {
 }
 ```
 
-Crea el componente `stories.tsx` en `src/components` :
+Crea el componente `login.tsx` en `src/components` :
 
 ```js
-// src/components/stories.tsx
-
-export default function Stories() {
+//src/components/login.tsx
+export default function Login() {
   return (
-    <div className="flex items-center gap-4 overflow-x-auto px-4 py-2">
-      {Array.from({ length: 8 }).map((_, index) => (
-        <div
-          key={index}
-          className="flex flex-col items-center gap-3 w-16 shrink-0"
-        >
-          <div className="relative w-16 h-16 rounded-full bg-gradient-to-tr from-pink-500 via-yellow-500 to-purple-500 p-[2px]">
-            <div className="w-full h-full bg-(--color-background) rounded-full flex items-center justify-center">
-              <div className="w-14 h-14 bg-(--color-muted) rounded-full" />
-            </div>
-          </div>
+    <div className="w-full max-w-sm mx-auto p-6 space-y-6 border border-(--color-border) rounded-lg bg-(--color-background)">
+      <div className="w-20 h-20 rounded-full bg-(--color-muted) mx-auto" />
 
-          <div className="w-full h-2 bg-(--color-muted) rounded-full" />
-        </div>
-      ))}
-    </div>
-  );
-}
-```
-
-Crea el componente `suggestions-sidebar.tsx` en `src/components` :
-
-```js
-// src/componments/suggestions-sidebar.tsx
-export default function SuggestionsSidebar() {
-  return (
-    <aside className="w-full max-w-xs space-y-6 text-(--color-foreground)">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-(--color-muted)" />
-          <div className="flex flex-col gap-1">
-            <div className="w-24 h-3 bg-(--color-muted) rounded-full" />
-            <div className="w-20 h-2 bg-(--color-muted) rounded-full" />
-          </div>
-        </div>
-        <div className="w-10 h-3 bg-(--color-muted) rounded-full" />
-      </div>
-
-      <div className="flex justify-between items-center">
-        <div className="w-24 h-3 bg-(--color-muted) rounded-full" />
-        <div className="w-10 h-2 bg-(--color-muted) rounded-full" />
+      <div className="text-center space-y-2">
+        <div className="w-3/4 h-4 bg-(--color-muted) rounded mx-auto" />
+        <div className="w-1/2 h-3 bg-(--color-muted) rounded mx-auto" />
       </div>
 
       <div className="space-y-4">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-(--color-muted)" />
-              <div className="flex flex-col gap-1">
-                <div className="w-24 h-2 bg-(--color-muted) rounded-full" />
-                <div className="w-32 h-2 bg-(--color-muted) rounded-full" />
-              </div>
-            </div>
-            <div className="w-10 h-3 bg-(--color-muted) rounded-full" />
+        <div className="space-y-1">
+          <div className="w-28 h-3 bg-(--color-muted) rounded" />
+          <div className="w-full h-10 bg-(--color-muted) rounded" />
+        </div>
+
+        <div className="space-y-1">
+          <div className="w-24 h-3 bg-(--color-muted) rounded" />
+          <div className="w-full h-10 bg-(--color-muted) rounded" />
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-4 h-4 bg-(--color-muted) rounded" />
+            <div className="w-24 h-3 bg-(--color-muted) rounded" />
           </div>
-        ))}
-      </div>
-
-      <div className="space-y-2 pt-4 border-t border-(--color-border) text-xs text-(--color-muted)">
-        <div className="w-full h-2 bg-(--color-muted) rounded-full" />
-        <div className="w-4/5 h-2 bg-(--color-muted) rounded-full" />
-        <div className="w-3/5 h-2 bg-(--color-muted) rounded-full" />
-      </div>
-    </aside>
-  );
-}
-```
-
-Crea el componente `reel-card.tsx` en `src/components` :
-
-```js
-//src/components/reel-card.tsx
-import { MessageCircle } from 'lucide-react';
-import Link from 'next/link';
-
-export default function ReelCard({ url }: { url: string }) {
-  return (
-    <div className="w-full max-w-[380px] h-[640px] bg-(--color-background) rounded-lg overflow-hidden relative flex flex-col border border-(--color-border)">
-      <div className="flex items-center gap-3 p-4 border-b border-(--color-border)">
-        <div className="w-10 h-10 bg-(--color-muted) rounded-full" />
-        <div className="flex flex-col gap-1">
-          <div className="w-24 h-3 bg-(--color-muted) rounded-full" />
-          <div className="w-16 h-2 bg-(--color-muted) rounded-full" />
-        </div>
-      </div>
-
-      <div className="flex-1 flex items-center justify-center px-6 text-center">
-        <div className="space-y-2">
-          <div className="w-3/4 h-4 bg-(--color-muted) rounded" />
-          <div className="w-2/4 h-4 bg-(--color-muted) rounded" />
-        </div>
-      </div>
-
-      <div className="px-4 py-3 space-y-2 border-t border-(--color-border)">
-        <div className="flex space-x-2">
-          <div className="w-10 h-10 bg-(--color-muted) rounded-full" />
-          <Link
-            href={url}
-            scroll={false}
-            className=" bg-none pill-button pill-button-default p-2 "
-          >
-            <MessageCircle className="w-6 h-6 text-(--color-foreground)" />
-          </Link>
-          <div className="w-10 h-10 bg-(--color-muted) rounded-full" />
-        </div>
-        <div className="w-full h-3 bg-(--color-muted) rounded-full" />
-        <div className="w-3/5 h-3 bg-(--color-muted) rounded-full" />
-      </div>
-    </div>
-  );
-}
-```
-
-Crea el componente `reel-detail.tsx` en `src/components` :
-
-```js
-// src/components/reel-detail.tsx
-export default function ReelDetail({ id }: { id: string }) {
-  return (
-    <div className="flex flex-col lg:flex-row w-full max-w-3xl h-auto lg:h-[80vh] bg-(--color-background) border border-(--color-border) rounded-lg overflow-hidden">
-      {/* Video (arriba en mobile, izquierda en desktop) */}
-      <div className="w-full lg:flex-1 bg-black flex items-center justify-center">
-        <div className="w-[280px] h-[500px] bg-(--color-muted)" />
-      </div>
-
-      <div className="w-full lg:w-[350px] flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-(--color-border)">
-        <div className="p-4 space-y-3 border-b border-(--color-border)">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-(--color-muted)" />
-            <div className="w-32 h-3 bg-(--color-muted) rounded-full" />
-          </div>
-          <div className="w-4/5 h-2 bg-(--color-muted) rounded-full" />
+          <div className="w-20 h-3 bg-(--color-muted) rounded" />
         </div>
 
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 max-h-[300px] lg:max-h-none">
-          <p className="text-xs text-muted-foreground">{id}</p>
-          {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="space-y-1">
-              <div className="w-24 h-2 bg-(--color-muted) rounded-full" />
-              <div className="w-full h-2 bg-(--color-muted) rounded-full" />
-            </div>
-          ))}
-        </div>
-
-        <div className="p-4 border-t border-(--color-border)">
-          <div className="w-full h-10 bg-(--color-muted) rounded-full" />
-        </div>
+        <div className="w-full h-11 rounded-full bg-(--color-muted)" />
       </div>
     </div>
   );
@@ -367,9 +268,9 @@ Actualiza el layout principal `/app/layout.tsx`, agregando el `sidebar` y `div#m
 
 ```js
 //src/app/layout.tsx
-
 import Sidebar from '@/components/sidebar';
 import './globals.css';
+
 import { DM_Sans } from 'next/font/google';
 
 const dmSans = DM_Sans({
@@ -379,8 +280,10 @@ const dmSans = DM_Sans({
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode,
+  modal: React.ReactNode,
 }>) {
   return (
     <html lang="en" className={dmSans.className}>
@@ -388,8 +291,9 @@ export default function RootLayout({
         <Sidebar />
 
         <div className="pl-20 overflow-y-auto">
-          <div className="flex items-center justify-between w-full h-full max-w-screen-xl mx-auto px-2 sm:px-6 lg:px-8 pt-20">
+          <div className="w-full grid grid-cols-1 gap-6 p-6">
             <div className="w-full">{children}</div>
+            {modal}
             <div id="modal-root" />
           </div>
         </div>
@@ -399,9 +303,78 @@ export default function RootLayout({
 }
 ```
 
-> **Recuerda:** `#modal-root` es una convención para usar **React Portals**, lo que permite renderizar contenido modal fuera del flujo del DOM principal, por encima del resto. [[ref](https://medium.com/@mauriciogc/react-portales-8ff12de4b8e9)]
+> **Recuerda:**`#modal-root` es una convención para usar **React Portals**, lo que permite renderizar contenido modal fuera del flujo del DOM principal, por encima del resto. [[ref](https://medium.com/@mauriciogc/react-portales-8ff12de4b8e9)]
 
-Crea la `default.tsx`, `layout.tsx`, `page.tsx` de los **reels** en `src/app/reels/`:
+Crea el `default.tsx`en la raíz del proyecto `src/app/`:
+
+```js
+//src/app/default.tsx
+export default function Default() {
+  return null;
+}
+```
+
+Aunque el modal se renderiza dentro de `@modal`, la navegación ocurre sobre la **ruta real** `/login`.
+
+Crea el `default.tsx` de la ruta parallel route de `@modal` dentro de `src/app/login/@modal/default.tsx`:
+
+```js
+//src/app/@modal/default.tsx
+export default function Default() {
+  return null;
+}
+```
+
+> **Recuerda:** Que los archivos `default.tsx` sirven para mantener la integridad del layout donde se encuentran los slots.
+
+Crea el interceptor `page.tsx` del **login** dentro de `src/app/@modal/(...)login/page.tsx`:
+
+```js
+// src/app/@modal/(...)login/page.tsx
+import Login from '@/components/login';
+import Modal from '@/components/modal';
+
+export default function LoginModal() {
+  return (
+    <Modal>
+      <Login />
+    </Modal>
+  );
+}
+```
+
+Crea la `page.tsx` del **login** en `src/app/login/`, que será la encargada de cargar la ruta navegable real (para accesos directos o recargas):
+
+```js
+// src/app/login/page.tsx
+import Login from '@/components/login';
+
+export default function LoginPage() {
+  return <Login />;
+}
+```
+
+No olvides crear su `default.tsx`:
+
+```js
+// src/app/login/default.tsx
+export default function Default() {
+  return null;
+}
+```
+
+Al iniciar el servidor con `npm run dev`, podrás acceder a esta página visitando `http://localhost:3000`, da clic en “Login”.
+
+![](https://cdn-images-1.medium.com/max/1600/1*-B74FiQGZi1v7_hhH5J9SA.gif)
+
+Al definir el layout principal de nuestra aplicación en la raíz (`/app/layout.tsx`) y declarar ahí mismo un **slot paralelo** como `@modal`, ganamos múltiples beneficios estructurales y de escalabilidad:
+
+- **Un solo layout para toda la app:** No importa si estás en `/reels`, `/projects`, `/dashboard/settings` o cualquier otra ruta, el modal de **login** aparece sobre todo sin desmontar el contenido actual.
+
+- **Interceptación desde cualquier nivel:** Si estás en una ruta como `/projects/[projectId]/task/[taskId]`, aún puedes interceptar `/login` con `(...)login` y mostrarlo como modal sin perder el contexto actual.
+- **Escalabilidad sin esfuerzo:** Puedes reutilizar esta lógica para otros modales como “Ver tarea”, “Editar perfil”, “Nueva notificación”, etc., sin duplicar layouts o estructuras.
+
+Crea la `page.tsx`, `default.tsx` de **reels** en `src/app/reels`:
 
 ```js
 //src/app/reels/default.tsx
@@ -411,134 +384,175 @@ export default function Default() {
 ```
 
 ```js
-//src/app/reels/layout.tsx
-export default function ProjectLayout({
-  children,
-  modal,
-}: {
-  children: React.ReactNode,
-  modal: React.ReactNode,
-}) {
+//src/app/reels/page.tsx
+export default function ReelsPage() {
   return (
-    <div>
-      {children}
-      {modal}
+    <div className="bg-(--color-background) text-(--color-foreground) space-y-5 p-6 max-w-6xl mx-auto">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div
+          className="w-full max-w-[380px] h-[640px] bg-(--color-background) rounded-lg overflow-hidden relative flex flex-col border border-(--color-border)"
+          key={i}
+        >
+          <div className="flex items-center gap-3 p-4 border-b border-(--color-border)">
+            <div className="w-10 h-10 bg-(--color-muted) rounded-full" />
+            <div className="flex flex-col gap-1">
+              <div className="w-24 h-3 bg-(--color-muted) rounded-full" />
+              <div className="w-16 h-2 bg-(--color-muted) rounded-full" />
+            </div>
+          </div>
+
+          <div className="flex-1 flex items-center justify-center px-6 text-center">
+            <div className="space-y-2">
+              <div className="w-3/4 h-4 bg-(--color-muted) rounded" />
+              <div className="w-2/4 h-4 bg-(--color-muted) rounded" />
+            </div>
+          </div>
+
+          <div className="px-4 py-3 space-y-2 border-t border-(--color-border)">
+            <div className="flex space-x-2">
+              <div className="w-10 h-10 bg-(--color-muted) rounded-full" />
+              <div className="w-10 h-10 bg-(--color-muted) rounded-full" />
+            </div>
+            <div className="w-full h-3 bg-(--color-muted) rounded-full" />
+            <div className="w-3/5 h-3 bg-(--color-muted) rounded-full" />
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
 ```
 
-```js
-// src/app/reels/page.tsx
-import ReelCard from '@/components/reel-card';
-import Stories from '@/components/stories';
-import SuggestionsSidebar from '@/components/suggestions-sidebar';
-
-const mockReels = [
-  '00a41623-457e-4f9a-9031-679096ae3655',
-  'd872c3fa-81d4-46fb-a100-ff4754530e12',
-  '9297d606-1695-4d2f-96b9-92010d15a746',
-  'd34c57b4-4486-47a9-93b4-f7e1e09c7707',
-  '3cc52721-8d65-48a3-9734-48080d189807',
-  'bf491444-db28-4cb6-8eda-720f133f9342',
-];
-
-export default function ReelsFeed() {
-  return (
-    <div className="flex justify-center gap-8 px-4 py-6">
-      <div className="flex flex-col items-center space-y-6  w-full">
-        <Stories />
-        {mockReels.map((id) => (
-          <ReelCard url={`/p/${id}`} key={id} />
-        ))}
-      </div>
-
-      <div className="hidden lg:block w-[300px] shrink-0">
-        <SuggestionsSidebar />
-      </div>
-    </div>
-  );
-}
-```
-
-Aunque el modal se renderiza dentro de `@modal`, la navegación ocurre sobre la **ruta real** `/p/[reelId]`.
-
-Crea el `default.tsx` de la ruta parallel route de `@modal` dentro de `src/app/reels/@modal/default.tsx`:
+Crea la `page.tsx`, `default.tsx` de **proyectos** en `src/app/projects`:
 
 ```js
-//src/app/reels/@modal/default.tsx
+// src/app/projects/default.tsx
 export default function Default() {
   return null;
 }
 ```
 
-> **Recuerda:** Que los archivos `_default.tsx_` sirven para mantener la integridad del layout donde se encuentran los slots.
-
-Crea el interceptor `page.tsx` del **detalle de la foto** dentro de `src/app/reels/@modal/(..)p/[reelId]/page.tsx`:
-
 ```js
-// src/app/reels/@modal/(..)p/[reelId]/page.tsx
-import Modal from '@/components/modal';
-import ReelDetail from '@/components/reel-detail';
+// src/app/projects/page.tsx
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
-export default async function ReelModal({
-  params,
-}: {
-  params: Promise<{ reelId: string }>,
-}) {
-  const { reelId } = await params;
+export default function ProjectsPage() {
   return (
-    <Modal>
-      <ReelDetail id={reelId} />
-    </Modal>
-  );
-}
-```
+    <div className="bg-(--color-background) text-(--color-foreground) space-y-5 p-6 max-w-6xl mx-auto">
+      <h1 className="title">Projects</h1>
+      <div className="w-full grid grid-cols-1 gap-6 p-6">
+        <div className="bg-(--color-background) text-(--color-foreground) rounded-xl p-6 border border-(--color-border) flex flex-wrap justify-between items-center gap-3 transition-colors duration-300 ease-in-out">
+          <div className="flex items-center gap-2 w-1/2">
+            <div className="w-full h-8 rounded-full bg-(--color-border) border border-(--color-muted)" />
+          </div>
 
-Crea la `page.tsx` del **reel** en `src/app/p/[reelId]/`, que será la encargada de cargar la ruta navegable real (para accesos directos o recargas):
-
-```js
-// src/app/p/[reelID]/page.tsx
-import ReelDetail from '@/components/reel-detail';
-
-export default async function ReelPage({
-  params,
-}: {
-  params: Promise<{ reelId: string }>,
-}) {
-  const { reelId } = await params;
-  return (
-    <div className="flex flex-col items-center justify-center ">
-      <ReelDetail id={reelId} />
-      <div className="w-full max-w-5xl mt-12 pt-12 border-t-1 border-(--color-border)">
-        <div className="w-1/2 h-6 bg-(--color-muted) rounded-full"></div>
-      </div>
-      <div className="w-full max-w-5xl mx-auto grid grid-cols-3 gap-1 py-6 ">
-        {Array.from({ length: 9 }).map((_, i) => (
-          <div
-            key={i}
-            className="w-full aspect-[3/4] rounded-lg bg-(--color-muted) border border-(--color-border) flex items-center justify-center"
-          />
-        ))}
+          <Link
+            href="/projects/abc123"
+            className="pill-button pill-button-default pill-button-active p-2"
+          >
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
       </div>
     </div>
   );
 }
 ```
 
-Al iniciar el servidor con `npm run dev`, podrás acceder a esta página visitando `http://localhost:3000`, da clic en “Reels” y posteriormente da clic en cualquier reel para visualizar su detalle.
+Crea la `page.tsx` del **detalle del proyecto** en `src/app/projects/[projectId]`:
 
-![](https://cdn-images-1.medium.com/max/1600/1*RrdSkY-dHts_gwJLnRSUUA.gif)
+```js
+// src/app/projects/[projectId]/page.tsx
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
-Puedes visitar directamente `http://localhost:3000/p/abc123` o modifica la URL manualmente en el navegador (sin usar navegación por clic).
+export default async function ProjectPage({
+  params,
+}: {
+  params: Promise<{ projectId: string }>,
+}) {
+  const { projectId } = await params;
+  return (
+    <div className="bg-(--color-background) text-(--color-foreground) space-y-5 p-6 max-w-6xl mx-auto">
+      <p>
+        These are the tasks of the project:{' '}
+        <span className="text-(--color-highlight)">{projectId}</span>
+      </p>
+      <h2 className="subTitle">All task</h2>
+      <div className="flex flex-col space-y-3">
+        <div className="flex justify-between items-center bg-(--color-background) border border-(--color-border) rounded-lg p-4 transition-colors duration-300 ease-in-out">
+          <div className="flex items-center gap-2 w-1/2">
+            <div className="w-full h-4 rounded-full bg-(--color-border) border border-(--color-muted)" />
+          </div>
+          <Link
+            href={`/projects/${projectId}/tasks/taskhyutt67`}
+            scroll={false}
+            className="pill-button pill-button-default pill-button-active p-2"
+          >
+            <ArrowRight className="w-3 h-3" />
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
 
-![](https://cdn-images-1.medium.com/max/1600/1*ZL3hd9a9LXMvMDur_MBk6A.gif)
+Crea la `page.tsx` del **detalle de la tarea** en `src/app/projects/[projectId]/task/[taskId]`. Agrega un `Link` hacia `login/`:
+
+```js
+// src/app/projects/[projectId]/task/[taskId]/page.tsx
+import { ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+
+export default async function TaksPage({
+  params,
+}: {
+  params: Promise<{ projectId: string, taskId: string }>,
+}) {
+  const { projectId, taskId } = await params;
+  return (
+    <div className="bg-(--color-background) text-(--color-foreground) space-y-5 p-6 max-w-6xl mx-auto">
+      <p>
+        This is the task detail
+        <span className="text-(--color-highlight)"> {taskId} </span> of the project{' '}
+        <span className="text-(--color-highlight)"> {projectId} </span>.
+      </p>
+      <Link
+        href="/login"
+        className="flex pill-button pill-button-default pill-button-primary"
+      >
+        Go to Login <ArrowRight className="w-5 h-5" />
+      </Link>
+    </div>
+  );
+}
+```
+
+Al iniciar el servidor con `npm run dev`, podrás acceder a la aplicación visitando `http://localhost:3000`.
+
+Desde ahí, puedes:
+
+- Ir a la sección **Reels** mediante el menú lateral.
+
+- Hacer clic en el botón de **Login** del sidebar para abrir el modal interceptado desde `/login`.
+- Navegar a `/projects/[projectId]/task/[taskId]` desde el sidebar.
+- Dentro de esa vista, también encontrarás un botón que activa el mismo modal de login desde un nivel mucho más profundo.
+
+En ambos casos (ya sea desde el sidebar o desde dentro de una ruta anidada) el modal de login se muestra correctamente, sin desmontar el contexto actual y sin duplicar layouts, gracias al uso de intercepting routes `(…)login` combinado con un slot paralelo `@modal` definido en el layout raíz.
+
+![](https://cdn-images-1.medium.com/max/1600/1*aJoTo7n52hz-8Iv1clAWYg.gif)
+
+Puedes visitar directamente `http://localhost:3000/login` o modifica la URL manualmente en el navegador (sin usar navegación por clic).
+
+![](https://cdn-images-1.medium.com/max/1600/1*_VG2E37YjkC7mEHV5PZGFQ.gif)
 
 Con esta estructura, ya tenemos cubiertos ambos escenarios esenciales:
 
-- **Ruta interceptada** (`src/app/reels/@modal/(..)p/[reelId]/page.tsx`): Esta ruta permite mostrar el detalle de la tarea como **modal**, manteniendo el contexto del proyecto actual.
+- **Ruta interceptada** (`src/@modal/(...)login/page.tsx`): Esta ruta permite mostrar el **login** como **modal**, manteniendo el contexto del proyecto actual.
 
-- **Ruta real** (`src/app/p/[reelId]/page.tsx`) : Esta ruta sirve como página independiente, ideal para accesos directos, compartir enlaces, SEO y fallback si se recarga la página.
+- **Ruta real** (`src/app/login/page.tsx`) : Esta ruta sirve como página independiente, ideal para accesos directos, compartir enlaces, SEO y fallback si se recarga la página.
 
 Ambas deben coexistir para garantizar una experiencia de usuario fluida tanto en navegación interna como en accesos directos o desde otras fuentes externas.
 

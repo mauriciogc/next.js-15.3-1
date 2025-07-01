@@ -1,7 +1,13 @@
 // src/components/sidebar.tsx
 'use client';
 
-import { PanelLeftOpen, PanelLeftClose, TvMinimalPlay } from 'lucide-react';
+import {
+  PanelLeftOpen,
+  PanelLeftClose,
+  LogIn,
+  TvMinimalPlay,
+  Folder,
+} from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -52,8 +58,14 @@ export default function SidebarSkeletonLayout() {
           <TvMinimalPlay className="w-6 h-6" />
           {!isCollapsed && <span className="text-sm">Reels</span>}
         </div>
-
-        {Array.from({ length: 5 }).map((_, i) => (
+        <div
+          className="flex items-center gap-3 rounded-md bg-transparent px-3 py-2 text-(--color-foreground) hover:bg-(--color-overlay) transition-all duration-200 cursor-pointer"
+          onClick={() => handleClick('/projects')}
+        >
+          <Folder className="w-6 h-6" />
+          {!isCollapsed && <span className="text-sm">Projects</span>}
+        </div>
+        {Array.from({ length: 4 }).map((_, i) => (
           <div
             key={i}
             className={`flex items-center gap-3 rounded-md bg-transparent px-3 py-2 hover:bg-(--color-overlay) transition-all duration-200`}
@@ -68,6 +80,13 @@ export default function SidebarSkeletonLayout() {
 
       {/* Footer */}
       <div className="shrink-0 px-2 py-4 space-y-3 border-t border-(--color-border)">
+        <div
+          className="flex items-center gap-3 rounded-md bg-transparent px-3 py-2 text-(--color-foreground) hover:bg-(--color-overlay) transition-all duration-200 cursor-pointer"
+          onClick={() => handleClick('/login')}
+        >
+          <LogIn className="w-6 h-6" />
+          {!isCollapsed && <span className="text-sm">Login</span>}
+        </div>
         <div
           className={`bg-(--color-muted) rounded-md transition-all ${
             isCollapsed ? 'w-10 h-10 mx-auto' : 'h-10 w-full'

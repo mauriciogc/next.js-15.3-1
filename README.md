@@ -19,6 +19,7 @@ Se definieron variables CSS personalizadas para ambos temas:
 - `--color-muted`
 - `--color-border`
 - `--color-overlay`
+- `--highlight`
 
 Además, se agregaron estilos base con `@layer base` y componentes reutilizables como:
 

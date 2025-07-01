@@ -9,7 +9,14 @@
 
 ## `(..)(..)segment` (Interceptar dos niveles arriba)
 
+> **Todos los ejemplos los podrás encontrar en el repositorio next.js-15.3–1[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1)**]  
+> Acá puedes ver todas las stories de next.js [**[**ref**](https://mauriciogc.medium.com/list/nextjs-v15-b7b4cc4c4974)**]**
+
+> Para todos los **ejemplos** se toma el siguiente **proyecto base[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1/tree/base-project-3)**] (branch: base-project-3).** Este proyecto incluye actualización visual y estructural de estilos utilizando TailwindCSS v4.
+
 > **Nota:** Simularemos los componentes para darle más estructura visual a la interfaz y mostrar cómo se integra de una manera más realista dentro de la aplicación. Esto ayuda a visualizar mejor cómo conviven los componentes con las rutas interceptadas.
+
+---
 
 Al hacer clic en el “Projects” se navegará a `/projects`, posteriormente se podrá dar clic en un proyecto, donde navegará a `/project/[projectId]` donde mostrará la lista de tareas que tiene ese proyecto, al dar clic en una tarea navegará a `/task/[taskId]` , pero el contenido de esa ruta será interceptado y renderizado **como un modal** sin desmontar el feed principal. Esto se logra con:
 

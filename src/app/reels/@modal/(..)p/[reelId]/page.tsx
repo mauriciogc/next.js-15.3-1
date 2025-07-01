@@ -1,3 +1,4 @@
+// src/app/reels/@modal/(..)p/[reelId]/page.tsx
 import Modal from '@/components/modal';
 import ReelDetail from '@/components/reel-detail';
 
@@ -9,7 +10,7 @@ export default async function ReelModal({
   const { reelId } = await params;
   return (
     <Modal>
-      <ReelDetail />
+      <ReelDetail id={reelId} />
     </Modal>
   );
 }

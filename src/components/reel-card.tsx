@@ -1,7 +1,6 @@
 //src/components/reel-card.tsx
-
-import Link from 'next/link';
 import { MessageCircle } from 'lucide-react';
+import Link from 'next/link';
 
 export default function ReelCard({ url }: { url: string }) {
   return (

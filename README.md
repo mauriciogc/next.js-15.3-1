@@ -7,9 +7,7 @@
 
 ---
 
----
-
-##  `(.)segment` (Interceptar en el mismo nivel)
+## ` (..)segment` (Interceptar un nivel arriba)
 
 > **Todos los ejemplos los podrás encontrar en el repositorio next.js-15.3–1[**[**ref**](https://github.com/mauriciogc/next.js-15.3-1)**]  
 > Acá puedes ver todas las stories de next.js [**[**ref**](https://mauriciogc.medium.com/list/nextjs-v15-b7b4cc4c4974)**]**

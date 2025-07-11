@@ -111,6 +111,8 @@ A continuación, se detallan las principales ramas y los temas que cubren:
 
 ### Proyectos y casos de uso
 
+---
+
 | Título                                    | Descripción                                                                                                                                                                                                                                                                                    | Repositorio                                             |
 | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
 | Documentación con Next.js 15+ & Nextra V4 | Construir un sitio de documentación utilizando el stack compuesto por **Next.js 15 (App Router)**, **Nextra v4** (con `theme-docs`), y **Pagefind** como motor de búsqueda local                                                                                                               | [Github](https://github.com/mauriciogc/nextra-nextjs15) |

@@ -368,6 +368,7 @@ La propiedad `priority` está condicionada para que solo la **primera imagen de 
 Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000/list-movies`
 
 ![](https://cdn-images-1.medium.com/max/1600/1*q9Al8LD_inSsEoYMHyMy4w.gif)
+![](https://cdn-images-1.medium.com/max/1600/1*S-qGjUYEG9CfX3S_gVjKbQ.gif)
 
 #### Ejemplo — Imágenes en una página Client Component
 

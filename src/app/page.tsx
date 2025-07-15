@@ -1,3 +1,11 @@
+// src/app/page.tsx
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Home | MyApp',
+  description: 'Welcome to the site where we explain nextjs metadata',
+};
+
 export default function HomePage() {
   return (
     <main className="container gap-3">

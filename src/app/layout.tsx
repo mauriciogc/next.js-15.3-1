@@ -16,7 +16,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={dmSans.className}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased min-h-screen flex items-center justify-center">
+        {children}
+      </body>
     </html>
   );
 }

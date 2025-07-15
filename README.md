@@ -365,7 +365,7 @@ La propiedad `placeholder="blur"` habilita un modo de carga progresiva: muestra 
 
 La propiedad `priority` está condicionada para que solo la **primera imagen de la lista (`results[0].id`)** sea marcada como prioritaria. Esto significa que Next.js la cargará lo antes posible, sin aplicar lazy loading..
 
-Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000/list-movies`.
+Al iniciar el servidor `npm run dev`, acceder a `http://localhost:3000/list-movies`
 
 ![](https://cdn-images-1.medium.com/max/1600/1*q9Al8LD_inSsEoYMHyMy4w.gif)
 

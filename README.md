@@ -26,7 +26,7 @@ Esto se logra principalmente mediante:
 
 - La carga condicional de librerías **externas pesadas**.
 - La capacidad de **omitir SSR** para ciertos componentes exclusivamente del cliente.
-- Y el uso de `**Suspense**` con streaming para _fine-grained hydration_.
+- Y el uso de `Suspense` con streaming para _fine-grained hydration_.
 
 ### ¿Por qué usarlo?
 
@@ -939,7 +939,7 @@ export default function StorePage() {
 
 > **Nota:** Los ejemplos presentados son básicos y están pensados solo con fines didacticos. En una implementación real, se recomienda separar el componente `ProductModal` en dos partes: un modal genérico reutilizable y un componente específico para mostrar los detalles del producto.
 >
-> Además, podrías aprovechar las **rutas interceptadas** y el uso de `**@parallel**` [Next.js — Parallel and Intercepted Routes****] para una mejor arquitectura y experiencia de usuario. Si decides utilizar rutas interceptadas, recuerda que **necesitarás un servicio** que obtenga el detalle del producto de forma dinámica a partir del `id` recibido en los parámetros de la URL.
+> Además, podrías aprovechar las **rutas interceptadas** y el uso de `@parallel` para una mejor arquitectura y experiencia de usuario. Si decides utilizar rutas interceptadas, recuerda que **necesitarás un servicio** que obtenga el detalle del producto de forma dinámica a partir del `id` recibido en los parámetros de la URL.
 
 Al iniciar el servidor con `npm run dev`, podrás acceder a la aplicación visitando `http://localhost:3000`, da clic en “_Go to Store page_” y da click en un producto.
 
@@ -960,7 +960,7 @@ _Este patrón es ideal:_
 - **Evita precargar recursos pesados** innecesarios.
 - Se integra bien con Parallel Routes o Intercepting Routes.
 
-#### Ejemplo 5 —  Lazy loading de módulos JS pesados\*\*
+#### Ejemplo 5 —  Lazy loading de módulos JS pesados
 
 Supongamos que tenemos un juego tipo Wordle o una app educativa. Necesitamos cargar **grandes volúmenes de palabras por idioma**. No queremos que se incluyan en el bundle inicial.
 

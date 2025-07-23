@@ -1,17 +1,3 @@
-import {
-  ArrowRightIcon,
-  ArrowDownIcon,
-  DotsSixVerticalIcon,
-  ChatTextIcon,
-  FadersHorizontalIcon,
-  DownloadSimpleIcon,
-  FolderSimpleIcon,
-  FunnelIcon,
-  MapPinIcon,
-  MagnifyingGlassIcon,
-  ThumbsUpIcon,
-} from '@phosphor-icons/react/ssr';
-
 export default function HomePage() {
   return (
     <main className="container py-20 space-y-10">

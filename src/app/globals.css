@@ -1,103 +1,137 @@
 @import 'tailwindcss';
 
-/* Light theme (default) */
+/* Light theme */
 :root {
-  --background: #f9f9f9;
-  --foreground: #000000;
+  --background: #fefefe;
+  --foreground: #1a1a1a;
 
-  --primary: #f25e3d;
-  --muted: #e5e5e5;
-  --border: #d4d4d4;
-  --overlay: rgba(0, 0, 0, 0.8);
-  --highlight: #b45309;
+  --primary: #14b8a6;
+  --secondary: #0d9488;
 
-  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --muted: #f3f4f6;
+  --border: #e5e7eb;
+  --highlight: #259289;
+  --overlay: rgba(0, 0, 0, 0.05);
 }
 
-/* Dark theme (auto by system) */
+/* Dark theme */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #111111;
-    --foreground: #f0f0f0;
+    --background: #141416;
+    --foreground: #f5f5f5;
 
-    --muted: #2a2a2a;
-    --border: #333333;
-    --overlay: rgba(32, 32, 32, 0.8);
-    --highlight: #fbbf24;
+    --primary: #2dd4bf;
+    --secondary: #5eead4;
+
+    --muted: #1e1e1e;
+    --border: #2a2a2a;
+    --highlight: #98e6da;
+    --overlay: rgba(255, 255, 255, 0.05);
   }
 }
 
-/* Tailwind theme binding */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
   --color-muted: var(--muted);
   --color-border: var(--border);
-  --color-overlay: var(--overlay);
   --color-highlight: var(--highlight);
-  --font-sans: var(--font-sans);
+  --color-overlay: var(--overlay);
 }
 
-/* Base style */
 @layer base {
   html {
-    font-family: var(--font-sans);
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
 
   body {
-    margin: 0;
-    padding: 0;
-    line-height: 1.5;
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    @apply m-0 p-0 leading-relaxed antialiased;
   }
 
   a {
-    color: var(--color-primary);
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: none;
+    @apply text-(--color-primary) no-underline;
   }
 }
 
-/* Components */
 @layer components {
   .container {
-    @apply flex flex-col items-start w-full  px-8 sm:px-16 md:px-36 lg:px-52 xl:px-80 2xl:px-96 pt-24 h-full;
+    @apply w-full max-w-[1440px] mx-auto px-6 md:px-12 lg:px-20;
   }
+
   .title {
-    @apply text-4xl sm:text-5xl lg:text-6xl mb-2 text-(--color-primary);
+    @apply text-5xl md:text-6xl font-semibold text-(--color-foreground) tracking-tight mb-2;
   }
-  .subTitle {
-    @apply text-3xl mb-4;
+
+  .subtitle {
+    @apply text-2xl md:text-3xl font-medium text-(--color-secondary) mb-4;
   }
-  .pill-button {
-    @apply rounded-full px-5 py-2 text-sm font-medium transition-colors duration-200 cursor-pointer hover:no-underline;
+
+  .highlight {
+    @apply text-(--color-highlight);
   }
-  .pill-button-default {
+
+  .paragraph {
+    @apply text-base text-(--color-foreground) leading-6 mb-4;
+  }
+
+  .button {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium px-5 py-2 gap-2 transition-all duration-200 cursor-pointer;
+  }
+
+  .button svg {
+    min-width: 20px;
+    min-height: 20px;
+  }
+
+  .icon-button {
+    @apply flex items-center justify-center rounded-full text-sm transition-all duration-200 cursor-pointer p-2 gap-2 min-w-10 min-h-10;
+  }
+
+  .icon-button svg {
+    min-width: 24px;
+    min-height: 24px;
+  }
+
+  .button-primary {
+    @apply bg-(--color-primary) text-(--color-muted) hover:bg-(--color-primary)/80;
+  }
+
+  .button-secondary {
+    @apply bg-(--color-secondary) text-(--color-muted) hover:bg-(--color-secondary)/80;
+  }
+
+  .button-muted {
     @apply bg-(--color-muted) text-(--color-foreground) hover:bg-(--color-border);
   }
-  .pill-button-primary {
-    @apply bg-(--color-primary) text-white hover:bg-(--color-primary)/70;
-  }
-  .pill-button-active {
-    @apply bg-(--color-foreground) text-(--color-background) hover:bg-(--color-primary) hover:text-white;
+
+  .button-ghost {
+    @apply bg-transparent text-(--color-foreground) hover:bg-(--color-overlay);
   }
 
-  .pill-badge {
-    @apply ml-2 text-xs font-semibold bg-(--color-primary) text-white px-2 py-0.5 rounded-full;
+  .button-disabled {
+    @apply opacity-50 cursor-not-allowed;
   }
+
+  .tooltip {
+    @apply inline-block rounded px-2 py-0.5 text-sm font-medium transition-colors duration-200;
+  }
+
+  .tooltip-primary {
+    @apply text-(--color-primary) bg-(--color-primary)/20  dark:bg-(--color-primary)/5;
+  }
+
+  .tooltip-muted {
+    @apply bg-(--color-muted) text-(--color-foreground);
+  }
+
+  .card {
+    @apply w-full rounded-2xl border border-(--color-border) bg-(--color-muted) p-4 transition-all duration-200;
+  }
+
   .overlay {
     background-color: var(--color-overlay);
-  }
-
-  .noscroll {
-    overflow-y: hidden;
-    overflow-x: hidden;
   }
 }

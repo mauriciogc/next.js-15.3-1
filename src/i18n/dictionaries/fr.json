@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "title": "i18n dans le app router",
+    "description": "Comment effectuer l'internationalisation (i18n) dans Next.js 15 au sein du app router"
+  },
+  "navbar": {
+    "about": "A propos de nous",
+    "home": "Accueil"
+  },
+  "locale-switcher": {
+    "en": "Anglais",
+    "es": "Espagnol",
+    "fr": "Français"
+  },
+  "home": {
+    "title": "Bienvenue",
+    "description": "Cette page est configurée pour prendre en charge plusieurs langues grâce à l'internationalisation (i18n) de Next.js. Vous visualisez actuellement le contenu en",
+    "instructions": "Explorez les boutons disponibles pour naviguer dans les différentes sections de l'application."
+  },
+  "about": {
+    "title": "A propos de nous",
+    "description": "La transparence, l'intégrité et le professionnalisme sont les piliers de notre philosophie d'entreprise. Nous privilégions une communication claire et des conseils honnêtes, afin que vous puissiez prendre des décisions éclairées tout au long du processus d'achat ou de vente.",
+    "card-1": {
+      "title": "Autonomisation",
+      "description": "Nous croyons qu'il faut traiter nos clients avec compassion et compréhension."
+    },
+    "card-2": {
+      "title": "Excellence",
+      "description": "Nous nous engageons à respecter les normes les plus élevées en matière d'excellence médicale. Nos professionnels dévoués."
+    },
+    "card-3": {
+      "title": "Intégrité",
+      "description": "L'intégrité est le fondement de tout ce que nous faisons. Nous respectons les normes éthiques les plus strictes."
+    },
+    "card-4": {
+      "title": "Innovation",
+      "description": "Nous considérons l'innovation comme un moyen d'améliorer les soins de santé. Nous recherchons activement des technologies."
+    }
+  }
+}

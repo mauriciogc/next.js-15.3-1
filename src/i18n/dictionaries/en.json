@@ -1,0 +1,40 @@
+{
+  "metadata": {
+    "title": "i18n within app router",
+    "description": "How to do i18n in Next.js 15 within app router"
+  },
+  "navbar": {
+    "about": "About us",
+    "home": "Home"
+  },
+  "locale-switcher": {
+    "en": "English",
+    "es": "Spanish",
+    "fr": "French"
+  },
+  "home": {
+    "title": "Welcome",
+    "description": "This page is configured with support for multiple languages thanks to the internationalization (i18n) of Next.js. You are currently viewing content in",
+    "instructions": "Explore the available buttons to navigate through the different sections of the application."
+  },
+  "about": {
+    "title": "About us",
+    "description": "Transparency, integrity, and professionalism are the pillars of our business philosophy. We prioritize clear communication and honest advice, ensuring that you're empowered to make informed decisions throughout the buying or selling process.",
+    "card-1": {
+      "title": "Empowerment",
+      "description": "We believe in treating our customers with compassion, understanding."
+    },
+    "card-2": {
+      "title": "Excellence",
+      "description": "We are committed to the highest standards of medical excellence. Our dedicated professionals."
+    },
+    "card-3": {
+      "title": "Integrity",
+      "description": "Integrity is the foundation of everything we do. We uphold the highest ethical standards."
+    },
+    "card-4": {
+      "title": "Innovation",
+      "description": "We embrace innovation as a means to improve healthcare. We actively seek out technologies."
+    }
+  }
+}

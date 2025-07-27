@@ -1,21 +1,22 @@
 // app/[lang]/page.tsx
-import { getDictionary } from '../i18n/get-dictionary';
-import { Locale } from '../i18n/i18n-config';
+import { getTranslator } from '@/i18n/get-dictionary';
+import { Locale } from '@/i18n/i18n-config';
 
 export default async function HomePage(props: {
   params: Promise<{ lang: Locale }>;
 }) {
   const { lang } = await props.params;
-  const t = await getDictionary(lang);
+  const t = await getTranslator(lang);
 
   return (
     <main>
       <div className="container py-20 space-y-10">
-        <h1 className="title">{t('title')}</h1>
-        <p>Current locale: {lang}</p>
+        <h1 className="title">{t('home.title')}</h1>
         <p>
-          This text is rendered on the server: {t('server-component.welcome')}
+          {t('home.description')}
+          <span className="highlight"> {lang} </span>
         </p>
+        <p className="highlight">{t('home.instructions')}</p>
       </div>
     </main>
   );

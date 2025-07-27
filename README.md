@@ -816,7 +816,7 @@ const dmSans = DM_Sans({
 export async function generateMetadata({
   params,
 }: {
-  params: { lang: Locale },
+  params: Promise<{ lang: Locale }>,
 }): Promise<Metadata> {
   const { lang } = params;
   const t = await getTranslator(lang);
